@@ -2,5 +2,11 @@
 {% block title %}MangaCats - Homepage{% endblock title %}
 
 {% block content %}
+  {% for msg in messages %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{msg}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+    </div>
+    {% endfor %}
     <h1>{{teste}}</h1>
 {% endblock content %}

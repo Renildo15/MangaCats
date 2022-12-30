@@ -10,10 +10,32 @@ def register_user(request):
         form_user = UserCreationForm(request.POST)
         if form_user.is_valid():
             form_user.save()
-            return redirect("/")
+            messages.success(request,("Usuário criado com sucesso!"))
+            return redirect("user:login")
     else:
         form_user = UserCreationForm()
     context = {
         "form_user" : form_user
     }
     return render(request, "pages/register_user.html", context)
+
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            messages.success(request,(f"Seja bem vindo {request.user}"))
+            return redirect("/")
+        else:
+            form_login = AuthenticationForm()
+    else:
+        form_login = AuthenticationForm()
+
+    context = {
+        "form_login": form_login
+    }
+
+    return render(request, "pages/login.html", context)

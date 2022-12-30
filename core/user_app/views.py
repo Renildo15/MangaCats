@@ -39,3 +39,10 @@ def login_user(request):
     }
 
     return render(request, "pages/login.html", context)
+
+
+
+def logout_user(request):
+    logout(request)
+    messages.success(request,("Usuário deslogado"))
+    return redirect("/")

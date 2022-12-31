@@ -72,6 +72,10 @@ def change_password(request):
 
     return render(request, "pages/change_password.html", context)
 
+def change_password_success(request):
+    return render(request, 'pages/password/password_reset_complete.html')
+
+
 def password_reset_request(request):
     if request.method == "POST":
         password_reset_form = PasswordResetForm(request.POST)

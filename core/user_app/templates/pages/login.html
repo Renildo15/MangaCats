@@ -27,4 +27,14 @@
             <input type="submit" value="Enviar" class="btn btn-primary">
         </div>
     </form>
+    <div>
+        <span>
+            <a href={% url 'user:password_reset' %}>Forgot password?</a>
+        </span>
+    </div>
+    <div>
+        <span>
+            <a href={% url 'user:register' %}>New to MangaCats? Create an account.</a>
+        </span>
+    </div>
 {% endblock content %}

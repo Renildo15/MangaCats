@@ -18,7 +18,7 @@ def register_user(request):
         form_user = RegisterUserForm(request.POST)
         if form_user.is_valid():
             form_user.save()
-            messages.success(request,("Usuário criado com sucesso!"))
+            messages.success(request,("User successfully created!"))
             return redirect("user:login")
     else:
         form_user = RegisterUserForm()
@@ -35,7 +35,7 @@ def login_user(request):
 
         if user is not None:
             login(request, user)
-            messages.success(request,(f"Seja bem vindo {request.user}"))
+            messages.success(request,(f"Welcome, {request.user}"))
             return redirect("/")
         else:
             form_login = AuthenticationForm()
@@ -51,7 +51,7 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    messages.success(request,("Usuário deslogado"))
+    messages.success(request,("Logged out user"))
     return redirect("/")
 
 
@@ -61,7 +61,7 @@ def change_password(request):
         if form_password.is_valid():
             user = form_password.save()
             update_session_auth_hash(request, user)
-            messages.success(request,("Senha alterada com sucesso!"))
+            messages.success(request,("Password changed successfully!"))
             return redirect("/")
     else:
         form_password = PasswordChangeForm(request.user)

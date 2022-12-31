@@ -2,31 +2,14 @@
 {% block title %}MangaCats - Homepage{% endblock title %}
 
 {% block content %}
-  {% for msg in messages %}
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{msg}}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
-    </div>
-    {% endfor %}
-    <header>
-      <nav>
-        <ul>
-          <li>
-            <h2><a href="#">Logo</a></h2>
-          </li>
-          <li><a href={% url 'home:home' %}>Manga Popular</a></li>
-          <li><a href="#">MangaList</a></li>
-          <li><a href="#">History</a></li>
-          <li><a href="#">Genre</a></li>
-          {% if user.is_authenticated%}
-            <li><a href={% url 'user:logout' %}>Logout</a></li>
-          {% else %}
-            <li><a href={% url 'user:login' %}>Login</a></li>
-            <li><a href={% url 'user:register' %}>Register</a></li>
-          {% endif %}
-        </ul>
-      </nav>
-    </header>
+ 
+      {% include "home_app/templates/partials/header.html" %}
+      {% for msg in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{msg}}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+        </div>
+      {% endfor %}
     <div class="container">
       <div class="content">
         <h1>Popular Manga</h1>

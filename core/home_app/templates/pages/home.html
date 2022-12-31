@@ -8,5 +8,29 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
     </div>
     {% endfor %}
-    <h1>{{teste}}</h1>
+    <header>
+      <nav>
+        <ul>
+          <li>
+            <h2><a href="#">Logo</a></h2>
+          </li>
+          <li><a href={% url 'home:home' %}>Manga Popular</a></li>
+          <li><a href="#">MangaList</a></li>
+          <li><a href="#">History</a></li>
+          <li><a href="#">Genre</a></li>
+          {% if user.is_authenticated%}
+            <li><a href={% url 'user:logout' %}>Logout</a></li>
+          {% else %}
+            <li><a href={% url 'user:login' %}>Login</a></li>
+            <li><a href={% url 'user:register' %}>Register</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </header>
+    <div class="container">
+      <div class="content">
+        <h1>Popular Manga</h1>
+      </div>
+    </div>
+   
 {% endblock content %}

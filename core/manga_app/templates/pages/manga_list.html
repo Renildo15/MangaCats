@@ -1,0 +1,23 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Manga List{% endblock title %}
+
+{% block content %}
+{% for manga in mangas %}
+    <ul>
+        <li>{{manga.name_manga}}</li>
+        <li>{{manga.name_in_japanese}}</li>
+        <li>{{manga.name_in_english}}</li>
+        <li>{{manga.cover}}</li>
+        <li> 
+            <img class="profile-pic" src="{{manga.cover}}" >
+        </li>
+        <li>{{manga.author}}</li>
+        <li>{{manga.status}}</li>
+        <li> {{manga.views}}</li>
+        <li>{{manga.description}}</li>
+        <li>{{manga.date_created}}</li>
+        <li>{{manga.genre}}</li>
+    </ul>
+    
+{% endfor %}
+{% endblock content %}

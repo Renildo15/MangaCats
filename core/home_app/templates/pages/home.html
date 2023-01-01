@@ -2,8 +2,6 @@
 {% block title %}MangaCats - Homepage{% endblock title %}
 
 {% block content %}
- 
-      {% include "home_app/templates/partials/header.html" %}
       {% for msg in messages %}
         <div class="alert alert-success alert-dismissible fade show" role="alert">
           {{msg}}

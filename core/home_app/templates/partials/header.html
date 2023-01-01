@@ -41,7 +41,7 @@
           <h2><a href="#">Logo</a></h2>
         </li>
         <li><a href={% url 'home:home' %}>Manga Popular</a></li>
-        <li><a href="#">MangaList</a></li>
+        <li><a href={% url 'manga:manga_list' %}>MangaList</a></li>
         <li><a href="#">History</a></li>
         <li><a href="#">Genre</a></li>
         {% if user.is_authenticated%}

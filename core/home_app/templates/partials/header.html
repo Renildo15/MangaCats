@@ -46,7 +46,7 @@
         <li><a href="#">Genre</a></li>
         {% if user.is_authenticated%}
           <li><a href={% url 'user:logout' %}>Logout</a></li>
-          <li><a href="#">Profile</a></li>
+          <li><a href={% url 'manga:manga_add' %}>Profile</a></li>
         {% else %}
           <li><a href={% url 'user:login' %}>Login</a></li>
           <li><a href={% url 'user:register' %}>Register</a></li>

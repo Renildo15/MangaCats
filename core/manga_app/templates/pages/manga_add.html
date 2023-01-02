@@ -9,7 +9,7 @@
         </div>
 {% endfor %}
 <div >
-    <form method="post" class="form">
+    <form action="." method="POST" class="form" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
             {{form_manga.name_manga.errors}}
@@ -42,9 +42,9 @@
             {{form_manga.status}}
         </div>
         <div class="form-group">
-            {{form_manga.views.errors}}
+            {{form_manga.views_manga.errors}}
             <label for="">Views:</label>
-            {{form_manga.views}}
+            {{form_manga.views_manga}}
         </div>
         <div class="form-group">
             {{form_manga.description.errors}}

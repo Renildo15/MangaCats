@@ -37,15 +37,15 @@ class Manga(models.Model):
     cover = models.ImageField(upload_to ='uploads')
     author = models.CharField(max_length=300)
     status = models.CharField(max_length=300, choices=choice_status)
-    views = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(9000000)])
-    description = models.TextField(max_length=800)
-    date_created = models.DateTimeField(auto_now=True)
+    views_manga = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(9000000)])
+    description = models.TextField()
+    date_created = models.DateTimeField(auto_now=True, blank=True, null=True)
     create_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = "Mangas"
-        ordering = [F('name_manga').asc(nulls_last=True)]
+        ordering = ("name_manga",)
 
     def __str__(self):
         return self.name_manga

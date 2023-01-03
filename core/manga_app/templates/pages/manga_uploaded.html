@@ -1,0 +1,34 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Manga Uploaded{% endblock title %}
+
+{% block content %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Cover</th>
+                <th>Name</th>
+                <th>Last Chapter</th>
+                <th>Status</th>
+                <th>Date Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for manga in mangas %}
+            <tr>
+                <td><img src="{{manga.cover.url}}" ></td>
+                <td>{{manga.name_manga}}</td>
+                <td>101</td>
+                <td>{{manga.status}}</td>
+                <td>{{manga.date_created}}</td>
+                <td>
+                    <a href="#">Edit</a>
+                    <a href="#">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock content %}

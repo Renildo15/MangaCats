@@ -5,7 +5,7 @@ from django.contrib import messages
 
 
 def genre_list(request):
-    genre = Genre.objects.all()
+    genre = Genre.objects.filter(create_by=request.user)
 
     context = {
         "genres":genre
@@ -18,7 +18,7 @@ def genre_add(request):
         form_genre = GenreForm(request.POST or None)
         if form_genre.is_valid():
             genre = form_genre.save(commit=False)
-            genre.created_by = request.user
+            genre.create_by = request.user
             genre.save()
             messages.success(request,"Genre added!")
             return redirect("home:home")

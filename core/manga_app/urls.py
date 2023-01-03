@@ -6,7 +6,8 @@ app_name="manga"
 
 urlpatterns = [
    path("manga_list/", views.manga_list, name="manga_list"),
+   path("manga_uploaded/", views.manga_uploaded, name="manga_uploaded"),
    path("manga_add/", views.manga_add, name="manga_add"),
    path("genre_add/", views_genre.genre_add, name="genre_add"),
-   path("genre_list/", views_genre.genre_list, name="genre_list")
+   path("genre_list/", views_genre.genre_list, name="genre_list"),
 ]

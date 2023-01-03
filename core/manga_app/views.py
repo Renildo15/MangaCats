@@ -13,12 +13,19 @@ def manga_list(request):
     return render(request,"pages/manga_list.html", context)
 
 
+def manga_uploaded(request):
+    manga = Manga.objects.filter(create_by=request.user)
+    context = {
+        "mangas": manga
+    }
+    return render(request,"pages/manga_uploaded.html", context)
+
 def manga_add(request):
     if request.method == 'POST':
         form_manga = MangaForm(request.POST or None, request.FILES)
         if form_manga.is_valid():
             manga = form_manga.save(commit=False)
-            manga.created_by = request.user
+            manga.create_by = request.user
             manga.save()
             messages.success(request,"Manga added!")
 

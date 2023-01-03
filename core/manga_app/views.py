@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .models import Manga
-from .forms import MangaForm, GenreForm
+from .forms import MangaForm
 from django.contrib import messages
 # Create your views here.
 
@@ -32,20 +32,3 @@ def manga_add(request):
 
     return render(request, "pages/manga_add.html", context)
 
-def genre_add(request):
-    if request.method == 'POST':
-        form_genre = GenreForm(request.POST or None)
-        if form_genre.is_valid():
-            form_genre.save()
-            return redirect("home:home")
-        else:
-            print("falhou")
-
-    else:
-        form_genre = GenreForm()
-
-    context = {
-        "form_genre" : form_genre
-    }
-
-    return render(request, "pages/genre_add.html", context)

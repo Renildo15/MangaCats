@@ -1,0 +1,12 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Genre List{% endblock title %}
+
+{% block content %}
+{% for genre in genres %}
+    <ul>
+        <li>{{genre.name_genre}}</li>
+        <li>{{genre.date_created}}</li>
+    </ul>
+    
+{% endfor %}
+{% endblock content %}

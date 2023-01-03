@@ -9,6 +9,7 @@ urlpatterns = [
    path("manga_uploaded/", views.manga_uploaded, name="manga_uploaded"),
    path("manga_view/<str:pk>", views.manga_view, name="manga_view"),
    path("manga_edit/<str:pk>", views.manga_edit, name="manga_edit"),
+   path("manga_delete/<str:pk>", views.manga_delete, name="manga_delete"),
    path("manga_add/", views.manga_add, name="manga_add"),
    path("genre_add/", views_genre.genre_add, name="genre_add"),
    path("genre_list/", views_genre.genre_list, name="genre_list"),

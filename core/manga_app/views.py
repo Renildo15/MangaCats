@@ -5,6 +5,9 @@ from .forms import MangaForm
 from django.contrib import messages
 # Create your views here.
 
+#TODO: Add campo de imagem para o user
+#TODO: Permitir adicinar mais de um genero no form
+
 def manga_list(request):
     manga = Manga.objects.all()
     context = {
@@ -63,3 +66,9 @@ def manga_edit(request, pk):
          return render(request, "pages/manga/manga_edit.html", {'form_manga': form_manga})
 
     return render(request, "pages/manga/manga_edit.html", {'form_manga': form_manga})
+
+def manga_delete(request, pk):
+    manga = get_object_or_404(Manga, id_manga=pk)
+    manga.delete()
+    messages.warning(request, f"Manga {manga.name_manga} deleted!")
+    return redirect('manga:manga_uploaded')

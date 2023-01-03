@@ -29,7 +29,7 @@
                 <td>{{manga.date_created}}</td>
                 <td>
                     <a href={% url 'manga:manga_edit' manga.id_manga %}>Edit</a>
-                    <a href="#">Delete</a>
+                    <a href={% url 'manga:manga_delete' manga.id_manga %}>Delete</a>
                 </td>
             </tr>
         {% endfor %}

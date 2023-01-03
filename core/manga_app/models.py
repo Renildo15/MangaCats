@@ -34,6 +34,7 @@ class Manga(models.Model):
     name_manga = models.CharField(max_length=300)
     name_in_japanese = models.CharField(max_length=300, null=True, blank=True)
     name_in_english = models.CharField(max_length=300, null=True, blank=True)
+    num_chapter = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(9000000)], null=True, blank=True)
     cover = models.ImageField(upload_to ='uploads')
     author = models.CharField(max_length=300)
     status = models.CharField(max_length=300, choices=choice_status)

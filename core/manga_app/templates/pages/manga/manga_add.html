@@ -27,6 +27,11 @@
             {{form_manga.name_in_english}}
         </div>
         <div class="form-group">
+            {{form_manga.num_chapter.errors}}
+            <label for="">Chapters:</label>
+            {{form_manga.num_chapter}}
+        </div>
+        <div class="form-group">
             {{form_manga.cover.errors}}
             <label for="">Manga Cover:</label>
             {{form_manga.cover}}

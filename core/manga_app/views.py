@@ -10,7 +10,7 @@ def manga_list(request):
     context = {
         "mangas": manga
     }
-    return render(request,"pages/manga_list.html", context)
+    return render(request,"pages/manga/manga_list.html", context)
 
 
 def manga_uploaded(request):
@@ -18,7 +18,16 @@ def manga_uploaded(request):
     context = {
         "mangas": manga
     }
-    return render(request,"pages/manga_uploaded.html", context)
+    return render(request,"pages/manga/manga_uploaded.html", context)
+
+def manga_view(request, pk):
+    manga = Manga.objects.get(id_manga=pk)
+
+    context = {
+        "manga": manga
+    }
+
+    return render(request, "pages/manga/manga_view.html", context)
 
 def manga_add(request):
     if request.method == 'POST':
@@ -37,5 +46,5 @@ def manga_add(request):
         "form_manga" : form_manga
     }
 
-    return render(request, "pages/manga_add.html", context)
+    return render(request, "pages/manga/manga_add.html", context)
 

@@ -1,12 +1,12 @@
 {% extends "base_templates/base.html" %}
-{% block title %}MangaCats - Manga List{% endblock title %}
+{% block title %}MangaCats - {{manga.name_manga}}{% endblock title %}
 
 {% block content %}
-{% for manga in mangas %}
     <ul>
         <li>{{manga.name_manga}}</li>
         <li>{{manga.name_in_japanese}}</li>
         <li>{{manga.name_in_english}}</li>
+        <li>{{manga.num_chapter}}</li>
         <li> 
             <img src="{{manga.cover.url}}" >
         </li>
@@ -18,5 +18,5 @@
         <li>{{manga.genre}}</li>
     </ul>
     
-{% endfor %}
+
 {% endblock content %}

@@ -15,6 +15,10 @@ class Genre(models.Model):
     class Meta:
         verbose_name_plural = "Genres"
         ordering = [F('name_genre').asc(nulls_last=True)]
+        permissions = [('can_add_genre', 'Can add genre'),
+                       ('can_delete_genre', 'Can delete genre'),
+                       ('can_edit_genre', 'Can edit genre'),
+                       ('can_view_genre', 'Can view genre')]
 
 
     def __str__(self):
@@ -47,6 +51,10 @@ class Manga(models.Model):
     class Meta:
         verbose_name_plural = "Mangas"
         ordering = ("name_manga",)
+        permissions = [('can_add_manga', 'Can add manga'),
+                       ('can_delete_manga', 'Can delete manga'),
+                       ('can_edit_manga', 'Can edit manga'),
+                       ('can_view_manga', 'Can view manga')]
 
     def __str__(self):
         return self.name_manga

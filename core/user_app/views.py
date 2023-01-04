@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail, BadHeaderError
 from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 
 # Create your views here.
 
@@ -17,7 +19,11 @@ def register_user(request):
     if request.method == "POST":
         form_user = RegisterUserForm(request.POST)
         if form_user.is_valid():
-            form_user.save()
+            user = form_user.save(commit=False)
+            user.save()
+            user_group = Group.objects.get(name='user-logado') 
+
+            user.groups.add(user_group)
             messages.success(request,("User successfully created!"))
             return redirect("user:login")
     else:
@@ -48,13 +54,13 @@ def login_user(request):
 
     return render(request, "pages/login.html", context)
 
-
+@login_required(login_url='user:login')
 def logout_user(request):
     logout(request)
     messages.success(request,("Logged out user"))
     return redirect("/")
 
-
+@login_required(login_url='user:login')
 def change_password(request):
     if request.method == "POST":
         form_password = PasswordChangeForm(request.user, request.POST)
@@ -71,7 +77,8 @@ def change_password(request):
     }
 
     return render(request, "pages/change_password.html", context)
-
+    
+@login_required(login_url='user:login')
 def change_password_success(request):
     return render(request, 'pages/password/password_reset_complete.html')
 

@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 from manga_app.forms import GenreForm
 from manga_app.models import Genre
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
 
 
+@login_required(login_url='user:login')
+@permission_required({("genre.view_genre"), "genre.can_view_genre"})
 def genre_list(request):
     genre = Genre.objects.filter(create_by=request.user)
     context = {
@@ -12,6 +15,9 @@ def genre_list(request):
 
     return render(request,"pages/genre/genre_list.html",context)
 
+
+@login_required(login_url='user:login')
+@permission_required({("genre.add_genre"), "genre.can_add_genre"})
 def genre_add(request):
     if request.method == 'POST':
         form_genre = GenreForm(request.POST or None)
@@ -30,6 +36,9 @@ def genre_add(request):
 
     return render(request, "pages/genre/genre_add.html", context)
 
+
+@login_required(login_url='user:login')
+@permission_required({("genre.change_genre"), "genre.can_edit_genre"})
 def genre_edit(request, pk):
     genre = get_object_or_404(Genre, id_genre=pk)
     form_genre = GenreForm(instance=genre)
@@ -48,6 +57,9 @@ def genre_edit(request, pk):
 
     return render(request,"pages/genre/genre_edit.html", context)
 
+
+@login_required(login_url='user:login')
+@permission_required({("genre.delete_genre"), "genre.can_delete_genre"})
 def genre_delete(request, pk):
     genre = get_object_or_404(Genre, id_genre=pk)
     genre.delete()

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse
 from .models import Manga
 from .forms import MangaForm
@@ -6,7 +7,6 @@ from django.contrib import messages
 # Create your views here.
 
 #TODO: Add campo de imagem para o user
-#TODO: Permitir adicinar mais de um genero no form
 
 def manga_list(request):
     manga = Manga.objects.all()
@@ -15,7 +15,8 @@ def manga_list(request):
     }
     return render(request,"pages/manga/manga_list.html", context)
 
-
+@login_required(login_url='user:login')
+@permission_required({("manga.view_manga"), "manga.can_view_manga"})
 def manga_uploaded(request):
     manga = Manga.objects.filter(create_by=request.user)
     context = {
@@ -33,6 +34,8 @@ def manga_view(request, pk):
 
     return render(request, "pages/manga/manga_view.html", context)
 
+@login_required(login_url='user:login')
+@permission_required({("manga.add_manga"), "manga.can_add_manga"})
 def manga_add(request):
     if request.method == 'POST':
         form_manga = MangaForm(request.POST or None, request.FILES,request=request)
@@ -53,6 +56,9 @@ def manga_add(request):
 
     return render(request, "pages/manga/manga_add.html", context)
 
+
+@login_required(login_url='user:login')
+@permission_required({("manga.change_manga"), "manga.can_edit_manga"})
 def manga_edit(request, pk):
     manga = get_object_or_404(Manga, id_manga=pk)
     form_manga = MangaForm(instance=manga, request=request)
@@ -70,6 +76,9 @@ def manga_edit(request, pk):
 
     return render(request, "pages/manga/manga_edit.html", {'form_manga': form_manga})
 
+
+@login_required(login_url='user:login')
+@permission_required({("manga.delete_manga"), "manga.can_delete_manga"})
 def manga_delete(request, pk):
     manga = get_object_or_404(Manga, id_manga=pk)
     manga.delete()

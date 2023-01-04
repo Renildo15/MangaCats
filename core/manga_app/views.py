@@ -25,9 +25,11 @@ def manga_uploaded(request):
 
 def manga_view(request, pk):
     manga = Manga.objects.get(id_manga=pk)
-
+    manga_genre = manga.genre.all()
+    print(manga_genre)
     context = {
-        "manga": manga
+        "manga": manga,
+        "manga_genre":manga_genre
     }
 
     return render(request, "pages/manga/manga_view.html", context)
@@ -39,6 +41,7 @@ def manga_add(request):
             manga = form_manga.save(commit=False)
             manga.create_by = request.user
             manga.save()
+            form_manga.save_m2m()
             messages.success(request,"Manga added!")
 
             return redirect(reverse("home:home"))

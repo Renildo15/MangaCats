@@ -15,7 +15,11 @@
         <li> {{manga.views_manga}}</li>
         <li>{{manga.description}}</li>
         <li>{{manga.date_created}}</li>
-        <li>{{manga.genre}}</li>
+        <li>
+            {% for genre in manga_genre %}
+                {{genre}}
+            {% endfor %}
+        </li>
     </ul>
     
 

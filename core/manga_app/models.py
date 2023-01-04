@@ -42,7 +42,7 @@ class Manga(models.Model):
     description = models.TextField()
     date_created = models.DateTimeField(auto_now=True, blank=True, null=True)
     create_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, null=True, blank=True)
+    genre = models.ManyToManyField(Genre, blank=True)
 
     class Meta:
         verbose_name_plural = "Mangas"

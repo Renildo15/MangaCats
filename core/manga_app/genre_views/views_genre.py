@@ -6,7 +6,6 @@ from django.contrib import messages
 
 def genre_list(request):
     genre = Genre.objects.filter(create_by=request.user)
-
     context = {
         "genres":genre
     }

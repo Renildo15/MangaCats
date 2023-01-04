@@ -1,0 +1,39 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Manga Uploaded{% endblock title %}
+
+{% block content %}
+{% for msg in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+        </div>
+{% endfor %}
+    <table>
+        <thead>
+            <tr>
+                <th>Cover</th>
+                <th>Name</th>
+                <th>Last Chapter</th>
+                <th>Status</th>
+                <th>Date Created</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for manga in mangas %}
+            <tr>
+                <td><img src="{{manga.cover.url}}" ></td>
+                <td>{{manga.name_manga}}</td>
+                <td>101</td>
+                <td>{{manga.status}}</td>
+                <td>{{manga.date_created}}</td>
+                <td>
+                    <a href={% url 'manga:manga_edit' manga.id_manga %}>Edit</a>
+                    <a href={% url 'manga:manga_delete' manga.id_manga %}>Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    
+{% endblock content %}

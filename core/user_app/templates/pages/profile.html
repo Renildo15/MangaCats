@@ -1,0 +1,31 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Genre Add{% endblock title %}
+
+{% block content %}
+<nav>
+    <ul>
+        <li>
+            <a href="#">
+               Home
+            </a>
+        </li>
+        <li>
+            <a href="#">
+               Account
+            </a>
+        </li>
+        <li>
+            <a href="#">
+               Manage Manga
+            </a>
+            <div id="content" class="dropdown-nav-content" >
+                <a href={% url 'manga:manga_add' %}>Upload Manga</a>
+                <a href={% url 'manga:genre_add' %}>Add new genre</a>
+                <a href={% url 'manga:genre_list' %}>Genre list</a>
+                <a href={% url 'manga:manga_uploaded' %}>Manga uploaded</a>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+{% endblock content %}

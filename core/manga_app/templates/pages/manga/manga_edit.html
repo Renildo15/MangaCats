@@ -1,0 +1,64 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Manga edit{% endblock title %}
+
+{% block content %}
+<div >
+    <form method="POST" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            {{form_manga.name_manga.errors}}
+            <label for="">Manga name:</label>
+            {{form_manga.name_manga}}
+        </div>
+        <div class="form-group">
+            {{form_manga.name_in_japanese.errors}}
+            <label for="">Manga name in Japanese:</label>
+            {{form_manga.name_in_japanese}}
+        </div>
+        <div class="form-group">
+            {{form_manga.name_in_english.errors}}
+            <label for="">Manga name in English:</label>
+            {{form_manga.name_in_english}}
+        </div>
+        <div class="form-group">
+            {{form_manga.num_chapter.errors}}
+            <label for="">Chapters:</label>
+            {{form_manga.num_chapter}}
+        </div>
+        <div class="form-group">
+            {{form_manga.cover.errors}}
+            <label for="">Manga Cover:</label>
+            {{form_manga.cover}}
+        </div>
+        <div class="form-group">
+            {{form_manga.author.errors}}
+            <label for="">Author:</label>
+            {{form_manga.author}}
+        </div>
+        <div class="form-group">
+            {{form_manga.status.errors}}
+            <label for="">Status:</label>
+            {{form_manga.status}}
+        </div>
+        <div class="form-group">
+            {{form_manga.views_manga.errors}}
+            <label for="">Views:</label>
+            {{form_manga.views_manga}}
+        </div>
+        <div class="form-group">
+            {{form_manga.description.errors}}
+            <label for="">Description:</label>
+            {{form_manga.description}}
+        </div>
+        <div class="form-group">
+            {{form_manga.genre.errors}}
+            <label for="">Genre:</label>
+            {{form_manga.genre}}
+        </div>
+        <div>
+            <input class="btn btn-primary" type="submit" value="Edit Manga"/>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

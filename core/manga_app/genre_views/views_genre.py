@@ -48,3 +48,10 @@ def genre_edit(request, pk):
     }
 
     return render(request,"pages/genre/genre_edit.html", context)
+
+def genre_delete(request, pk):
+    genre = get_object_or_404(Genre, id_genre=pk)
+    genre.delete()
+    messages.success(request, 'Genre deleted!')
+
+    return redirect('manga:genre_list')

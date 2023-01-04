@@ -11,6 +11,7 @@ from django.core.mail import send_mail, BadHeaderError
 from django.template.loader import render_to_string
 from django.db.models.query_utils import Q
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 
 # Create your views here.
 
@@ -18,7 +19,11 @@ def register_user(request):
     if request.method == "POST":
         form_user = RegisterUserForm(request.POST)
         if form_user.is_valid():
-            form_user.save()
+            user = form_user.save(commit=False)
+            user.save()
+            user_group = Group.objects.get(name='user-logado') 
+
+            user.groups.add(user_group)
             messages.success(request,("User successfully created!"))
             return redirect("user:login")
     else:

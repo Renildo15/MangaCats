@@ -26,7 +26,6 @@ def manga_uploaded(request):
 def manga_view(request, pk):
     manga = Manga.objects.get(id_manga=pk)
     manga_genre = manga.genre.all()
-    print(manga_genre)
     context = {
         "manga": manga,
         "manga_genre":manga_genre
@@ -36,7 +35,7 @@ def manga_view(request, pk):
 
 def manga_add(request):
     if request.method == 'POST':
-        form_manga = MangaForm(request.POST or None, request.FILES)
+        form_manga = MangaForm(request.POST or None, request.FILES,request=request)
         if form_manga.is_valid():
             manga = form_manga.save(commit=False)
             manga.create_by = request.user
@@ -46,7 +45,7 @@ def manga_add(request):
 
             return redirect(reverse("home:home"))
     else:
-        form_manga = MangaForm()
+        form_manga = MangaForm(request=request)
 
     context = {
         "form_manga" : form_manga
@@ -56,13 +55,14 @@ def manga_add(request):
 
 def manga_edit(request, pk):
     manga = get_object_or_404(Manga, id_manga=pk)
-    form_manga = MangaForm(instance=manga)
+    form_manga = MangaForm(instance=manga, request=request)
     if request.method == "POST":
-        form_manga = MangaForm(request.POST or None, request.FILES, instance=manga)
+        form_manga = MangaForm(request.POST or None, request.FILES, instance=manga, request=request)
         if form_manga.is_valid():
             manga = form_manga.save(commit=False)
             manga.create_by = request.user
             manga.save()
+            form_manga.save_m2m()
             messages.success(request, f"Manga {manga.name_manga} updated!")
             return redirect('manga:manga_uploaded')
     elif(request.method == 'GET'):

@@ -11,7 +11,8 @@
 <div >
     <form action="." method="POST" class="form">
         {% csrf_token %}
-        {{form_genre}}
+        <label>Genre</label>
+        {{form_genre.name_genre}}
         <div>
             <input class="btn btn-primary" type="submit" value="Add Manga"/>
         </div>

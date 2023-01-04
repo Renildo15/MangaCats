@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from manga_app.forms import GenreForm
 from manga_app.models import Genre
 from django.contrib import messages
@@ -11,7 +11,7 @@ def genre_list(request):
         "genres":genre
     }
 
-    return render(request,"pages/genre_list.html",context)
+    return render(request,"pages/genre/genre_list.html",context)
 
 def genre_add(request):
     if request.method == 'POST':
@@ -29,4 +29,22 @@ def genre_add(request):
         "form_genre" : form_genre
     }
 
-    return render(request, "pages/genre_add.html", context)
+    return render(request, "pages/genre/genre_add.html", context)
+
+def genre_edit(request, pk):
+    genre = get_object_or_404(Genre, id_genre=pk)
+    form_genre = GenreForm(instance=genre)
+
+    if request.method == 'POST':
+        form_genre = GenreForm(request.POST or None)
+        if form_genre.is_valid():
+            gen = form_genre.save(commit=False)
+            gen.create_by = request.user
+            gen.save()
+            messages.success(request, "Genre updated!")
+            return redirect('manga:genre_list')
+    context = {
+        'form_genre' : form_genre
+    }
+
+    return render(request,"pages/genre/genre_edit.html", context)

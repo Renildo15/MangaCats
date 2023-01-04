@@ -13,4 +13,5 @@ urlpatterns = [
    path("manga_add/", views.manga_add, name="manga_add"),
    path("genre_add/", views_genre.genre_add, name="genre_add"),
    path("genre_list/", views_genre.genre_list, name="genre_list"),
+   path('genre_edit/<str:pk>', views_genre.genre_edit, name="genre_edit")
 ]

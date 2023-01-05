@@ -1,0 +1,13 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Read{% endblock title %}
+
+{% block content %}
+{% for page in pages %}
+    <ul>
+        <li> 
+            <img src="{{page.image_chapter.url}}" >
+        </li>
+    </ul>
+    
+{% endfor %}
+{% endblock content %}

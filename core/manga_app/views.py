@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse
 from .models import Manga
+from chapter_app.models import Chapter
 from .forms import MangaForm
 from django.contrib import messages
 # Create your views here.
@@ -10,8 +11,9 @@ from django.contrib import messages
 
 def manga_list(request):
     manga = Manga.objects.all()
+    
     context = {
-        "mangas": manga
+        "mangas": manga,
     }
     return render(request,"pages/manga/manga_list.html", context)
 
@@ -26,10 +28,12 @@ def manga_uploaded(request):
 
 def manga_view(request, pk):
     manga = Manga.objects.get(id_manga=pk)
+    chapter = Chapter.objects.filter(manga_id=pk)
     manga_genre = manga.genre.all()
     context = {
         "manga": manga,
-        "manga_genre":manga_genre
+        "manga_genre":manga_genre,
+        'chapters':chapter
     }
 
     return render(request, "pages/manga/manga_view.html", context)

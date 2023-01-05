@@ -7,7 +7,7 @@ from django.contrib.auth import settings
 
 
 class Chapter(models.Model):
-    id_chapeter = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    id_chapter = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     name_chapter = models.CharField(max_length=300)
     manga = models.ForeignKey(Manga,on_delete=models.CASCADE, null=True, blank=True)
     date_create = models.DateTimeField(auto_now_add=True,blank=True, null=True)

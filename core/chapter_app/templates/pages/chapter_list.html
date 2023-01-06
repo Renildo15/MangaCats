@@ -1,0 +1,36 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Read{% endblock title %}
+
+{% block content %}
+{% if chapters %}
+<h1>{{name_manga}}</h1>
+<img src="{{manga_cover.url}}" >
+<table>
+    <thead>
+        <tr>
+            <th>Chapters Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for chapter in chapters %}
+        <tr>
+            <td>
+                <a href={% url 'chapter:page_list' chapter.id_chapter %}>
+                    {{chapter.name_chapter}}
+                </a>
+            </td>
+            <td>
+                <a href=''>Edit</a>
+                <a href=''>Delete</a>
+               
+            </td>
+        </tr> 
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+
+<h1>Chapters not exists</h1>
+{% endif %}
+{% endblock content %}

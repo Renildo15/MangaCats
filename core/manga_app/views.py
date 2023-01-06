@@ -7,8 +7,6 @@ from .forms import MangaForm
 from django.contrib import messages
 # Create your views here.
 
-#TODO: Add campo de imagem para o user
-
 def manga_list(request):
     manga = Manga.objects.all()
     

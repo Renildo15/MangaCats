@@ -1,6 +1,6 @@
 from django import forms
 from .models import Chapter, Page
-
+from manga_app.models import Manga
 
 class PageForm(forms.ModelForm):
 
@@ -9,7 +9,10 @@ class PageForm(forms.ModelForm):
         fields = '__all__'
 
 class ChapterForm(forms.ModelForm):
-
+    
     class Meta:
         model = Chapter
-        fields = '__all__'
+        fields = ['name_chapter','manga']
+
+    def __init__(self, *args, **kwargs):
+        self.fields['manga'].queryset = Manga.objects.all()

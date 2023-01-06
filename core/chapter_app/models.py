@@ -16,6 +16,9 @@ class Chapter(models.Model):
     def __str__(self):
         return self.name_chapter
 
+    def __unicode__(self):
+        return self.name_chapter
+
 class Page(models.Model):
     id_img = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     image_chapter = models.ImageField(upload_to='uploads/chapters')
@@ -25,3 +28,6 @@ class Page(models.Model):
 
     def __str__(self):
         return f'Page of {self.chapter_name.name_chapter}'
+
+    def __unicode__(self):
+        return self.chapter_name.name_chapter

@@ -10,6 +10,7 @@ from django.contrib import messages
 #Todo: Adicionar campo para salvar mangá favorito
 #Todo: Adicionar campo de idioma para filtrar mangás por idioma
 #TODO: Add campo de imagem para o user
+#TODO: Tentar preecenher o select de forma automatica
 
 def page_list(request, pk):
     page = Page.objects.filter(chapter_name=pk)
@@ -71,7 +72,7 @@ def chapter_add(request, pk):
         form_chapter = ChapterForm()
 
     context = {
-        "form_chapter": form_chapter,
+        "form_chapter": form,
         "form" : form,
         "manga": manga
     }

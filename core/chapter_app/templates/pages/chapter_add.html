@@ -16,6 +16,15 @@
             <label for="">Chapter name:</label>
             {{form_chapter.name_chapter}}
         </div>
+        {% comment %} <select name="" id="">
+        {% for m in form_chapter.manga %}
+            {% if form_chapter.manga == m.id_manga %}
+                <option value={{m.id_manga}} selected></option>
+            {% else %}
+                <option value={{m}}></option>
+            {% endif %}
+        {% endfor %}
+        </select> {% endcomment %}
         <div class="form-group">
             {{form_chapter.manga.errors}}
             <label for="">Manga:</label>

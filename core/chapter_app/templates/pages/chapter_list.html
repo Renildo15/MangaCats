@@ -2,9 +2,11 @@
 {% block title %}MangaCats - Read{% endblock title %}
 
 {% block content %}
+<a href={% url 'chapter:chapter_Add' manga_id %}>Add Chapter</a>
 {% if chapters %}
 <h1>{{name_manga}}</h1>
 <img src="{{manga_cover.url}}" >
+
 <table>
     <thead>
         <tr>

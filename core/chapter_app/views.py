@@ -5,22 +5,11 @@ from .forms import PageForm, ChapterForm
 from manga_app.models import Manga
 from django.contrib import messages
 # Create your views here.
-
 #Todo: Sistema de avaliação(adicionar no model de manga_app)
 #Todo: Adicionar campo para salvar mangá favorito
 #Todo: Adicionar campo de idioma para filtrar mangás por idioma
 #TODO: Add campo de imagem para o user
 #TODO: Tentar preecenher o select de forma automatica
-
-def page_list(request, pk):
-    page = Page.objects.filter(chapter_name=pk)
-
-    context = {
-        'pages': page
-    }
-
-    return render(request, "pages/page_list.html", context)
-
 
 def chapter_list(request, pk):
     chapter = Chapter.objects.filter(created_by=request.user, manga_id=pk)
@@ -49,7 +38,7 @@ def chapter_list(request, pk):
             "manga_id": pk
         }
 
-    return render(request, "pages/chapter_list.html", context)
+    return render(request, "pages/chapter/chapter_list.html", context)
 
 
 def chapter_add(request, pk):
@@ -78,7 +67,7 @@ def chapter_add(request, pk):
         "manga": manga
     }
 
-    return render(request, "pages/chapter_add.html", context)
+    return render(request, "pages/chapter/chapter_add.html", context)
 
 
 def chapter_edit(request, pk):
@@ -99,7 +88,7 @@ def chapter_edit(request, pk):
         "form_chapter": form_chapter
     }
 
-    return render(request, "pages/chapter_edit.html",context)
+    return render(request, "pages/chapter/chapter_edit.html",context)
 
 def chapter_delete(request, pk):
     chapter = Chapter.objects.get(id_chapter=pk)

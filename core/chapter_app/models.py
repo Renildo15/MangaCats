@@ -21,7 +21,7 @@ class Chapter(models.Model):
 
 class Page(models.Model):
     id_img = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    image_chapter = models.ImageField(upload_to='uploads/chapters')
+    image_chapter = models.URLField(max_length=900)
     chapter_name = models.ForeignKey(Chapter,on_delete=models.CASCADE, null=True, blank=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
 

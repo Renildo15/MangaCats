@@ -100,3 +100,9 @@ def chapter_edit(request, pk):
     }
 
     return render(request, "pages/chapter_edit.html",context)
+
+def chapter_delete(request, pk):
+    chapter = Chapter.objects.get(id_chapter=pk)
+    chapter.delete()
+    messages.success(request, f"{chapter.manga} - Chapter deleted!")
+    return redirect(reverse("manga:manga_uploaded"))

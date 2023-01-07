@@ -56,6 +56,7 @@ def chapter_add(request, pk):
     form = ChapterForm()
     manga = get_object_or_404(Manga, id_manga=pk)
     form.fields['manga'].queryset = Manga.objects.filter(create_by=request.user)
+
     if request.method == "POST":
         form_chapter = ChapterForm(request.POST or None)
 
@@ -78,3 +79,24 @@ def chapter_add(request, pk):
     }
 
     return render(request, "pages/chapter_add.html", context)
+
+
+def chapter_edit(request, pk):
+    chapter = get_object_or_404(Chapter, id_chapter=pk)
+    form_chapter = ChapterForm(instance=chapter)
+ 
+    if request.method == "POST":
+        form_chapter = ChapterForm(request.POST or None,instance=chapter)
+        form_chapter.fields['manga'].queryset = Manga.objects.filter(create_by=request.user)
+        if form_chapter.is_valid():
+            chapter = form_chapter.save(commit=False)
+            chapter.created_by = request.user
+            chapter.save()
+            messages.success(request, f"{chapter.manga} - Chapter edited!")
+            return redirect(reverse("manga:manga_uploaded"))
+    
+    context = {
+        "form_chapter": form_chapter
+    }
+
+    return render(request, "pages/chapter_edit.html",context)

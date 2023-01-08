@@ -29,6 +29,7 @@ def page_add(request, pk):
             page.chapter_name = chapter
             page.save()
             messages.success(request, f"Page added in {chapter}")
+            return redirect(reverse("chapter:page_add", args=(pk,)))
         else:
             print("Invalid")
     else:
@@ -39,3 +40,12 @@ def page_add(request, pk):
     }
 
     return render(request, "pages/page/page_add.html", context)
+
+
+def page_list_manager(request, pk):
+    page = Page.objects.filter(chapter_name=pk, created_by=request.user)
+    context = {
+        "pages": page
+    }
+
+    return render(request, "pages/page/page_list_manager.html", context)

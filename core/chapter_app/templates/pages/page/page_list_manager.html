@@ -1,0 +1,25 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Read{% endblock title %}
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+            <th>Manga</th>
+            <th>Page</th>
+            <th>Link</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for page in pages %}
+    <tr>
+        <td>{{page.chapter_name}}</td>
+        <td><img src="{{page.image_chapter}}"></td>
+        <td>{{page.image_chapter}}</td>
+    </tr>
+    
+{% endfor %}
+</tbody>
+</table>
+{% endblock content %}

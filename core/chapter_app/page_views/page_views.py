@@ -49,3 +49,24 @@ def page_list_manager(request, pk):
     }
 
     return render(request, "pages/page/page_list_manager.html", context)
+
+def page_edit(request, pk):
+    page = get_object_or_404(Page, id_img=pk)
+    form_page = PageForm(instance=page)
+
+    if request.method == "POST":
+        form_page = PageForm(request.POST or None, request.FILES, instance=page)
+        form_page.fields['chapter_name'].queryset = Chapter.objects.filter(created_by=request.user)
+
+        if form_page.is_valid():
+            p = form_page.save(commit=False)
+            p.created_by = request.user
+            p.save()
+            messages.success(request,"Page edited!")
+            return redirect(reverse("chapter:page_list_manager", args=(page.chapter_name.id_chapter,)))
+
+    context = {
+        "form_page": form_page
+    }
+
+    return render(request, "pages/page/page_edit.html", context)

@@ -9,6 +9,7 @@ urlpatterns = [
     path("pages_add/<str:pk>", page_views.page_add, name="page_add"),
     path("pages_list_manager/<str:pk>", page_views.page_list_manager, name="page_list_manager"),
     path("pages_edit/<str:pk>",page_views.page_edit, name="page_edit"),
+    path("pages_delete/<str:pk>", page_views.page_delete, name="page_delete"),
     path("chapter_list/<str:pk>", views.chapter_list, name="chapter_list"),
     path("chapter_add/<str:pk>", views.chapter_add, name="chapter_Add"),
     path("chapter_edit/<str:pk>", views.chapter_edit, name="chapter_edit"),

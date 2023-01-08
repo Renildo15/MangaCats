@@ -70,3 +70,10 @@ def page_edit(request, pk):
     }
 
     return render(request, "pages/page/page_edit.html", context)
+
+
+def page_delete(request,pk):
+    page = Page.objects.get(id_img=pk)
+    page.delete()
+    messages.success(request,"Page deleted!")
+    return redirect(reverse("chapter:page_list_manager", args=(page.chapter_name.id_chapter,)))

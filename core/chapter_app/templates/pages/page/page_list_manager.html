@@ -25,7 +25,7 @@
         <td>{{page.image_chapter}}</td>
         <td>
             <a href={% url 'chapter:page_edit' page.id_img %}>Edit</a>
-            <a href="">Delete</a>
+            <a href={% url 'chapter:page_delete' page.id_img %}>Delete</a>
         </td>
     </tr>
     

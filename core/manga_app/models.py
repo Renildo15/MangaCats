@@ -34,16 +34,33 @@ class Manga(models.Model):
         ("Pause",("Pause"))
     )
 
+    choice_avaliation = (
+        ('M', "Masterpiece"),
+        ('G', "Good"),
+        ('A', "Average"),
+        ('B', "Bad"),
+        ('H', "Horrible")
+    )
+
+    choice_languages = (
+        ('ENG', "English"),
+        ("PT-BR", "Português"),
+        ("JP", "日本語")
+    )
+
     id_manga = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     name_manga = models.CharField(max_length=300)
     name_in_japanese = models.CharField(max_length=300, null=True, blank=True)
     name_in_english = models.CharField(max_length=300, null=True, blank=True)
+    language = models.CharField(max_length=200, choices=choice_languages)
     num_chapter = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(9000000)], null=True, blank=True)
     cover = models.ImageField(upload_to ='uploads')
     author = models.CharField(max_length=300)
     status = models.CharField(max_length=300, choices=choice_status)
     views_manga = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(9000000)])
     description = models.TextField()
+    review = models.CharField(max_length=200, choices=choice_avaliation, null=True, blank=True)
+    favorite_manga = models.BooleanField(default=False, null=True, blank=True)
     date_created = models.DateTimeField(auto_now=True, blank=True, null=True)
     create_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
     genre = models.ManyToManyField(Genre, blank=True)

@@ -24,11 +24,12 @@
         <td><img style="width:200px;" src="{{page.image_chapter}}"></td>
         <td>{{page.image_chapter}}</td>
         <td>
-            <a href={% url 'chapter:page_edit' page.id_img %}>Edit</a>
-            <a href={% url 'chapter:page_delete' page.id_img %}>Delete</a>
+            {% if perms.page.can_edit_page and perms.page.can_delete_page %}
+                <a href={% url 'chapter:page_edit' page.id_img %}>Edit</a>
+                <a href={% url 'chapter:page_delete' page.id_img %}>Delete</a>
+            {% endif %}   
         </td>
-    </tr>
-    
+    </tr>   
 {% endfor %}
 </tbody>
 </table>

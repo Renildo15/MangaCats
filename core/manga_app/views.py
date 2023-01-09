@@ -16,7 +16,7 @@ def manga_list(request):
     return render(request,"pages/manga/manga_list.html", context)
 
 @login_required(login_url='user:login')
-@permission_required({("manga.view_manga"), "manga.can_view_manga"})
+@permission_required({("manga.view_manga"), "manga.can_view_manga"}, login_url='user:login')
 def manga_uploaded(request):
     manga = Manga.objects.filter(create_by=request.user)
     context = {
@@ -37,7 +37,7 @@ def manga_view(request, pk):
     return render(request, "pages/manga/manga_view.html", context)
 
 @login_required(login_url='user:login')
-@permission_required({("manga.add_manga"), "manga.can_add_manga"})
+@permission_required({("manga.add_manga"), "manga.can_add_manga"}, login_url='user:login')
 def manga_add(request):
     if request.method == 'POST':
         form_manga = MangaForm(request.POST or None, request.FILES,request=request)
@@ -60,7 +60,7 @@ def manga_add(request):
 
 
 @login_required(login_url='user:login')
-@permission_required({("manga.change_manga"), "manga.can_edit_manga"})
+@permission_required({("manga.change_manga"), "manga.can_edit_manga"}, login_url='user:login')
 def manga_edit(request, pk):
     manga = get_object_or_404(Manga, id_manga=pk)
     form_manga = MangaForm(instance=manga, request=request)
@@ -80,7 +80,7 @@ def manga_edit(request, pk):
 
 
 @login_required(login_url='user:login')
-@permission_required({("manga.delete_manga"), "manga.can_delete_manga"})
+@permission_required({("manga.delete_manga"), "manga.can_delete_manga"}, login_url='user:login')
 def manga_delete(request, pk):
     manga = get_object_or_404(Manga, id_manga=pk)
     manga.delete()

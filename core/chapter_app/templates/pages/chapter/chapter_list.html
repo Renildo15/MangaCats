@@ -8,7 +8,11 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
         </div>
 {% endfor %}
-<a href={% url 'chapter:chapter_Add' manga_id %}>Add Chapter</a>
+
+{% if perms.chapter.can_add_chapter %}
+    <a href={% url 'chapter:chapter_Add' manga_id %}>Add Chapter</a>
+{% endif %}
+
 {% if chapters %}
 <h1>{{name_manga}}</h1>
 <img src="{{manga_cover.url}}" >
@@ -29,11 +33,16 @@
                 </a>
             </td>
             <td>
-                <a href={% url 'chapter:page_add' chapter.id_chapter %}>Add page</a>
-                <a href={% url 'chapter:chapter_edit' chapter.id_chapter %}>Edit</a>
-                <a href={% url 'chapter:chapter_delete' chapter.id_chapter %}>Delete</a>
-                <a href={% url 'chapter:page_list_manager' chapter.id_chapter %}>Pages List</a>
-               
+                {% if perms.page.can_add_page.page %}
+                    <a href={% url 'chapter:page_add' chapter.id_chapter %}>Add page</a>
+                {% endif %}               
+                {% if perms.chapter.can_edit_chapter and perms.chapter.can_delete_chapter %}
+                    <a href={% url 'chapter:chapter_edit' chapter.id_chapter %}>Edit</a>
+                    <a href={% url 'chapter:chapter_delete' chapter.id_chapter %}>Delete</a>
+                {% endif %}
+                {% if perms.page.can_edit_page.page %}
+                    <a href={% url 'chapter:page_list_manager' chapter.id_chapter %}>Pages List</a>
+                {% endif %}
             </td>
         </tr> 
     {% endfor %}

@@ -8,6 +8,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
         </div>
 {% endfor %}
+{% if pages %}
 <table>
     <thead>
         <tr>
@@ -33,4 +34,7 @@
 {% endfor %}
 </tbody>
 </table>
+{% else %}
+<h1>Not exists</h1>
+{% endif %}
 {% endblock content %}

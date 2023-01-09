@@ -33,14 +33,14 @@
                 </a>
             </td>
             <td>
-                {% if perms.page.can_add_page.page %}
+                {% if perms.page.can_add_page %}
                     <a href={% url 'chapter:page_add' chapter.id_chapter %}>Add page</a>
                 {% endif %}               
                 {% if perms.chapter.can_edit_chapter and perms.chapter.can_delete_chapter %}
                     <a href={% url 'chapter:chapter_edit' chapter.id_chapter %}>Edit</a>
                     <a href={% url 'chapter:chapter_delete' chapter.id_chapter %}>Delete</a>
                 {% endif %}
-                {% if perms.page.can_edit_page.page %}
+                {% if perms.page.can_edit_page %}
                     <a href={% url 'chapter:page_list_manager' chapter.id_chapter %}>Pages List</a>
                 {% endif %}
             </td>
@@ -49,7 +49,6 @@
     </tbody>
 </table>
 {% else %}
-
 <h1>Chapters not exists</h1>
 {% endif %}
 {% endblock content %}

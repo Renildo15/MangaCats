@@ -1,0 +1,21 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Read{% endblock title %}
+
+{% block content %}
+{% if pages %}
+{% for page in pages %}
+    <ul>
+        <li> 
+            <img src="{{page.image_chapter}}" >
+        </li>
+    </ul>
+    
+{% endfor %}
+{% else %}
+
+<div>
+    <h1>Page not exists!</h1>
+</div>
+{% endif %}
+
+{% endblock content %}

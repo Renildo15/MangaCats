@@ -1,6 +1,5 @@
 from django import forms
 from .models import Manga, Genre
-from django.forms import FileInput
 
 class MangaForm(forms.ModelForm):
     class Meta:

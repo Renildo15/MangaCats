@@ -1,0 +1,39 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Chapter Add{% endblock title %}
+
+{% block content %}
+{% for msg in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+        </div>
+{% endfor %}
+<div >
+    <form action="" method="POST" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            {{form_chapter.name_chapter.errors}}
+            <label for="">Chapter name:</label>
+            {{form_chapter.name_chapter}}
+        </div>
+        {% comment %} <select name="" id="">
+        {% for m in form_chapter.manga %}
+            {% if form_chapter.manga == m.id_manga %}
+                <option value={{m.id_manga}} selected></option>
+            {% else %}
+                <option value={{m}}></option>
+            {% endif %}
+        {% endfor %}
+        </select> {% endcomment %}
+        <div class="form-group">
+            {{form_chapter.manga.errors}}
+            <label for="">Manga:</label>
+            {{form_chapter.manga}}
+        </div>
+        <div>
+            <input class="btn btn-primary" type="submit" value="Add Chapter"/>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

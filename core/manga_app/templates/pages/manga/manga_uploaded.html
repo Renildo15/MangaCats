@@ -29,6 +29,7 @@
                 <td>{{manga.date_created}}</td>
                 <td>
                     {% if perms.manga.can_edit_manga and perms.manga.can_delete_manga%}
+                        <a href={% url 'chapter:chapter_list' manga.id_manga %}>Chapters</a>
                         <a href={% url 'manga:manga_edit' manga.id_manga %}>Edit</a>
                         <a href={% url 'manga:manga_delete' manga.id_manga %}>Delete</a>
                     {% endif %} 

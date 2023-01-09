@@ -1,0 +1,40 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Read{% endblock title %}
+
+{% block content %}
+{% for msg in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+        </div>
+{% endfor %}
+{% if pages %}
+<table>
+    <thead>
+        <tr>
+            <th>Chapter</th>
+            <th>Page</th>
+            <th>Link</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for page in pages %}
+    <tr>
+        <td>{{page.chapter_name}}</td>
+        <td><img style="width:200px;" src="{{page.image_chapter}}"></td>
+        <td>{{page.image_chapter}}</td>
+        <td>
+            {% if perms.page.can_edit_page and perms.page.can_delete_page %}
+                <a href={% url 'chapter:page_edit' page.id_img %}>Edit</a>
+                <a href={% url 'chapter:page_delete' page.id_img %}>Delete</a>
+            {% endif %}   
+        </td>
+    </tr>   
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+<h1>Not exists</h1>
+{% endif %}
+{% endblock content %}

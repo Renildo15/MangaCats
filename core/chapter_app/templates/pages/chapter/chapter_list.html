@@ -1,0 +1,54 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Read{% endblock title %}
+
+{% block content %}
+{% for msg in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+        </div>
+{% endfor %}
+
+{% if perms.chapter.can_add_chapter %}
+    <a href={% url 'chapter:chapter_Add' manga_id %}>Add Chapter</a>
+{% endif %}
+
+{% if chapters %}
+<h1>{{name_manga}}</h1>
+<img src="{{manga_cover.url}}" >
+
+<table>
+    <thead>
+        <tr>
+            <th>Chapters Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for chapter in chapters %}
+        <tr>
+            <td>
+                <a href={% url 'chapter:page_list' chapter.id_chapter %}>
+                    {{chapter.name_chapter}}
+                </a>
+            </td>
+            <td>
+                {% if perms.page.can_add_page %}
+                    <a href={% url 'chapter:page_add' chapter.id_chapter %}>Add page</a>
+                {% endif %}               
+                {% if perms.chapter.can_edit_chapter and perms.chapter.can_delete_chapter %}
+                    <a href={% url 'chapter:chapter_edit' chapter.id_chapter %}>Edit</a>
+                    <a href={% url 'chapter:chapter_delete' chapter.id_chapter %}>Delete</a>
+                {% endif %}
+                {% if perms.page.can_edit_page %}
+                    <a href={% url 'chapter:page_list_manager' chapter.id_chapter %}>Pages List</a>
+                {% endif %}
+            </td>
+        </tr> 
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<h1>Chapters not exists</h1>
+{% endif %}
+{% endblock content %}

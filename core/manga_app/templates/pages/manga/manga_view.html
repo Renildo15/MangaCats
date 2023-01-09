@@ -21,6 +21,18 @@
             {% endfor %}
         </li>
     </ul>
+
+    <div>
+        <ul>
+           {% for chapter in chapters %}
+                <li>
+                    <a href={% url 'chapter:page_list' chapter.id_chapter %}>
+                        {{chapter.name_chapter}}
+                    </a>
+                </li>
+           {% endfor %}
+        </ul>
+    </div>
     
 
 {% endblock content %}

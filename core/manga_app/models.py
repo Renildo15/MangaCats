@@ -58,3 +58,6 @@ class Manga(models.Model):
 
     def __str__(self):
         return self.name_manga
+
+    def __unicode__(self):
+        return self.name_manga

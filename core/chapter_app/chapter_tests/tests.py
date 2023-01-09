@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from ..models import Chapter
+from ..forms import ChapterForm
 from manga_app.models import Manga
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -43,11 +44,6 @@ class ChapterTests(TestCase):
         response = self.client.get(reverse("manga:manga_edit",args=(self.chapter.id_chapter,)))
         self.assertNotEqual(response.status_code, 200)
 
-    def test_url_exists_at_correct_location_list_manga(self): 
-        self.client.login(username='john', password='johnpassword')
-        response = self.client.get(reverse("manga:manga_list"))
-        self.assertEqual(response.status_code, 200)
-
     def test_url_exists_at_correct_location_chapter_delete(self): 
         self.client.login(username='john', password='johnpassword')
         response = self.client.get(reverse("chapter:chapter_delete", args=(self.chapter.id_chapter,)))
@@ -69,6 +65,21 @@ class ChapterTests(TestCase):
 
     def test_views_chapter_edit(self):
         self.client.login(username='john', password='johnpassword')
-        response = self.client.get(reverse("manga:manga_edit",args=(self.chapter.id_chapter,)))
+        response = self.client.get(reverse("chapter:chapter_edit",args=(self.chapter.id_chapter,)))
         self.assertNotEqual(response.status_code, 200)
         self.assertTemplateNotUsed(response, "pages/chapter/chapter_edit.html")
+
+
+    def test_forms_chapter(self):
+        form_chapter = {
+            "name_chapter":"chapter - 01", 
+            "manga": "qweqwefscscefef"
+        }
+
+        form = ChapterForm(data=form_chapter)
+        self.assertFalse(form.is_valid())
+
+    def test_empty_form_genre(self):
+        form = ChapterForm()
+        self.assertIn("name_chapter", form.fields)
+        self.assertIn("manga", form.fields)

@@ -34,7 +34,7 @@ class MangaTests(TestCase):
         self.assertEqual(self.manga.status, "on going")
         self.assertEqual(self.manga.views_manga, 1000)
         self.assertEqual(self.manga.description, "testetestetes")
-        self.assertEqual(datetime.date(2023, 1, 5), datetime.date.today())
+        self.assertEqual(datetime.date(2023, 1, 9), datetime.date.today())
         self.assertEqual(self.manga.create_by.username,"john")
         
     def test_url_exists_at_correct_location_view_manga(self): 

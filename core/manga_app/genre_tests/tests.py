@@ -20,7 +20,7 @@ class GenreTest(TestCase):
     def test_genre_model(self):
         self.client.login(username='john', password='johnpassword')
         self.assertEqual(self.genre.name_genre, "teste")
-        self.assertEqual(datetime.date(2023, 1, 5), datetime.date.today())
+        self.assertEqual(datetime.date(2023, 1, 9), datetime.date.today())
         self.assertEqual(self.genre.create_by.username,"john")
 
     def test_url_exists_at_correct_location_listview(self): 

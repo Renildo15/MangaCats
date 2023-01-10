@@ -1,7 +1,22 @@
 {% extends "base_templates/base.html" %}
+{% block head %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    {{form_comment.media}}
+{% endblock head %}
 {% block title %}MangaCats - {{manga.name_manga}}{% endblock title %}
 
 {% block content %}
+{% for msg in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+        </div>
+{% endfor %}
     <ul>
         <li>{{manga.name_manga}}</li>
         <li>{{manga.name_in_japanese}}</li>
@@ -33,6 +48,34 @@
            {% endfor %}
         </ul>
     </div>
-    
 
+    <div>
+        <h3>Comments</h3>
+        <hr>
+        {% for comment in comments %}
+            <ul>
+                <li>{{comment.comment|safe}}</li>
+                <li>{{comment.user}}</li>
+                <li>{{comment.date_created}}</li>
+                <hr>
+            </ul>
+        {% endfor %}
+    </div>
+    
+    <div >
+        <h3>Add your comment:</h3>
+        <hr>
+        <form action="" method="POST" class="form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                {{form_comment.comment.errors}}
+                <label for="">Comment:</label>
+                {{form_comment.comment}}
+            </div>
+            <div>
+                <input class="btn btn-primary" type="submit" value="Comment"/>
+            </div>
+        </form>
+    
+    </div>
 {% endblock content %}

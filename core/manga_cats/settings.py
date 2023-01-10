@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'tinymce',
     'user_app',
     'home_app',
     'manga_app',
@@ -130,3 +131,12 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+TINYMCE_DEFAULT_CONFIG = {
+    'style_formats': [
+        [{'title':'Dropcap','block':'p','classes':'has-dropcap'}]
+    ],
+    'width': "100%",
+    'height': "300px",  
+}

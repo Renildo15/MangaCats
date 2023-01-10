@@ -3,11 +3,12 @@ from uuid import uuid4
 from manga_app.models import Manga
 from chapter_app.models import Chapter
 from django.contrib.auth import settings
+from tinymce.models import HTMLField
 # Create your models here.
 
 class CommentManga(models.Model):
     id_comment = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    comment = models.TextField()
+    comment = HTMLField()
     date_created = models.DateTimeField(auto_now_add=True,blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     manga = models.ForeignKey(Manga, null=True, blank=True, on_delete=models.CASCADE)

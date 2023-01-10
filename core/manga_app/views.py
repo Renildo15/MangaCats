@@ -5,6 +5,8 @@ from .models import Manga
 from chapter_app.models import Chapter
 from .forms import MangaForm
 from django.contrib import messages
+from comment_app.views import comment_add, comment_list
+
 # Create your views here.
 
 def manga_list(request):
@@ -24,14 +26,20 @@ def manga_uploaded(request):
     }
     return render(request,"pages/manga/manga_uploaded.html", context)
 
+
 def manga_view(request, pk):
     manga = Manga.objects.get(id_manga=pk)
     chapter = Chapter.objects.filter(manga_id=pk)
     manga_genre = manga.genre.all()
+
+    form_comment = comment_add(request, pk, manga)
+    comment = comment_list(pk)
     context = {
         "manga": manga,
         "manga_genre":manga_genre,
-        'chapters':chapter
+        'chapters':chapter,
+        'form_comment':form_comment,
+        "comments": comment
     }
 
     return render(request, "pages/manga/manga_view.html", context)

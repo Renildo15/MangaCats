@@ -1,8 +1,7 @@
 from django.urls import path
-
+from . import views
 app_name = "comment"
-def test(request):
-    pass
+
 urlpatterns = [
-    path("comment_list/", test, name="list")
+    path("comment_delete/<str:pk>", views.comment_delete, name="comment_delete"),
 ]

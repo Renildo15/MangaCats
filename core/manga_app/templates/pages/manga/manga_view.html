@@ -58,7 +58,7 @@
                 <li>{{comment.comment|safe}}</li>
                 <li>{{comment.date_created}}</li>
                 <li><a href="">Edit</a></li>
-                <li><a href="">Delete</a></li>
+                <li><a href={% url 'comment:comment_delete' comment.id_comment %}>Delete</a></li>
                 <hr>
             </ul>
         {% endfor %}

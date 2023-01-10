@@ -32,22 +32,25 @@ def manga_view(request, pk):
     manga = Manga.objects.get(id_manga=pk)
     chapter = Chapter.objects.filter(manga_id=pk)
     manga_genre = manga.genre.all()
+    form_comment = CommentMangaForm()
     comment = comment_list(pk)
 
-    if request.method == "POST" or request.user.is_authenticated:
-        form_comment = CommentMangaForm(request.POST or None)
-        if form_comment.is_valid():
-            comment = form_comment.save(commit = False)
-            comment.user = request.user
-            comment.manga = manga
-            comment.save()
-            messages.success(request, "Comment successfully added!")
-            return HttpResponseRedirect(reverse("manga:manga_view", args=(pk,))) 
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            form_comment = CommentMangaForm(request.POST or None)
+            if form_comment.is_valid():
+                comment = form_comment.save(commit = False)
+                comment.user = request.user
+                comment.manga = manga
+                comment.save()
+                messages.success(request, "Comment successfully added!")
+                return HttpResponseRedirect(reverse("manga:manga_view", args=(pk,))) 
+            else:
+                print("Invalid")
         else:
-            print("Invalid")
+            form_comment = CommentMangaForm()
     else:
         messages.warning(request, "You must be logged in to comment!")
-        form_comment = CommentMangaForm(request.GET)
     context = {
         "manga": manga,
         "manga_genre":manga_genre,

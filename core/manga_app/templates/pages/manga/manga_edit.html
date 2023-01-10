@@ -21,6 +21,11 @@
             {{form_manga.name_in_english}}
         </div>
         <div class="form-group">
+            {{form_manga.language.errors}}
+            <label for="">Language:</label>
+            {{form_manga.language}}
+        </div>
+        <div class="form-group">
             {{form_manga.num_chapter.errors}}
             <label for="">Chapters:</label>
             {{form_manga.num_chapter}}

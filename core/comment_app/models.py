@@ -13,7 +13,7 @@ class CommentManga(models.Model):
     manga = models.ForeignKey(Manga, null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name_plural = "Comments"
+        verbose_name_plural = "Comments Manga"
         ordering = ("comment",)
         permissions = [('can_add_comment', 'Can add comment'),
                        ('can_delete_comment', 'Can delete comment'),
@@ -32,7 +32,7 @@ class CommentChapter(models.Model):
     chapter = models.ForeignKey(Chapter, null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:
-        verbose_name_plural = "Comments"
+        verbose_name_plural = "Comments Chapters"
         ordering = ("comment",)
         permissions = [('can_add_comment', 'Can add comment'),
                        ('can_delete_comment', 'Can delete comment'),

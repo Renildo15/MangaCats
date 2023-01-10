@@ -54,9 +54,11 @@
         <hr>
         {% for comment in comments %}
             <ul>
-                <li>{{comment.comment|safe}}</li>
                 <li>{{comment.user}}</li>
+                <li>{{comment.comment|safe}}</li>
                 <li>{{comment.date_created}}</li>
+                <li><a href="">Edit</a></li>
+                <li><a href="">Delete</a></li>
                 <hr>
             </ul>
         {% endfor %}

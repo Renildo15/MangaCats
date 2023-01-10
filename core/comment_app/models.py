@@ -27,14 +27,14 @@ class CommentManga(models.Model):
 
 class CommentChapter(models.Model):
     id_comment = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    comment = models.TextField()
+    comment = HTMLField()
     date_created = models.DateTimeField(auto_now_add=True,blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     chapter = models.ForeignKey(Chapter, null=True, blank=True, on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Comments Chapters"
-        ordering = ("comment",)
+        ordering = ("date_created",)
         permissions = [('can_add_comment', 'Can add comment'),
                        ('can_delete_comment', 'Can delete comment'),
                        ('can_edit_comment', 'Can edit comment'),

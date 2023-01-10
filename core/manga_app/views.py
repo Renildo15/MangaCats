@@ -1,11 +1,12 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
+from comment_app.forms import CommentChapterForm, CommentMangaForm
 from django.urls import reverse
 from .models import Manga
 from chapter_app.models import Chapter
 from .forms import MangaForm
 from django.contrib import messages
-from comment_app.views import comment_add, comment_list
+from comment_app.views import comment_list
 
 # Create your views here.
 
@@ -31,9 +32,22 @@ def manga_view(request, pk):
     manga = Manga.objects.get(id_manga=pk)
     chapter = Chapter.objects.filter(manga_id=pk)
     manga_genre = manga.genre.all()
-
-    form_comment = comment_add(request, pk, manga)
     comment = comment_list(pk)
+
+    if request.method == "POST" or request.user.is_authenticated:
+        form_comment = CommentMangaForm(request.POST or None)
+        if form_comment.is_valid():
+            comment = form_comment.save(commit = False)
+            comment.user = request.user
+            comment.manga = manga
+            comment.save()
+            messages.success(request, "Comment successfully added!")
+            return HttpResponseRedirect(reverse("manga:manga_view", args=(pk,))) 
+        else:
+            print("Invalid")
+    else:
+        messages.warning(request, "You must be logged in to comment!")
+        form_comment = CommentMangaForm(request.GET)
     context = {
         "manga": manga,
         "manga_genre":manga_genre,

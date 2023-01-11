@@ -53,12 +53,12 @@
         <h3>Comments</h3>
         <hr>
         {% for comment in comments %}
-            <ul>
+            <ul id="{{comment.id_comment}}">
                 <li>{{comment.user}}</li>
                 <li>{{comment.comment|safe}}</li>
                 <li>{{comment.date_created}}</li>
                 <li><a href={% url 'comment:comment_edit' comment.id_comment %}>Edit</a></li>
-                <li><a href={% url 'comment:comment_delete' comment.id_comment %}>Delete</a></li>
+                <li><a class="btn btn-primary" id="btn-delete" data-delete="{{comment.id_comment}}">Delete</a></li>
                 <hr>
             </ul>
         {% endfor %}
@@ -81,4 +81,29 @@
         
     
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $("a#btn-delete").on("click", function (e){
+            e.preventDefault();
+
+            var comment_id = $(this).attr("data-delete");
+            console.log(comment_id)
+
+            $.ajax({
+                type: 'GET',
+                url: '{% url "comment:comment_delete" %}',
+                data: {'comment_id': comment_id},
+                datatype: "json",
+                success: function(data){
+                    if(data.status == "delete"){
+                        $("ul#" + comment_id).fadeOut("slow", function(){
+                            $("ul#" + comment_id).remove();
+                        })
+                    }else{
+                        console.log("Erro")
+                    }
+                }
+            })
+        })
+    </script>
 {% endblock content %}

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404
 from comment_app.forms import CommentChapterForm, CommentMangaForm
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse
 from django.contrib import messages
@@ -44,9 +45,10 @@ def comment_edit(request, pk):
     }
     return render(request, "pages/manga/manga_view.html", context)
 
-def comment_delete(request, pk):
-    comment = CommentManga.objects.get(id_comment=pk)
-    id_manga = comment.manga.id_manga
+def comment_delete(request):
+    comment_id = request.GET.get('comment_id')
+    comment = CommentManga.objects.get(id_comment=comment_id)
     comment.delete()
     messages.success(request,"Comment deleted!")
-    return redirect(reverse("manga:manga_view", args=(id_manga,)))
+    data = {'status': 'delete'}
+    return JsonResponse(data)

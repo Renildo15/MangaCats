@@ -57,7 +57,7 @@
                 <li>{{comment.user}}</li>
                 <li>{{comment.comment|safe}}</li>
                 <li>{{comment.date_created}}</li>
-                <li><a href="">Edit</a></li>
+                <li><a href={% url 'comment:comment_edit' comment.id_comment %}>Edit</a></li>
                 <li><a href={% url 'comment:comment_delete' comment.id_comment %}>Delete</a></li>
                 <hr>
             </ul>
@@ -67,7 +67,7 @@
     <div >
         <h3>Add your comment:</h3>
         <hr>
-        <form action="" method="POST" class="form" enctype="multipart/form-data">
+        <form  method="POST" class="form" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group">
                 {{form_comment.comment.errors}}
@@ -78,6 +78,7 @@
                 <input class="btn btn-primary" type="submit" value="Comment"/>
             </div>
         </form>
+        
     
     </div>
 {% endblock content %}

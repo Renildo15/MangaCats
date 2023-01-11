@@ -6,7 +6,7 @@ from .models import Manga
 from chapter_app.models import Chapter
 from .forms import MangaForm
 from django.contrib import messages
-from comment_app.views import comment_list
+from comment_app.views import comment_list, comment_edit
 
 # Create your views here.
 
@@ -34,7 +34,7 @@ def manga_view(request, pk):
     manga_genre = manga.genre.all()
     form_comment = CommentMangaForm()
     comment = comment_list(pk)
-
+   
     if request.user.is_authenticated:
         if request.method == "POST":
             form_comment = CommentMangaForm(request.POST or None)
@@ -51,12 +51,13 @@ def manga_view(request, pk):
             form_comment = CommentMangaForm()
     else:
         messages.warning(request, "You must be logged in to comment!")
+
     context = {
         "manga": manga,
         "manga_genre":manga_genre,
         'chapters':chapter,
         'form_comment':form_comment,
-        "comments": comment
+        "comments": comment,
     }
 
     return render(request, "pages/manga/manga_view.html", context)

@@ -122,34 +122,5 @@
                 }
             })
         })
-
-
-        //Edit
-        {% comment %} $("li.comment").click(function(){
-            var data_id = $(this).attr("data-comment");
-            $("form#form-comment" + data_id).removeClass('d-none')
-            $("li#comment" + data_id).addClass('d-none')
-
-            $("button#edit" + data_id).on("click", function(e){
-                e.preventDefault();
-                comment = $('input#inputText'+ data_id).val();
-
-                $.ajax({
-                    type: 'GET',
-                    url: '{% url "comment:comment_edit" %}',
-                    data: {'data_id': data_id,'comment': comment,},
-                    datatype: "json",
-                    success: function (data) {
-                        if (data.status == "update-comment") {
-                            $("form#form-comment" + data_id).addClass('d-none');
-                            $("li#comment" + data_id).removeClass('d-none'); 
-                            $("#comment" + data_id).html(data.comment); 
-                        }  
-                    }
-                })
-            })
-        }) {% endcomment %}
-
-       
     </script>
 {% endblock content %}

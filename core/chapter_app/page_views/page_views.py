@@ -1,17 +1,39 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse
 from ..models import Chapter, Page
 from ..forms import PageForm, ChapterForm
+from comment_app.forms import CommentChapterForm, CommentMangaForm
 from manga_app.models import Manga
 from django.contrib import messages
+from comment_app.comment_chapter.views import comment_chapter_list
 
 
 def page_list(request, pk):
     page = Page.objects.filter(chapter_name=pk)
-
+    comment_chapter = comment_chapter_list(pk)
+    chapter = Chapter.objects.get(id_chapter=pk)
+    form_comment = CommentChapterForm()
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            form_comment = CommentChapterForm(request.POST or None)
+            if form_comment.is_valid():
+                comment = form_comment.save(commit = False)
+                comment.user = request.user
+                comment.chapter = chapter
+                comment.save()
+                messages.success(request, "Comment successfully added!")
+                return HttpResponseRedirect(reverse("chapter:page_list", args=(pk,))) 
+            else:
+                print("Invalid")
+        else:
+            form_comment = CommentMangaForm()
+    else:
+        messages.warning(request, "You must be logged in to comment!")
     context = {
-        'pages': page
+        'pages': page,
+        'comments': comment_chapter,
+        'form_comment':form_comment
     }
 
     return render(request, "pages/page/page_list.html", context)

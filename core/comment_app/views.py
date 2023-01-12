@@ -52,3 +52,5 @@ def comment_delete(request):
     messages.success(request,"Comment deleted!")
     data = {'status': 'delete'}
     return JsonResponse(data)
+
+

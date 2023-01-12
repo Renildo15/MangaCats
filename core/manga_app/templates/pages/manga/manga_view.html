@@ -6,7 +6,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    {{form_comment.media}}
+    <script type="text/javascript">
+        (function ($) {
+            function tinymce4_init(selector) {
+                var tinymce4_config = { setup: function (editor) { editor.on('change', function () { editor.save(); }); }, "language": "en", "directionality": "ltr", "cleanup_on_startup": true, "custom_undo_redo_levels": 20, "selector": "textarea.tinymce4-editor", "theme": "modern", "plugins": "\n            textcolor save link image media preview codesample contextmenu\n            table code lists fullscreen  insertdatetime  nonbreaking\n            contextmenu directionality searchreplace wordcount visualblocks\n            visualchars code fullscreen autolink lists  charmap print  hr\n            anchor pagebreak\n            ", "toolbar1": "\n            fullscreen preview bold italic underline | fontselect,\n            fontsizeselect  | forecolor backcolor | alignleft alignright |\n            aligncenter alignjustify | indent outdent | bullist numlist table |\n            | link image media | codesample |\n            ", "toolbar2": "\n            visualblocks visualchars |\n            charmap hr pagebreak nonbreaking anchor |  code |\n            ", "contextmenu": "formats | link image", "menubar": true, "statusbar": true }; if (typeof selector != 'undefined') { tinymce4_config['selector'] = selector; }
+                tinymce.init(tinymce4_config);
+            }
+            tinymce4_init();
+        })();
+
+        tinymce.init({
+            selector: '.form',
+            inline: true,
+            menubar: false
+    });
+  </script>
+{{form_comment.media}}
 {% endblock head %}
 {% block title %}MangaCats - {{manga.name_manga}}{% endblock title %}
 
@@ -53,14 +68,16 @@
         <h3>Comments</h3>
         <hr>
         {% for comment in comments %}
-            <ul id="{{comment.id_comment}}">
-                <li>{{comment.user}}</li>
-                <li>{{comment.comment|safe}}</li>
-                <li>{{comment.date_created}}</li>
-                <li><a href={% url 'comment:comment_edit' comment.id_comment %}>Edit</a></li>
-                <li><a class="btn btn-primary" id="btn-delete" data-delete="{{comment.id_comment}}">Delete</a></li>
-                <hr>
-            </ul>
+            <div>
+                <ul id="{{comment.id_comment}}">
+                    <li>{{comment.user}}</li>
+                    <li class="comment" id="comment{{comment.id_comment}}" data-comment="{{comment.id_comment}}">{{comment.comment|safe}}</li>
+                    <li>{{comment.date_created}}</li>
+                    <li><a href={% url 'comment:comment_edit' comment.id_comment %}>Edit</a></li>
+                    <li><a class="btn btn-primary" id="btn-delete" data-delete="{{comment.id_comment}}">Delete</a></li>
+                    <hr>
+                </ul>
+            </div>
         {% endfor %}
     </div>
     
@@ -105,5 +122,34 @@
                 }
             })
         })
+
+
+        //Edit
+        {% comment %} $("li.comment").click(function(){
+            var data_id = $(this).attr("data-comment");
+            $("form#form-comment" + data_id).removeClass('d-none')
+            $("li#comment" + data_id).addClass('d-none')
+
+            $("button#edit" + data_id).on("click", function(e){
+                e.preventDefault();
+                comment = $('input#inputText'+ data_id).val();
+
+                $.ajax({
+                    type: 'GET',
+                    url: '{% url "comment:comment_edit" %}',
+                    data: {'data_id': data_id,'comment': comment,},
+                    datatype: "json",
+                    success: function (data) {
+                        if (data.status == "update-comment") {
+                            $("form#form-comment" + data_id).addClass('d-none');
+                            $("li#comment" + data_id).removeClass('d-none'); 
+                            $("#comment" + data_id).html(data.comment); 
+                        }  
+                    }
+                })
+            })
+        }) {% endcomment %}
+
+       
     </script>
 {% endblock content %}

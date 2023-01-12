@@ -28,9 +28,9 @@ def comment_edit(request, pk):
         if form_comment.is_valid():
             com = form_comment.save(commit=False)
             com.user = request.user
-            com.manga = comment.manga.id_manga
+            com.manga = manga
             com.save()
-            messages.success(request, "Comment successfully added!")
+            messages.success(request, "Comment successfully Edited!")
             return HttpResponseRedirect(reverse("manga:manga_view", args=(comment.manga.id_manga,))) 
         else:
             print("Invalid")

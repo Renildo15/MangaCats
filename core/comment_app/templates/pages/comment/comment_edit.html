@@ -1,7 +1,43 @@
 {% extends "base_templates/base.html" %}
+{% block head %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript">
+        (function ($) {
+            function tinymce4_init(selector) {
+                var tinymce4_config = { setup: function (editor) { editor.on('change', function () { editor.save(); }); }, "language": "en", "directionality": "ltr", "cleanup_on_startup": true, "custom_undo_redo_levels": 20, "selector": "textarea.tinymce4-editor", "theme": "modern", "plugins": "\n            textcolor save link image media preview codesample contextmenu\n            table code lists fullscreen  insertdatetime  nonbreaking\n            contextmenu directionality searchreplace wordcount visualblocks\n            visualchars code fullscreen autolink lists  charmap print  hr\n            anchor pagebreak\n            ", "toolbar1": "\n            fullscreen preview bold italic underline | fontselect,\n            fontsizeselect  | forecolor backcolor | alignleft alignright |\n            aligncenter alignjustify | indent outdent | bullist numlist table |\n            | link image media | codesample |\n            ", "toolbar2": "\n            visualblocks visualchars |\n            charmap hr pagebreak nonbreaking anchor |  code |\n            ", "contextmenu": "formats | link image", "menubar": true, "statusbar": true }; if (typeof selector != 'undefined') { tinymce4_config['selector'] = selector; }
+                tinymce.init(tinymce4_config);
+            }
+            tinymce4_init();
+        })();
 
+        tinymce.init({
+            selector: '.form',
+            inline: true,
+            menubar: false
+    });
+  </script>
+{{form_comment.media}}
+{% endblock head %}
 {% block content %}
-
-   
+<div >
+    <h3>Add your comment:</h3>
+    <hr>
+    <form  method="POST" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            {{form_comment.comment.errors}}
+            <label for="">Comment:</label>
+            {{form_comment.comment}}
+        </div>
+        <div>
+            <input class="btn btn-primary" type="submit" value="Comment"/>
+        </div>
+    </form>
+</div>  
 {% endblock content %}
 

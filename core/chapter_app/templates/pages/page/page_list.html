@@ -49,8 +49,7 @@
                 <li>{{comment.user}}</li>
                 <li class="comment" id="comment{{comment.id_comment}}" data-comment="{{comment.id_comment}}">{{comment.comment|safe}}</li>
                 <li>{{comment.date_created}}</li>
-                <li><a href={% url 'comment:comment_edit' comment.id_comment %}>Edit</a></li>
-                {% comment %} <li><a class="btn btn-primary" id="btn-delete" data-delete-chapter="{{comment.id_comment}}">Delete</a></li> {% endcomment %}
+                <li><a href={% url 'comment:comment_chapter_edit' comment.id_comment %}>Edit</a></li>
                 <li><a class="btn btn-primary" id="btn-delete" data-chapter="{{comment.id_comment}}">Delete</a></li>
                 <hr>
             </ul>
@@ -106,5 +105,6 @@
             }
         })
     })
+
 </script>
 {% endblock content %}

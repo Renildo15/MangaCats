@@ -73,8 +73,13 @@
                     <li>{{comment.user}}</li>
                     <li class="comment" id="comment{{comment.id_comment}}" data-comment="{{comment.id_comment}}">{{comment.comment|safe}}</li>
                     <li>{{comment.date_created}}</li>
-                    <li><a href={% url 'comment:comment_edit' comment.id_comment %}>Edit</a></li>
-                    <li><a class="btn btn-primary" id="btn-delete" data-delete="{{comment.id_comment}}">Delete</a></li>
+                    {% if perms.comment_app.change_commentchapter and request.user == comment.user%}
+                        <li><a href={% url 'comment:comment_edit' comment.id_comment %}>Edit</a></li>
+                    {% endif %}
+
+                    {% if perms.comment_app.delete_commentchapter and request.user.is_staff or request.user == comment.user %}
+                        <li><a class="btn btn-primary" id="btn-delete" data-delete="{{comment.id_comment}}">Delete</a></li>
+                    {% endif %}
                     <hr>
                 </ul>
             </div>

@@ -15,7 +15,7 @@ def comment_chapter_list(pk):
 
 
 @login_required(login_url='user:login')
-@permission_required({("comment_app.delete_commentchapter"), "comment_app.can_delete_comment"}, login_url='user:login')
+@permission_required("comment_app.delete_commentchapter", login_url='user:login')
 def comment_chapter_delete(request):
     comment_id = request.GET.get('comment_id')
     comment = CommentChapter.objects.get(id_comment=comment_id)
@@ -29,7 +29,6 @@ def comment_chapter_delete(request):
 def comment_chapter_edit(request, pk):
     comment_chapter = get_object_or_404(CommentChapter, id_comment=pk)
     chapter = Chapter.objects.get(id_chapter=comment_chapter.chapter.id_chapter)
-    print(comment_chapter.chapter)
     form_comment_chapter = CommentChapterForm(instance=comment_chapter)
     if request.user.is_authenticated:
         if request.method == "POST":

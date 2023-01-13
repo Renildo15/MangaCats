@@ -15,15 +15,11 @@ class CommentManga(models.Model):
 
     class Meta:
         verbose_name_plural = "Comments Manga"
-        ordering = ("comment",)
-        permissions = [('can_add_comment', 'Can add comment'),
-                       ('can_delete_comment', 'Can delete comment'),
-                       ('can_edit_comment', 'Can edit comment'),
-                       ('can_view_comment', 'Can view comment')]
-
+        ordering = ['-date_created']
+     
 
     def __str__(self):
-        return f'Comentário manga - {self.comment[0:10]}'
+        return f'{self.user} - {self.comment}'
 
 class CommentChapter(models.Model):
     id_comment = models.UUIDField(primary_key=True, default=uuid4, editable=False)
@@ -34,11 +30,7 @@ class CommentChapter(models.Model):
 
     class Meta:
         verbose_name_plural = "Comments Chapters"
-        ordering = ("date_created",)
-        permissions = [('can_add_comment', 'Can add comment'),
-                       ('can_delete_comment', 'Can delete comment'),
-                       ('can_edit_comment', 'Can edit comment'),
-                       ('can_view_comment', 'Can view comment')]
-
+        ordering = ['-date_created']
+        
     def __str__(self):
-        return f'Comentário capítulo - {self.comment[0:10]}'
+        return f'{self.user} - {self.comment}'

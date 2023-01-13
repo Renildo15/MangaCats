@@ -8,7 +8,9 @@ urlpatterns = [
     path("", include("home_app.urls")),
     path("auth/", include("user_app.urls")),
     path("manga/", include("manga_app.urls")),
-    path("chapter/", include("chapter_app.urls"))
+    path("chapter/", include("chapter_app.urls")),
+    path("comment/", include("comment_app.urls")),
+    path('tinymce/', include('tinymce.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT  )

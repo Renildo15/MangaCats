@@ -1,5 +1,4 @@
 {% extends "base_templates/base.html" %}
-{% block title %}MangaCats - Read{% endblock title %}
 {% block head %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,45 +24,6 @@
 {{form_comment.media}}
 {% endblock head %}
 {% block content %}
-{% for msg in messages %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{msg}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
-        </div>
-{% endfor %}
-{% if pages %}
-{% for page in pages %}
-    <ul>
-        <li> 
-            <img src="{{page.image_chapter}}" >
-        </li>
-    </ul>
-    
-{% endfor %}   
-<div>
-    <h3>Comments</h3>
-    <hr>
-    {% if comments %}
-        {% for comment in comments %}
-            <ul id="{{comment.id_comment}}">
-                <li>{{comment.user}}</li>
-                <li>{{comment.comment|safe}}</li>
-                <li>{{comment.date_created}}</li>
-                {% if perms.comment_app.change_commentchapter and request.user == comment.user%}
-                    <li><a href={% url 'comment:comment_chapter_edit' comment.id_comment %}>Edit</a></li>
-                    
-                {% endif %}     
-                {% if perms.comment_app.delete_commentchapter and request.user.is_staff or request.user == comment.user%}
-                    <li><a class="btn btn-primary" id="btn-delete" data-chapter="{{comment.id_comment}}">Delete</a></li>
-                {% endif %}
-                <hr>
-            </ul>
-        {% endfor %}
-    {% else %}
-
-    <h4>Not exists comments</h4>
-    {% endif %}
-</div>
 <div >
     <h3>Add your comment:</h3>
     <hr>
@@ -78,38 +38,6 @@
             <input class="btn btn-primary" type="submit" value="Comment"/>
         </div>
     </form>
-</div>
-{% else %}
-
-<div>
-    <h1>Page not exists!</h1>
-</div>
-
-{% endif %}
-<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-<script type="text/javascript"> 
-    $("a#btn-delete").on("click", function (e) {
-        e.preventDefault();
-
-        var comment_id = $(this).attr("data-chapter");
-        console.log(comment_id);
-
-        $.ajax({
-            type: 'GET',
-            url: '{% url "comment:comment_chapter_delete" %}',
-            data: {'comment_id': comment_id},
-            datatype: "json",
-            success: function(data){
-                if(data.status == "delete"){
-                    $("ul#" + comment_id).fadeOut("slow", function(){
-                        $("ul#" + comment_id).remove();
-                    })
-                }else{
-                    console.log("Erro")
-                }
-            }
-        })
-    })
-
-</script>
+</div>  
 {% endblock content %}
+

@@ -6,9 +6,6 @@ from .forms import PageForm, ChapterForm
 from manga_app.models import Manga
 from django.contrib import messages
 # Create your views here.
-#Todo: Sistema de avaliação(adicionar no model de manga_app)
-#Todo: Adicionar campo para salvar mangá favorito
-#Todo: Adicionar campo de idioma para filtrar mangás por idioma
 #TODO: Add campo de imagem para o user
 #TODO: Tentar preecenher o select de forma automatica
 #TODO: Criar uma página para onde redirecionar os usuários sem permissões

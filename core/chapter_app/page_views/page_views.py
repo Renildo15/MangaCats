@@ -14,8 +14,8 @@ def page_list(request, pk):
     comment_chapter = comment_chapter_list(pk)
     chapter = Chapter.objects.get(id_chapter=pk)
     form_comment = CommentChapterForm()
-    if request.user.is_authenticated:
-        if request.method == "POST":
+    if request.method == "POST":
+        if request.user.is_authenticated:
             form_comment = CommentChapterForm(request.POST or None)
             if form_comment.is_valid():
                 comment = form_comment.save(commit = False)
@@ -27,9 +27,10 @@ def page_list(request, pk):
             else:
                 print("Invalid")
         else:
-            form_comment = CommentMangaForm()
+            messages.warning(request, "You must be logged in to comment!")
     else:
-        messages.warning(request, "You must be logged in to comment!")
+        form_comment = CommentMangaForm()
+    
     context = {
         'pages': page,
         'comments': comment_chapter,

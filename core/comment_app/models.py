@@ -6,12 +6,14 @@ from django.contrib.auth import settings
 from tinymce.models import HTMLField
 # Create your models here.
 
+
 class CommentManga(models.Model):
     id_comment = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     comment = HTMLField()
     date_created = models.DateTimeField(auto_now_add=True,blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     manga = models.ForeignKey(Manga, null=True, blank=True, on_delete=models.CASCADE)
+  
 
     class Meta:
         verbose_name_plural = "Comments Manga"
@@ -21,12 +23,14 @@ class CommentManga(models.Model):
     def __str__(self):
         return f'{self.user} - {self.comment}'
 
+
 class CommentChapter(models.Model):
     id_comment = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     comment = HTMLField()
     date_created = models.DateTimeField(auto_now_add=True,blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     chapter = models.ForeignKey(Chapter, null=True, blank=True, on_delete=models.CASCADE)
+    
 
     class Meta:
         verbose_name_plural = "Comments Chapters"
@@ -34,3 +38,36 @@ class CommentChapter(models.Model):
         
     def __str__(self):
         return f'{self.user} - {self.comment}'
+
+
+class ReplyCommentManga(models.Model):
+    id_reply_manga = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    reply = HTMLField()
+    date_created = models.DateTimeField(auto_now_add=True,blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
+    comment = models.ForeignKey(CommentManga , null=True , blank=True , on_delete=models.CASCADE , related_name='replies_manga')
+    
+    def __str__(self):
+        return f'{self.user} - {self.reply}'
+
+    class Meta:
+        verbose_name_plural = "Reply  Comments Manga"
+        ordering = ['-date_created']
+
+class ReplyCommentChapter(models.Model):
+    id_reply_chapter = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    reply = HTMLField()
+    date_created = models.DateTimeField(auto_now_add=True,blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
+    comment = models.ForeignKey(CommentChapter, null=True , blank=True , on_delete=models.CASCADE , related_name='replies_chapter')
+
+    def __str__(self):
+        return f'{self.user} - {self.reply}'
+    
+    class Meta:
+            verbose_name_plural = "Reply  Comments Chapters"
+            ordering = ['-date_created']
+
+
+    
+   

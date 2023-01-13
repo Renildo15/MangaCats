@@ -80,8 +80,28 @@
                     {% if perms.comment_app.delete_commentchapter and request.user.is_staff or request.user == comment.user %}
                         <li><a class="btn btn-primary" id="btn-delete" data-delete="{{comment.id_comment}}">Delete</a></li>
                     {% endif %}
-                    <hr>
+                    
                 </ul>
+               
+                <div class="reply">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample{{comment.id_comment}}" aria-expanded="false" aria-controls="collapseExample{{comment.id_comment}}">
+                        Reply
+                    </button>
+            
+                    <div class="collapse" id="collapseExample{{comment.id_comment}}">
+                        <div class="card card-body">
+                          <form action="">
+                            {% csrf_token %}
+                            <div>
+                                <label for="">Reply for comment</label>
+                                <textarea name="reply"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Reply comment</button>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+                <hr>
             </div>
         {% endfor %}
     </div>

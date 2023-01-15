@@ -13,7 +13,9 @@ class CommentManga(models.Model):
     date_created = models.DateTimeField(auto_now_add=True,blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     manga = models.ForeignKey(Manga, null=True, blank=True, on_delete=models.CASCADE)
-  
+    active = models.BooleanField(default=True)
+    parent = models.ForeignKey('self', null=True, on_delete=models.SET_NULL, blank=True, related_name='replies')
+    
 
     class Meta:
         verbose_name_plural = "Comments Manga"
@@ -40,34 +42,5 @@ class CommentChapter(models.Model):
         return f'{self.user} - {self.comment}'
 
 
-class ReplyCommentManga(models.Model):
-    id_reply_manga = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    reply = HTMLField()
-    date_created = models.DateTimeField(auto_now_add=True,blank=True, null=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
-    comment = models.ForeignKey(CommentManga , null=True , blank=True , on_delete=models.CASCADE , related_name='replies_manga')
-    
-    def __str__(self):
-        return f'{self.user} - {self.reply}'
 
-    class Meta:
-        verbose_name_plural = "Reply  Comments Manga"
-        ordering = ['-date_created']
-
-class ReplyCommentChapter(models.Model):
-    id_reply_chapter = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    reply = HTMLField()
-    date_created = models.DateTimeField(auto_now_add=True,blank=True, null=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
-    comment = models.ForeignKey(CommentChapter, null=True , blank=True , on_delete=models.CASCADE , related_name='replies_chapter')
-
-    def __str__(self):
-        return f'{self.user} - {self.reply}'
-    
-    class Meta:
-            verbose_name_plural = "Reply  Comments Chapters"
-            ordering = ['-date_created']
-
-
-    
    

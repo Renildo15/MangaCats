@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
 from comment_app.forms import CommentChapterForm, CommentMangaForm
+from comment_app.models import CommentManga
 from django.urls import reverse
 from .models import Manga
 from chapter_app.models import Chapter
 from .forms import MangaForm
 from django.contrib import messages
-from comment_app.views import comment_list, comment_edit
+from comment_app.views import comment_list
+
 
 # Create your views here.
 
@@ -29,16 +31,29 @@ def manga_uploaded(request):
 
 
 def manga_view(request, pk):
+   
     manga = Manga.objects.get(id_manga=pk)
     chapter = Chapter.objects.filter(manga_id=pk)
     manga_genre = manga.genre.all()
     form_comment = CommentMangaForm()
     comment = comment_list(pk)
-   
+
     if request.method == "POST":
         if request.user.is_authenticated:
             form_comment = CommentMangaForm(request.POST or None)
             if form_comment.is_valid():
+                parent_obj = None
+                try:
+                    parent_id = request.POST.get('parent_id')
+                except:
+                    parent_id = None
+
+                if parent_id:
+                    parent_obj = CommentManga.objects.get(id_comment=parent_id)
+                    if parent_obj:
+                        replay_comment = form_comment.save(commit=False)
+                        replay_comment.parent = parent_obj
+                        replay_comment.active = True
                 comment = form_comment.save(commit = False)
                 comment.user = request.user
                 comment.manga = manga
@@ -51,7 +66,8 @@ def manga_view(request, pk):
             messages.warning(request, "You must be logged in to comment!")
     else:
         form_comment = CommentMangaForm()
-   
+
+        
     context = {
         "manga": manga,
         "manga_genre":manga_genre,

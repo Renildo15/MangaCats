@@ -5,17 +5,19 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse
 from django.contrib import messages
 from .models import CommentManga, CommentChapter
+from .models import CommentManga
 from manga_app.models import Manga
 from chapter_app.models import Chapter
 
 # Create your views here.
 
 def comment_list(pk):
-    comment = CommentManga.objects.filter(manga=pk)
+    comment = CommentManga.objects.filter(manga=pk, active=False)
     return comment
 
 @login_required(login_url='user:login')
 @permission_required("commentmanga.change_commentmanga", login_url='user:login')
+
 def comment_edit(request, pk):
     comment = get_object_or_404(CommentManga, id_comment=pk)
     manga = Manga.objects.get(id_manga=comment.manga.id_manga)
@@ -56,5 +58,3 @@ def comment_delete(request):
     messages.success(request,"Comment deleted!")
     data = {'status': 'delete'}
     return JsonResponse(data)
-
-

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404
+from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404, HttpResponse
 from comment_app.forms import CommentChapterForm, CommentMangaForm
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required, permission_required
@@ -17,36 +17,17 @@ def comment_list(pk):
 
 @login_required(login_url='user:login')
 @permission_required("comment_app.can_edit_comment", login_url='user:login')
-def comment_edit(request, pk):
-    comment = get_object_or_404(CommentManga, id_comment=pk)
-    manga = Manga.objects.get(id_manga=comment.manga.id_manga)
-    chapter = Chapter.objects.filter(manga_id=pk)
-    manga_genre = manga.genre.all()
-    form_comment = CommentMangaForm(instance=comment)
-    comments = comment_list(comment.manga)
+def comment_edit(request):
+    data_id  = request.GET.get('data_id') # Id da Lista
+    comment = request.GET.get('comment') # Id do status
+    print(data_id, comment)
 
-    if request.method == "POST":
-        form_comment = CommentMangaForm(request.POST or None, instance=comment)
+    comment_manga = get_object_or_404(CommentManga,id_comment=data_id) # Get Objeto lista
+    comment_manga.comment = comment # status recebe novo valor "Id do status"
+    comment_manga.save() # salva  
 
-        if form_comment.is_valid():
-            com = form_comment.save(commit=False)
-            com.user = request.user
-            com.manga = manga
-            com.save()
-            messages.success(request, "Comment successfully Edited!")
-            return HttpResponseRedirect(reverse("manga:manga_view", args=(comment.manga.id_manga,))) 
-        else:
-            print("Invalid")
-
-    context = {
-        "form_comment":form_comment,
-        "manga": manga,
-        "manga_genre":manga_genre,
-        'chapters':chapter,
-        'form_comment':form_comment,
-        "comments": comments,
-    }
-    return render(request, "pages/manga/manga_view.html", context)
+    data = {'status':'update-item', 'comment':comment}
+    return JsonResponse(data) # retorna
 
 @login_required(login_url='user:login')
 @permission_required("comment_app.delete_commentmanga", login_url='user:login')

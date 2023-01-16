@@ -71,10 +71,6 @@
 
     <div>
         <h3>Comments</h3>
-        {% if perms.comment_app %}
-            <h1>You have permission to do something in the foo app.</h1>
-            {{perms.comment_app}}
-        {% endif %}
         <hr>
         {% for comment in comments %}
             <div>
@@ -83,7 +79,11 @@
                     <li class="comment" id="comment{{comment.id_comment}}" data-comment="{{comment.id_comment}}">{{comment.comment|safe}}</li>
                     <li>{{comment.date_created}}</li>
                     {% if perms.comment_app.can_edit_comment and request.user == comment.user%}
-                        <li><a href={% url 'comment:comment_edit' comment.id_comment %}>Edit</a></li>
+                        <li><a class="comment btn btn-warning" id="comment{{comment.id_comment}}" data-comment="{{comment.id_comment}}">Edit</a></li>
+                        <form class="d-none d-flex" class="form" id="form-comment{{comment.id_comment}}" method="GET">
+                            <input class="form-control" class="edit" type="text" id="inputText{{comment.id_comment}}" value="{{comment.comment|safe}}">
+                            <button type="submit" class="btn btn-warning" id="edit{{comment.id_comment}}">Save Changes</i></button>
+                        </form>
                     {% endif %}
 
                     {% if perms.comment_app.delete_commentmanga and request.user.is_staff or request.user == comment.user %}
@@ -96,7 +96,11 @@
                             <li>{{reply.date_created}}</li>
 
                             {% if perms.comment_app.change_commentmanga and request.user == reply.user%}
-                                <li><a href={% url 'comment:comment_edit' reply.id_comment %}>Edit</a></li>
+                            <li><a class="comment btn btn-warning" id="comment{{reply.id_comment}}" data-comment="{{reply.id_comment}}">Edit</a></li>
+                            <form class="d-none d-flex" class="form" id="form-comment{{reply.id_comment}}" method="GET">
+                                <input class="form-control" class="edit" type="text" id="inputText{{reply.id_comment}}" value="{{reply.comment|safe}}">
+                                <button type="submit" class="btn btn-warning" id="edit{{reply.id_comment}}">Save Changes</i></button>
+                            </form>
                             {% endif %}
     
                             {% if perms.comment_app.delete_commentmanga and request.user.is_staff or request.user == reply.user %}
@@ -123,8 +127,10 @@
                         </div>
                     </form>
                 </ul>
+               
                 <hr>
             </div>
+           
         {% empty %}
             <h4>There are no comments yet.</h4>
         {% endfor %}
@@ -144,9 +150,9 @@
                 <input class="btn btn-primary" type="submit" value="Comment"/>
             </div>
         </form>
-        
-    
+            
     </div>
+    
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script type="text/javascript">
         $("a#btn-delete").on("click", function (e){
@@ -172,6 +178,35 @@
                 }
             })
         })
+
+        $("a.comment").click(function () {
+    
+            var data_id = $(this).attr("data-comment");
+    
+            $("form#form-comment" + data_id).removeClass('d-none')
+            $("a#comment" + data_id).addClass('d-none')
+    
+            $('button#edit' + data_id).on("click", function (e) {
+                e.preventDefault();
+                
+                comment = $('input#inputText'+ data_id).val();
+        
+                $.ajax({
+                    type: 'GET',
+                    url: '{% url "comment:comment_edit" %}',
+                    data: {'data_id': data_id,'comment': comment,},
+                    datatype: "json",
+                    success: function (data) {
+                        if (data.status == "update-item") {
+                            $("form#form-comment" + data_id).addClass('d-none');
+                            $("a#comment" + data_id).removeClass('d-none'); 
+                            $("#comment" + data_id).html(data.comment); 
+                        }  
+                    }
+                }); 
+
+            });
+        });
 
         
     </script>

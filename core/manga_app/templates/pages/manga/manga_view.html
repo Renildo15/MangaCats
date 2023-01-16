@@ -19,6 +19,11 @@
             selector: '.form',
             inline: true,
             menubar: false
+            plugins: 'charmap',
+            toolbar: 'charmap',
+            charmap: [
+                [0x2615, 'morning coffee']
+            ]
     });
   </script>
 {{form_comment.media}}
@@ -66,7 +71,10 @@
 
     <div>
         <h3>Comments</h3>
-        {{list_replies}}
+        {% if perms.comment_app %}
+            <h1>You have permission to do something in the foo app.</h1>
+            {{perms.comment_app}}
+        {% endif %}
         <hr>
         {% for comment in comments %}
             <div>
@@ -74,19 +82,31 @@
                     <li>{{comment.user}}</li>
                     <li class="comment" id="comment{{comment.id_comment}}" data-comment="{{comment.id_comment}}">{{comment.comment|safe}}</li>
                     <li>{{comment.date_created}}</li>
-                    {% if perms.comment_app.change_commentchapter and request.user == comment.user%}
+                    {% if perms.comment_app.can_edit_comment and request.user == comment.user%}
                         <li><a href={% url 'comment:comment_edit' comment.id_comment %}>Edit</a></li>
                     {% endif %}
 
-                    {% if perms.comment_app.delete_commentchapter and request.user.is_staff or request.user == comment.user %}
+                    {% if perms.comment_app.delete_commentmanga and request.user.is_staff or request.user == comment.user %}
                         <li><a class="btn btn-primary" id="btn-delete" data-delete="{{comment.id_comment}}">Delete</a></li>
                     {% endif %}
                     {% for reply in comment.replies.all %}
-                        <ul>
+                        <ul id="{{reply.id_comment}}">
                             <li>{{reply.user}}</li>
                             <li class="comment" id="comment{{reply.id_comment}}" data-comment="{{reply.id_comment}}">{{reply.comment|safe}}</li>
                             <li>{{reply.date_created}}</li>
+
+                            {% if perms.comment_app.change_commentmanga and request.user == reply.user%}
+                                <li><a href={% url 'comment:comment_edit' reply.id_comment %}>Edit</a></li>
+                            {% endif %}
+    
+                            {% if perms.comment_app.delete_commentmanga and request.user.is_staff or request.user == reply.user %}
+                                <li><a class="btn btn-primary" id="btn-delete" data-delete="{{reply.id_comment}}">Delete</a></li>
+                            {% endif %}
+                            
                         </ul>
+                        <br>
+                        <br>
+                        <br>
                     {% endfor %}
 
                     <h5>Reply</h5>

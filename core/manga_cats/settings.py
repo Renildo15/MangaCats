@@ -138,22 +138,19 @@ TINYMCE_DEFAULT_CONFIG = {
     'custom_undo_redo_levels': 20,
     'selector': 'textarea',
     'theme': 'silver',
+    'icons': 'jam',
     'plugins': '''
             textcolor save link image media preview codesample contextmenu
-            table code lists fullscreen  insertdatetime  nonbreaking
+            code lists fullscreen  insertdatetime  nonbreaking
             contextmenu directionality searchreplace wordcount visualblocks
             visualchars code fullscreen autolink lists  charmap print  hr
-            anchor pagebreak
+            emoticons
             ''',
     'toolbar1': '''
-            fullscreen preview bold italic underline | fontselect,
+            fontselect,
             fontsizeselect  | forecolor backcolor | alignleft alignright |
             aligncenter alignjustify | indent outdent | bullist numlist table |
-            | link image media | codesample |
-            ''',
-    'toolbar2': '''
-            visualblocks visualchars |
-            charmap hr pagebreak nonbreaking anchor |  code |
+            | link image media | emoticons |
             ''',
     'contextmenu': 'formats | link image',
     'menubar': True,

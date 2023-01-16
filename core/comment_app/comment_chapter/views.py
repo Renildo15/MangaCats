@@ -25,7 +25,7 @@ def comment_chapter_delete(request):
     return JsonResponse(data)
 
 @login_required(login_url='user:login')
-@permission_required("commentchapter.change_commentchapter", login_url='user:login')
+@permission_required("comment_app.change_commentchapter", login_url='user:login')
 def comment_chapter_edit(request, pk):
     comment_chapter = get_object_or_404(CommentChapter, id_comment=pk)
     chapter = Chapter.objects.get(id_chapter=comment_chapter.chapter.id_chapter)

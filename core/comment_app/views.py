@@ -16,8 +16,7 @@ def comment_list(pk):
     return comment
 
 @login_required(login_url='user:login')
-@permission_required("commentmanga.change_commentmanga", login_url='user:login')
-
+@permission_required("comment_app.can_edit_comment", login_url='user:login')
 def comment_edit(request, pk):
     comment = get_object_or_404(CommentManga, id_comment=pk)
     manga = Manga.objects.get(id_manga=comment.manga.id_manga)
@@ -50,7 +49,7 @@ def comment_edit(request, pk):
     return render(request, "pages/manga/manga_view.html", context)
 
 @login_required(login_url='user:login')
-@permission_required("commentmanga.delete_commentmanga", login_url='user:login')
+@permission_required("comment_app.delete_commentmanga", login_url='user:login')
 def comment_delete(request):
     comment_id = request.GET.get('comment_id')
     comment = CommentManga.objects.get(id_comment=comment_id)

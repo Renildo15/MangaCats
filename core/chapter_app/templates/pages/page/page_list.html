@@ -47,11 +47,14 @@
         {% for comment in comments %}
             <ul id="{{comment.id_comment}}">
                 <li>{{comment.user}}</li>
-                <li>{{comment.comment|safe}}</li>
+                <li class="comment" id="comment{{comment.id_comment}}" data-comment="{{comment.id_comment}}">{{comment.comment|safe}}</li>
                 <li>{{comment.date_created}}</li>
                 {% if perms.comment_app.change_commentchapter and request.user == comment.user%}
-                    <li><a href={% url 'comment:comment_chapter_edit' comment.id_comment %}>Edit</a></li>
-                    
+                    <li><a class="comment btn btn-warning" id="comment{{comment.id_comment}}" data-comment="{{comment.id_comment}}">Edit</a></li>
+                    <form class="d-none d-flex" class="form" id="form-comment{{comment.id_comment}}" method="GET">
+                        <input class="form-control" class="edit" type="text" id="inputText{{comment.id_comment}}" value="{{comment.comment|safe}}">
+                        <button type="submit" class="btn btn-warning" id="edit{{comment.id_comment}}">Save Changes</i></button>
+                    </form>
                 {% endif %}     
                 {% if perms.comment_app.delete_commentchapter and request.user.is_staff or request.user == comment.user%}
                     <li><a class="btn btn-primary" id="btn-delete" data-chapter="{{comment.id_comment}}">Delete</a></li>
@@ -67,7 +70,7 @@
                         <li>{{reply.date_created}}</li>
 
                         {% if perms.comment_app.change_commentmanga and request.user == reply.user%}
-                        <li><a class="comment btn btn-warning" id="comment{{reply.id_comment}}" data-chapter="{{reply.id_comment}}">Edit</a></li>
+                        <li><a class="comment btn btn-warning" id="comment{{reply.id_comment}}" data-comment="{{reply.id_comment}}">Edit</a></li>
                         <form class="d-none d-flex" class="form" id="form-comment{{reply.id_comment}}" method="GET">
                             <input class="form-control" class="edit" type="text" id="inputText{{reply.id_comment}}" value="{{reply.comment|safe}}">
                             <button type="submit" class="btn btn-warning" id="edit{{reply.id_comment}}">Save Changes</i></button>
@@ -155,6 +158,36 @@
             }
         })
     })
+
+
+    $("a.comment").click(function () {
+    
+        var data_id = $(this).attr("data-comment");
+
+        $("form#form-comment" + data_id).removeClass('d-none')
+        $("a#comment" + data_id).addClass('d-none')
+
+        $('button#edit' + data_id).on("click", function (e) {
+            e.preventDefault();
+            
+            comment = $('input#inputText'+ data_id).val();
+    
+            $.ajax({
+                type: 'GET',
+                url: '{% url "comment:comment_chapter_edit" %}',
+                data: {'data_id': data_id,'comment': comment,},
+                datatype: "json",
+                success: function (data) {
+                    if (data.status == "update-item") {
+                        $("form#form-comment" + data_id).addClass('d-none');
+                        $("a#comment" + data_id).removeClass('d-none'); 
+                        $("#comment" + data_id).html(data.comment); 
+                    }  
+                }
+            }); 
+
+        });
+    });
 
 </script>
 {% endblock content %}

@@ -31,25 +31,14 @@ def comment_chapter_delete(request):
 
 @login_required(login_url='user:login')
 @permission_required("comment_app.change_commentchapter", login_url='user:login')
-def comment_chapter_edit(request, pk):
-    comment_chapter = get_object_or_404(CommentChapter, id_comment=pk)
-    chapter = Chapter.objects.get(id_chapter=comment_chapter.chapter.id_chapter)
-    form_comment_chapter = CommentChapterForm(instance=comment_chapter)
-    if request.user.is_authenticated:
-        if request.method == "POST":
-            form_comment_chapter = CommentChapterForm(request.POST or None, instance=comment_chapter)
-            if form_comment_chapter.is_valid():
-                com_ch = form_comment_chapter.save(commit=False)
-                com_ch.user = request.user
-                com_ch.chapter = chapter
-                print(com_ch.chapter)
-                com_ch.save()
-                messages.success(request,"Comment successfully edited!")
-                return redirect(reverse("chapter:page_list", args= (chapter.id_chapter,)))
-    else:
-        messages.warning(request, "You must be logged in to comment!")
-    
-    context = {
-        'form_comment': form_comment_chapter
-    }
-    return render(request, "pages/comment/comment_edit.html", context)
+def comment_chapter_edit(request):
+    data_id  = request.GET.get('data_id') 
+    comment = request.GET.get('comment') 
+    print(data_id, comment)
+
+    comment_chapter = get_object_or_404(CommentChapter,id_comment=data_id) 
+    comment_chapter.comment = comment 
+    comment_chapter.save()   
+
+    data = {'status':'update-item', 'comment':comment}
+    return JsonResponse(data) 

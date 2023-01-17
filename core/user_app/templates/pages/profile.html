@@ -14,17 +14,17 @@
                Account
             </a>
         </li>
-        {% if perms.manga.can_view_manga %}
+        {% if perms.manga_app.can_view_manga %}
             <li>
                 <a href="#">
                 Manage Manga
                 </a>
                 <div id="content" class="dropdown-nav-content" >
-                    {% if perms.manga.can_add_manga %}
+                    {% if perms.manga_app.can_add_manga %}
                         <a href={% url 'manga:manga_add' %}>Upload Manga</a>
                     {% endif %}
 
-                    {% if perms.genre.can_add_genre and perms.genre.can_view_genre %}
+                    {% if perms.manga_app.can_add_genre and perms.manga_app.can_view_genre %}
                         <a href={% url 'manga:genre_add' %}>Add new genre</a>
                         <a href={% url 'manga:genre_list' %}>Genre list</a>
                     {% else %}

@@ -16,9 +16,14 @@
         })();
 
         tinymce.init({
-            selector: '.form',
+            selector: '.form, .edit',
             inline: true,
             menubar: false
+            plugins: 'charmap',
+            toolbar: 'charmap',
+            charmap: [
+                [0x2615, 'morning coffee']
+            ]
     });
   </script>
 {{form_comment.media}}
@@ -65,7 +70,7 @@
     </div>
 
     <div>
-        <h3>Comments</h3>
+        <h3>Comments ({{total_comments}})</h3>
         <hr>
         {% for comment in comments %}
             <div>
@@ -73,16 +78,73 @@
                     <li>{{comment.user}}</li>
                     <li class="comment" id="comment{{comment.id_comment}}" data-comment="{{comment.id_comment}}">{{comment.comment|safe}}</li>
                     <li>{{comment.date_created}}</li>
-                    {% if perms.comment_app.change_commentchapter and request.user == comment.user%}
-                        <li><a href={% url 'comment:comment_edit' comment.id_comment %}>Edit</a></li>
+                    {% if perms.comment_app.can_edit_comment and request.user == comment.user%}
+                        <li><a class="comment btn btn-warning" id="comment{{comment.id_comment}}" data-comment="{{comment.id_comment}}">Edit</a></li>
+                        <form class="d-none d-flex" class="form" id="form-comment{{comment.id_comment}}" method="GET">
+                            <input class="form-control" class="edit" type="text" id="inputText{{comment.id_comment}}" value="{{comment.comment|safe}}">
+                            <button type="submit" class="btn btn-warning" id="edit{{comment.id_comment}}">Save Changes</i></button>
+                        </form>
                     {% endif %}
 
-                    {% if perms.comment_app.delete_commentchapter and request.user.is_staff or request.user == comment.user %}
+                    {% if perms.comment_app.delete_commentmanga and request.user.is_staff or request.user == comment.user %}
                         <li><a class="btn btn-primary" id="btn-delete" data-delete="{{comment.id_comment}}">Delete</a></li>
                     {% endif %}
-                    <hr>
-                </ul>
+                   {% if comment.replies.all %}
+                        <h4>Replies</h4>
+                   {% else %}
+                        
+                   {% endif %}
+                    {% for reply in comment.replies.all %}
+                        
+                        <ul id="{{reply.id_comment}}">
+                            <li>{{reply.user}}</li>
+                            <li class="comment" id="comment{{reply.id_comment}}" data-comment="{{reply.id_comment}}">{{reply.comment|safe}}</li>
+                            <li>{{reply.date_created}}</li>
+
+                            {% if perms.comment_app.change_commentmanga and request.user == reply.user%}
+                            <li><a class="comment btn btn-warning" id="comment{{reply.id_comment}}" data-comment="{{reply.id_comment}}">Edit</a></li>
+                            <form class="d-none d-flex" class="form" id="form-comment{{reply.id_comment}}" method="GET">
+                                <input class="form-control" class="edit" type="text" id="inputText{{reply.id_comment}}" value="{{reply.comment|safe}}">
+                                <button type="submit" class="btn btn-warning" id="edit{{reply.id_comment}}">Save Changes</i></button>
+                            </form>
+                            {% endif %}
+    
+                            {% if perms.comment_app.delete_commentmanga and request.user.is_staff or request.user == reply.user %}
+                                <li><a class="btn btn-primary" id="btn-delete" data-delete="{{reply.id_comment}}">Delete</a></li>
+                            {% endif %}
+                            
+                        </ul>
+                        <br>
+                        <br>
+                        <br>
+                    {% endfor %}
+                    <br>
+                      <p>
+                        <button class="btn btn-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample{{comment.id_comment}}" aria-expanded="false" aria-controls="collapseExample{{comment.id_comment}}">
+                          Replay
+                        </button>
+                      </p>
+                      <div class="collapse" id="collapseExample{{comment.id_comment}}" style="">
+                        <div class="card card-body">
+                            <form  method="POST" class="form" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    {{form_comment.comment.errors}}
+                                    <label for="">Comment:</label>
+                                    {{form_comment.comment}}
+                                </div>
+                                <div>
+                                    <input type="hidden" name="parent_id" value="{{ comment.id_comment }}">
+                                    <input class="btn btn-primary" type="submit" value="Replay">
+                                </div>
+                            </form>
+                        </div>
+                      </div>
+                <hr>
             </div>
+           
+        {% empty %}
+            <h4>There are no comments yet.</h4>
         {% endfor %}
     </div>
     
@@ -100,9 +162,9 @@
                 <input class="btn btn-primary" type="submit" value="Comment"/>
             </div>
         </form>
-        
-    
+            
     </div>
+    
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script type="text/javascript">
         $("a#btn-delete").on("click", function (e){
@@ -117,6 +179,7 @@
                 data: {'comment_id': comment_id},
                 datatype: "json",
                 success: function(data){
+                    console.log(data)
                     if(data.status == "delete"){
                         $("ul#" + comment_id).fadeOut("slow", function(){
                             $("ul#" + comment_id).remove();
@@ -127,5 +190,36 @@
                 }
             })
         })
+
+        $("a.comment").click(function () {
+    
+            var data_id = $(this).attr("data-comment");
+    
+            $("form#form-comment" + data_id).removeClass('d-none')
+            $("a#comment" + data_id).addClass('d-none')
+    
+            $('button#edit' + data_id).on("click", function (e) {
+                e.preventDefault();
+                
+                comment = $('input#inputText'+ data_id).val();
+        
+                $.ajax({
+                    type: 'GET',
+                    url: '{% url "comment:comment_edit" %}',
+                    data: {'data_id': data_id,'comment': comment,},
+                    datatype: "json",
+                    success: function (data) {
+                        if (data.status == "update-item") {
+                            $("form#form-comment" + data_id).addClass('d-none');
+                            $("a#comment" + data_id).removeClass('d-none'); 
+                            $("#comment" + data_id).html(data.comment); 
+                        }  
+                    }
+                }); 
+
+            });
+        });
+
+        
     </script>
 {% endblock content %}

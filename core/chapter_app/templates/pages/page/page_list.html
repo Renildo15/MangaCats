@@ -41,7 +41,7 @@
     
 {% endfor %}   
 <div>
-    <h3>Comments</h3>
+    <h3>Comments ({{total_comments}})</h3>
     <hr>
     {% if comments %}
         {% for comment in comments %}
@@ -56,7 +56,51 @@
                 {% if perms.comment_app.delete_commentchapter and request.user.is_staff or request.user == comment.user%}
                     <li><a class="btn btn-primary" id="btn-delete" data-chapter="{{comment.id_comment}}">Delete</a></li>
                 {% endif %}
-                <hr>
+              
+                {% if comment.replies.all %}
+                    <h4 id="title-replies">Replies</h4>
+                {% endif %}
+                {% for reply in comment.replies.all %}
+                    <ul id="{{reply.id_comment}}">
+                        <li>{{reply.user}}</li>
+                        <li class="comment" id="comment{{reply.id_comment}}" data-chapter="{{reply.id_comment}}">{{reply.comment|safe}}</li>
+                        <li>{{reply.date_created}}</li>
+
+                        {% if perms.comment_app.change_commentmanga and request.user == reply.user%}
+                        <li><a class="comment btn btn-warning" id="comment{{reply.id_comment}}" data-chapter="{{reply.id_comment}}">Edit</a></li>
+                        <form class="d-none d-flex" class="form" id="form-comment{{reply.id_comment}}" method="GET">
+                            <input class="form-control" class="edit" type="text" id="inputText{{reply.id_comment}}" value="{{reply.comment|safe}}">
+                            <button type="submit" class="btn btn-warning" id="edit{{reply.id_comment}}">Save Changes</i></button>
+                        </form>
+                        {% endif %}
+
+                        {% if perms.comment_app.delete_commentmanga and request.user.is_staff or request.user == reply.user %}
+                            <li><a class="btn btn-primary" id="btn-delete" data-delete="{{reply.id_comment}}">Delete</a></li>
+                        {% endif %}
+                    </ul>
+                {% endfor %}
+                <p>
+                    <button class="btn btn-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample{{comment.id_comment}}" aria-expanded="false" aria-controls="collapseExample{{comment.id_comment}}">
+                      Replay
+                    </button>
+                    <hr>
+                  </p>
+                  <div class="collapse" id="collapseExample{{comment.id_comment}}" style="">
+                    <div class="card card-body">
+                        <form  method="POST" class="form" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{form_comment.comment.errors}}
+                                <label for="">Comment:</label>
+                                {{form_comment.comment}}
+                            </div>
+                            <div>
+                                <input type="hidden" name="parent_id" value="{{ comment.id_comment }}">
+                                <input class="btn btn-primary" type="submit" value="Replay">
+                            </div>
+                        </form>
+                    </div>
+                  </div>
             </ul>
         {% endfor %}
     {% else %}
@@ -91,7 +135,7 @@
     $("a#btn-delete").on("click", function (e) {
         e.preventDefault();
 
-        var comment_id = $(this).attr("data-chapter");
+        var comment_id = $(this).attr("data-delete");
         console.log(comment_id);
 
         $.ajax({
@@ -103,6 +147,7 @@
                 if(data.status == "delete"){
                     $("ul#" + comment_id).fadeOut("slow", function(){
                         $("ul#" + comment_id).remove();
+                       
                     })
                 }else{
                     console.log("Erro")

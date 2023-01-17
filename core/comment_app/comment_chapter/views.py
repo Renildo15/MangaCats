@@ -10,7 +10,12 @@ from chapter_app.models import Chapter
 
 
 def comment_chapter_list(pk):
-    comment_chapter = CommentChapter.objects.filter(chapter=pk)
+    comment_chapter = CommentChapter.objects.filter(chapter=pk, active=False)
+    return comment_chapter
+
+
+def total_comments_chapter(pk):
+    comment_chapter = CommentChapter.objects.filter(chapter=pk).count()
     return comment_chapter
 
 

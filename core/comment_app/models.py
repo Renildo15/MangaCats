@@ -32,6 +32,8 @@ class CommentChapter(models.Model):
     date_created = models.DateTimeField(auto_now_add=True,blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     chapter = models.ForeignKey(Chapter, null=True, blank=True, on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
+    parent = models.ForeignKey('self', null=True, on_delete=models.SET_NULL, blank=True, related_name='replies')
     
 
     class Meta:

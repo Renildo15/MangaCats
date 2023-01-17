@@ -15,19 +15,23 @@ def comment_list(pk):
     comment = CommentManga.objects.filter(manga=pk, active=False)
     return comment
 
+def total_comments_manga(pk):
+    total_comments = CommentManga.objects.filter(manga=pk, active=False).count()
+    return total_comments
+
 @login_required(login_url='user:login')
 @permission_required("comment_app.can_edit_comment", login_url='user:login')
 def comment_edit(request):
-    data_id  = request.GET.get('data_id') # Id da Lista
-    comment = request.GET.get('comment') # Id do status
+    data_id  = request.GET.get('data_id') 
+    comment = request.GET.get('comment') 
     print(data_id, comment)
 
-    comment_manga = get_object_or_404(CommentManga,id_comment=data_id) # Get Objeto lista
-    comment_manga.comment = comment # status recebe novo valor "Id do status"
-    comment_manga.save() # salva  
+    comment_manga = get_object_or_404(CommentManga,id_comment=data_id) 
+    comment_manga.comment = comment 
+    comment_manga.save()   
 
     data = {'status':'update-item', 'comment':comment}
-    return JsonResponse(data) # retorna
+    return JsonResponse(data) 
 
 @login_required(login_url='user:login')
 @permission_required("comment_app.delete_commentmanga", login_url='user:login')

@@ -1,42 +1,7 @@
-{% extends "base_templates/base.html" %}
-{% block head %}
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js" integrity="sha512-1/RvZTcCDEUjY/CypiMz+iqqtaoQfAITmNSJY17Myp4Ms5mdxPS5UV7iOfdZoxcGhzFbOm6sntTKJppjvuhg4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css" integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script type="text/javascript">
-        (function ($) {
-            function tinymce4_init(selector) {
-                var tinymce4_config = { setup: function (editor) { editor.on('change', function () { editor.save(); }); }, "language": "en", "directionality": "ltr", "cleanup_on_startup": true, "custom_undo_redo_levels": 20, "selector": "textarea.tinymce4-editor", "theme": "modern", "plugins": "\n            textcolor save link image media preview codesample contextmenu\n            table code lists fullscreen  insertdatetime  nonbreaking\n            contextmenu directionality searchreplace wordcount visualblocks\n            visualchars code fullscreen autolink lists  charmap print  hr\n            anchor pagebreak\n            ", "toolbar1": "\n            fullscreen preview bold italic underline | fontselect,\n            fontsizeselect  | forecolor backcolor | alignleft alignright |\n            aligncenter alignjustify | indent outdent | bullist numlist table |\n            | link image media | codesample |\n            ", "toolbar2": "\n            visualblocks visualchars |\n            charmap hr pagebreak nonbreaking anchor |  code |\n            ", "contextmenu": "formats | link image", "menubar": true, "statusbar": true }; if (typeof selector != 'undefined') { tinymce4_config['selector'] = selector; }
-                tinymce.init(tinymce4_config);
-            }
-            tinymce4_init();
-        })();
-
-        tinymce.init({
-            selector: '.form, .edit',
-            inline: true,
-            menubar: false
-            plugins: 'charmap',
-            toolbar: 'charmap',
-            charmap: [
-                [0x2615, 'morning coffee']
-            ]
-    });
-  </script>
-{{form_comment.media}}
-{% endblock head %}
-{% block title %}MangaCats - {{manga.name_manga}}{% endblock title %}
+{% include "partials/head.html" %}
 
 {% block content %}
-{% for msg in messages %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{msg}}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
-        </div>
-{% endfor %}
+{% include "partials/message.html" %}
     <ul>
         <li>{{manga.name_manga}}</li>
         <li>{{manga.name_in_japanese}}</li>
@@ -56,7 +21,12 @@
             {% endfor %}
         </li>
     </ul>
-
+    {% if perms.manga_app.add_favoritemanga %}
+        <div>
+            <a class="btn btn-dark" id="btn-favorite" data-favorite="{{manga.id_manga}}">Add to favorite list</a>
+        </div>
+    {% endif %}
+    
     <div>
         <ul>
            {% for chapter in chapters %}
@@ -220,6 +190,28 @@
             });
         });
 
+        $('a#btn-favorite').on("click", function(e){
+            e.preventDefault();
+
+            manga_id = $(this).attr("data-favorite");
+            console.log(manga_id)
+
+            $.ajax({
+                type: 'GET',
+                url: '{% url "manga:favorite_manga" %}',
+                data: {'manga_id': manga_id},
+                datatype: "json",
+                success: function(data){
+                    console.log(data)
+                    if(data.status == "favorite"){
+                        alert("Added")
+                        $("a#btn-favorite").html("Remove from list"); 
+                    }else{
+                        console.log("Erro")
+                    }
+                }
+            })
+        })
         
     </script>
 {% endblock content %}

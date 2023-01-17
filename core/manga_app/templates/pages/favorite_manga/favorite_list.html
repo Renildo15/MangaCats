@@ -1,0 +1,30 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Favorite Manga List{% endblock title %}
+
+{% block content %}
+{% for msg in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+        </div>
+{% endfor %}
+{% if mangas %}
+{% for manga in mangas %}
+<ul>
+    <li>{{manga.manga.name_manga}}</li>
+    <li>{{manga.manga.num_chapter}}</li>
+    <li> 
+        <a href={% url 'manga:manga_view' manga.manga.id_manga %}>
+            <img src="{{manga.manga.cover.url}}" >
+        </a>  
+    </li>
+    <li>{{manga.manga.date_created}}</li> 
+</ul>
+
+{% endfor %}
+{% else %}
+
+<h2>Not exists list manga</h2>
+{% endif %}
+
+{% endblock content %}

@@ -31,7 +31,6 @@ def manga_uploaded(request):
 
 
 def manga_view(request, pk):
-   
     manga = Manga.objects.get(id_manga=pk)
     chapter = Chapter.objects.filter(manga_id=pk)
     manga_genre = manga.genre.all()
@@ -75,7 +74,7 @@ def manga_view(request, pk):
         'chapters':chapter,
         'form_comment':form_comment,
         "comments": comment,
-        'total_comments': total_comments
+        'total_comments': total_comments,
     }
 
     return render(request, "pages/manga/manga_view.html", context)

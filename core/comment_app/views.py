@@ -16,7 +16,7 @@ def comment_list(pk):
     return comment
 
 def total_comments_manga(pk):
-    total_comments = CommentManga.objects.filter(manga=pk, active=False).count()
+    total_comments = CommentManga.objects.filter(manga=pk).count()
     return total_comments
 
 @login_required(login_url='user:login')

@@ -10,9 +10,10 @@ from django.contrib import messages
 @permission_required("manga_app.view_favoritemanga", login_url='user:login')
 def favorite_list(request):
     list_manga = FavoriteManga.objects.filter(user=request.user)
-
+    total_list = list_manga.count()
     context = {
-        "mangas":list_manga
+        "mangas":list_manga,
+        "total_list":total_list
     }
 
     return render(request, "pages/favorite_manga/favorite_list.html", context)

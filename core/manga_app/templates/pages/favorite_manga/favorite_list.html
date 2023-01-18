@@ -8,23 +8,53 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
         </div>
 {% endfor %}
+<h1>Favorite mangas - {{total_list}}</h1>
 {% if mangas %}
-{% for manga in mangas %}
-<ul>
-    <li>{{manga.manga.name_manga}}</li>
-    <li>{{manga.manga.num_chapter}}</li>
-    <li> 
-        <a href={% url 'manga:manga_view' manga.manga.id_manga %}>
-            <img src="{{manga.manga.cover.url}}" >
-        </a>  
-    </li>
-    <li>{{manga.manga.date_created}}</li> 
-</ul>
+    {% for manga in mangas %}
+    <ul>
+        <li>{{manga.manga.name_manga}}</li>
+        <li>{{manga.manga.num_chapter}}</li>
+        <li> 
+            <a href={% url 'manga:manga_view' manga.manga.id_manga %}>
+                <img src="{{manga.manga.cover.url}}" >
+            </a>  
+        </li>
+        <li>{{manga.manga.date_created}}</li> 
+    </ul>
+    {% if perms.manga_app.add_favoritemanga %}
+        <div>
+            <a class="btn btn-dark" id="btn-remove" data-remove="{{manga.manga.id_manga}}">Remove from list</a>
+        </div>
+    {% endif %}
+        
 
-{% endfor %}
+    {% endfor %}
 {% else %}
 
 <h2>Not exists list manga</h2>
 {% endif %}
+
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $('a#btn-remove').on("click", function(e){
+        e.preventDefault();
+        manga_id = $(this).attr("data-remove");
+        console.log(manga_id)
+
+        $.ajax({
+            type: 'GET',
+            url: '{% url "manga:favorite_remove" %}',
+            data: {'manga_id': manga_id},
+            datatype: "json",
+            success: function(data){
+                console.log(data)
+                if(data.status == "removed"){
+                    alert("Removed from list!")
+                    location.reload()
+                }
+            }
+        })
+    })
+</script>
 
 {% endblock content %}

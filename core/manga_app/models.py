@@ -60,7 +60,6 @@ class Manga(models.Model):
     views_manga = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(9000000)])
     description = models.TextField()
     review = models.CharField(max_length=200, choices=choice_avaliation, null=True, blank=True)
-    favorite_manga = models.BooleanField(default=False, null=True, blank=True)
     date_created = models.DateTimeField(auto_now=True, blank=True, null=True)
     create_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
     genre = models.ManyToManyField(Genre, blank=True)
@@ -78,3 +77,13 @@ class Manga(models.Model):
 
     def __unicode__(self):
         return self.name_manga
+
+
+class FavoriteManga(models.Model):
+    id_favorite = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    favorite_manga = models.BooleanField(default=False, null=True, blank=True)
+    manga = models.ForeignKey(Manga, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
+
+    def __str__(self):
+        return f'User: {self.user.username}-favorite manga: {self.manga.name_manga}'

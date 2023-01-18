@@ -18,4 +18,5 @@ urlpatterns = [
    path('genre_delete/<str:pk>', views_genre.genre_delete, name="genre_delete"),
    path("favorite_add/",favorite_views.favorite_manga, name="favorite_manga"),
    path('favorite_list/', favorite_views.favorite_list, name="favorite_list"),
+   path('favorite_remove/', favorite_views.favorite_remove, name="favorite_remove")
 ]

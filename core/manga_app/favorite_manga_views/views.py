@@ -37,3 +37,11 @@ def favorite_manga(request):
         status = "favorite"
     data = {'status': status}
     return JsonResponse(data)
+
+
+def favorite_remove(request):
+    manga_id = request.GET.get("manga_id")
+    favorite_manga = FavoriteManga.objects.get(manga=manga_id, user=request.user)
+    favorite_manga.delete()
+    data = {"status":"removed"}
+    return JsonResponse(data)

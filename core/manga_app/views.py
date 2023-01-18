@@ -8,7 +8,7 @@ from chapter_app.models import Chapter
 from .forms import MangaForm
 from django.contrib import messages
 from comment_app.views import comment_list, total_comments_manga
-
+from .favorite_manga_views.views import favorite_button
 
 # Create your views here.
 
@@ -37,7 +37,11 @@ def manga_view(request, pk):
     form_comment = CommentMangaForm()
     total_comments = total_comments_manga(pk)
     comment = comment_list(pk)
-
+    try:
+        favorites = favorite_button(request,pk)
+    except:
+        favorites = None
+    
     if request.method == "POST":
         if request.user.is_authenticated:
             form_comment = CommentMangaForm(request.POST or None)
@@ -75,6 +79,7 @@ def manga_view(request, pk):
         'form_comment':form_comment,
         "comments": comment,
         'total_comments': total_comments,
+        'favorites': favorites
     }
 
     return render(request, "pages/manga/manga_view.html", context)

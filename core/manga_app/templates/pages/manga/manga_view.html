@@ -22,9 +22,18 @@
         </li>
     </ul>
     {% if perms.manga_app.add_favoritemanga %}
-        <div>
-            <a class="btn btn-dark" id="btn-favorite" data-favorite="{{manga.id_manga}}">Add to favorite list</a>
-        </div>
+        {% if favorites %}
+            {% if favorites.manga.id_manga == manga.id_manga %}
+                <div>
+                    <a class="btn btn-dark" id="btn-favorite" data-favorite="{{manga.id_manga}}">Remove from list</a>
+                </div>
+            {% endif %} 
+        {% else %}
+            <div>
+                <a class="btn btn-dark" id="btn-favorite" data-favorite="{{manga.id_manga}}">Add to favorite list</a>
+            </div>
+        {% endif %}
+       
     {% endif %}
     
     <div>
@@ -206,8 +215,8 @@
                     if(data.status == "favorite"){
                         alert("Added")
                         $("a#btn-favorite").html("Remove from list"); 
-                    }else{
-                        console.log("Erro")
+                    }else if (data.status == "exists"){
+                       alert("Erro")
                     }
                 }
             })

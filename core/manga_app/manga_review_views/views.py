@@ -41,6 +41,31 @@ def manga_review(request):
         review_manga = ReviewManga(review=score, manga=manga, user=request.user)
         review_manga.save()
         status = "review"
-        
+
     data = {'status':status, 'text':review}
     return JsonResponse(data) 
+
+def review_avarege(pk):
+    manga = ReviewManga.objects.filter(manga=pk).values_list('review', flat=True)
+    try:
+        total_reviews = len(manga)
+        sum_review = sum(manga)
+        manga_len = len(manga)
+        average = sum_review/manga_len
+
+        dict = {
+            "total_reviews":total_reviews,
+            "average": round(average, 2)
+        }
+
+        return dict
+    except:
+        total_reviews = None
+        average = None
+    dict = {
+        "total_reviews":total_reviews,
+        "average": average
+    }
+    return dict
+
+    

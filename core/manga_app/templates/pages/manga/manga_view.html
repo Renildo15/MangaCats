@@ -21,6 +21,20 @@
             {% endfor %}
         </li>
     </ul>
+    <div>
+        <form action="" method="GET">
+            <legend>Review</legend>
+            <select data-review={{manga.id_manga}} id="select" name="select">
+                <option value="">Select</option>
+                <option value="masterpiece">Masterpiece</option>
+                <option value="good">Good</option>
+                <option value="average">Average</option>
+                <option value="bad">Bad</option>
+                <option value="horrible">Horrible</option>
+            </select>
+        </form>
+        <p class="result"></p>
+    </div>
     {% if perms.manga_app.add_favoritemanga %}
         {% if favorites %}
             {% if favorites.manga.id_manga == manga.id_manga %}
@@ -36,36 +50,11 @@
        
     {% endif %}
     
-    <div>
-        <ul>
-           {% for chapter in chapters %}
-                <li>
-                    <a href={% url 'chapter:page_list' chapter.id_chapter %}>
-                        {{chapter.name_chapter}}
-                    </a>
-                </li>
-           {% endfor %}
-        </ul>
-    </div>
+    {% include "partials/chapters_list.html" %}
    
     {% include "partials/comments_list.html" %}
     
-    <div >
-        <h3>Add your comment:</h3>
-        <hr>
-        <form  method="POST" class="form" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group">
-                {{form_comment.comment.errors}}
-                <label for="">Comment:</label>
-                {{form_comment.comment}}
-            </div>
-            <div>
-                <input class="btn btn-primary" type="submit" value="Comment"/>
-            </div>
-        </form>
-            
-    </div>
+   {% include "partials/comments_form.html" %}
     
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script type="text/javascript">
@@ -166,6 +155,33 @@
                 }
             })
         })
-        
+
+        var review = $('#select').find(":selected").val();
+        console.log(review)
+
+        $(document).on('change','#select' ,function(e){
+            e.preventDefault();
+            var val = $('#select option:selected').val();
+            var text = $('#select option:selected').text();
+            var manga_id = $(this).attr("data-review");
+            $('.result').text("Select Value = " + val);
+            $('.result').append("<br>Select Text = " + text);
+
+            console.log(text)
+            console.log(manga_id)
+
+            $.ajax({
+                type: "GET",
+                url: '{% url "manga:manga_review" %}',
+                data: {'manga_id': manga_id, 'text': text},
+                datatype: "json",
+                success: function(data){
+                    console.log(data)
+                    if(data.status == "review"){
+                        alert("Reviewed")
+                    }
+                }
+            })
+          })
     </script>
 {% endblock content %}

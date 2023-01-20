@@ -22,7 +22,7 @@ def manga_list(request):
     return render(request,"pages/manga/manga_list.html", context)
 
 @login_required(login_url='user:login')
-@permission_required({("manga_app.view_manga"), "manga.can_view_manga"}, login_url='user:login')
+@permission_required("manga_app.view_manga", login_url='user:login')
 def manga_uploaded(request):
     manga = Manga.objects.filter(create_by=request.user)
     context = {
@@ -103,7 +103,7 @@ def manga_view(request, pk):
     return render(request, "pages/manga/manga_view.html", context)
 
 @login_required(login_url='user:login')
-@permission_required({("manga_app.add_manga"), "manga.can_add_manga"}, login_url='user:login')
+@permission_required("manga_app.add_manga", login_url='user:login')
 def manga_add(request):
     if request.method == 'POST':
         form_manga = MangaForm(request.POST or None, request.FILES,request=request)

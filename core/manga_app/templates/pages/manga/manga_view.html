@@ -52,7 +52,7 @@
                     {% else %}
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
                         <i class="fa-regular fa-star"></i>
                         <i class="fa-regular fa-star"></i>
                     {% endif %}
@@ -68,7 +68,7 @@
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
                         <i class="fa-regular fa-star"></i>
                     {% endif %}
                    
@@ -103,59 +103,63 @@
 
     </div>
     <hr>
-    <div>
-        <form action="" method="GET">
-            <legend>Review</legend>
-            <select data-review={{manga.id_manga}} id="select" name="select">
-                {% if re_sel %}
-                    {% if  re_sel.review == 1 %}
-                        <option value="">Select</option>
+
+    {% if perms.manga_app.add_reviewmanga %}
+        <div>
+            <form action="" method="GET">
+                <legend>Review</legend>
+                <select data-review={{manga.id_manga}} id="select" name="select">
+                    {% if re_sel %}
+                        {% if  re_sel.review == 1 %}
+                            <option value="null">Select</option>
+                            <option value="masterpiece">Masterpiece</option>
+                            <option value="good">Good</option>
+                            <option value="average">Average</option>
+                            <option value="bad">Bad</option>
+                            <option selected value="horrible">Horrible</option>
+                        {% elif re_sel.review == 2 %}
+                            <option value="null">Select</option>
+                            <option value="masterpiece">Masterpiece</option>
+                            <option value="good">Good</option>
+                            <option value="average">Average</option>
+                            <option selected value="bad">Bad</option>
+                            <option value="horrible">Horrible</option>
+                        {% elif re_sel.review == 3 %}
+                            <option value="null">Select</option>
+                            <option value="masterpiece">Masterpiece</option>
+                            <option value="good">Good</option>
+                            <option selected value="average">Average</option>
+                            <option value="bad">Bad</option>
+                            <option value="horrible">Horrible</option>
+                        {% elif re_sel.review == 4 %}
+                            <option value="null">Select</option>
+                            <option value="masterpiece">Masterpiece</option>
+                            <option selected value="good">Good</option>
+                            <option value="average">Average</option>
+                            <option value="bad">Bad</option>
+                            <option value="horrible">Horrible</option>
+                        {% elif re_sel.review == 5 %}
+                            <option value="null">Select</option>
+                            <option selected value="masterpiece">Masterpiece</option>
+                            <option value="good">Good</option>
+                            <option value="average">Average</option>
+                            <option value="bad">Bad</option>
+                            <option value="horrible">Horrible</option>
+                        {% endif %}
+                    {% else %}
+                        <option value="null">Select</option>
                         <option value="masterpiece">Masterpiece</option>
                         <option value="good">Good</option>
                         <option value="average">Average</option>
                         <option value="bad">Bad</option>
-                        <option selected value="horrible">Horrible</option>
-                    {% elif re_sel.review == 2 %}
-                        <option value="">Select</option>
-                        <option value="masterpiece">Masterpiece</option>
-                        <option value="good">Good</option>
-                        <option value="average">Average</option>
-                        <option selected value="bad">Bad</option>
                         <option value="horrible">Horrible</option>
-                    {% elif re_sel.review == 3 %}
-                        <option value="">Select</option>
-                        <option value="masterpiece">Masterpiece</option>
-                        <option value="good">Good</option>
-                        <option selected value="average">Average</option>
-                        <option value="bad">Bad</option>
-                        <option value="horrible">Horrible</option>
-                    {% elif re_sel.review == 4 %}
-                        <option value="">Select</option>
-                        <option value="masterpiece">Masterpiece</option>
-                        <option selected value="good">Good</option>
-                        <option value="average">Average</option>
-                        <option value="bad">Bad</option>
-                        <option value="horrible">Horrible</option>
-                    {% elif re_sel.review == 5 %}
-                        <option value="">Select</option>
-                        <option selected value="masterpiece">Masterpiece</option>
-                        <option value="good">Good</option>
-                        <option value="average">Average</option>
-                        <option value="bad">Bad</option>
-                        <option value="horrible">Horrible</option>
-                    {% endif %}
-                {% else %}
-                    <option value="">Select</option>
-                    <option value="masterpiece">Masterpiece</option>
-                    <option value="good">Good</option>
-                    <option value="average">Average</option>
-                    <option value="bad">Bad</option>
-                    <option value="horrible">Horrible</option>
-                {% endif %}    
-            </select>
-        </form>
-        <p class="result"></p>
-    </div>
+                    {% endif %}    
+                </select>
+            </form>
+            {% comment %} <p class="result"></p> {% endcomment %}
+        </div>
+    {% endif %}
+   
     {% if perms.manga_app.add_favoritemanga %}
         {% if favorites %}
             {% if favorites.manga.id_manga == manga.id_manga %}
@@ -301,6 +305,8 @@
                     if(data.status == "review"){
                         alert("Reviewed")
                         location.reload()
+                    }else if (data.status == "changed"){
+                        alert("Reviewe changed!")
                     }
                 }
             })

@@ -94,7 +94,7 @@ class ReviewManga(models.Model):
         (5, "Masterpiece")
     )
     id_review = models.UUIDField(primary_key=True, default=uuid4, editable=False)
-    review = models.IntegerField(choices=choice_review)
+    review = models.IntegerField(choices=choice_review, null=True, blank=True)
     manga = models.ForeignKey(Manga, on_delete=models.CASCADE, null=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
     

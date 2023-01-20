@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect, HttpResponse
+from django.shortcuts import get_object_or_404
 from manga_app.models import Manga, ReviewManga
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http import JsonResponse
 # Constantes com os valores das notas
 MASTERPIECE = 5
@@ -22,23 +23,35 @@ def score_manga(review):
        
     elif review == "Bad":
         score = BAD
-    else:
+    elif review == "Horrible":
         score = HORRIBLE
+    
 
     return score
 
+def remove_review(request, manga_id):
+    manga_review = get_object_or_404(ReviewManga, manga=manga_id, user=request.user)
+    manga_review.delete()
+    return True
 
+@login_required(login_url='user:login')
+@permission_required("manga_app.add_reviewmanga", login_url='user:login')
 def manga_review(request):
     status = ""
     manga_id = request.GET.get('manga_id')
     review = request.GET.get('text')
 
+    
+
     if ReviewManga.objects.filter(manga=manga_id, user=request.user).exists():
+        if review == "Select":
+            remove_review(request,manga_id)
+            status = 'review deleted'
         review_manga = get_object_or_404(ReviewManga, manga=manga_id, user=request.user)
         score = score_manga(review)
         review_manga.review = score
         review_manga.save()
-        status = "Atualizado!"
+        status = "changed"
 
     else:
         manga = get_object_or_404(Manga, id_manga=manga_id)

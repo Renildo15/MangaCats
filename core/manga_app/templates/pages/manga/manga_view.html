@@ -22,25 +22,92 @@
         </li>
     </ul>
     <div>
+       
         <legend>Score</legend>
         <h3>{{average}}</h3>
+
+        <div>
+            {% if average %}
+                {% if average >= 0 and average <= 1.99 %}
+                     <i>⭐</i>
+                {% elif average >= 2 and average <= 2.99 %}
+                    <i>⭐</i>
+                    <i>⭐</i>
+                {% elif average >= 3 and average <= 3.99 %}
+                    <i>⭐</i>
+                    <i>⭐</i>
+                    <i>⭐</i>
+                {% elif average >= 4 and average <= 4.99 %}
+                    <i>⭐</i>
+                    <i>⭐</i>
+                    <i>⭐</i>
+                    <i>⭐</i>
+                {% else %}
+                    <i>⭐</i>
+                    <i>⭐</i>
+                    <i>⭐</i>
+                    <i>⭐</i>
+                    <i>⭐</i>
+                {% endif %}
+            {% endif %}
+        </div>
         {% if reviews %}
             <span>
                 Has a total of {{reviews}} reviews!
             </span>
         {% endif %}
+
     </div>
     <hr>
     <div>
         <form action="" method="GET">
             <legend>Review</legend>
             <select data-review={{manga.id_manga}} id="select" name="select">
-                <option value="">Select</option>
-                <option value="masterpiece">Masterpiece</option>
-                <option value="good">Good</option>
-                <option value="average">Average</option>
-                <option value="bad">Bad</option>
-                <option value="horrible">Horrible</option>
+                {% if re_sel %}
+                    {% if  re_sel.review == 1 %}
+                        <option value="">Select</option>
+                        <option value="masterpiece">Masterpiece</option>
+                        <option value="good">Good</option>
+                        <option value="average">Average</option>
+                        <option value="bad">Bad</option>
+                        <option selected value="horrible">Horrible</option>
+                    {% elif re_sel.review == 2 %}
+                        <option value="">Select</option>
+                        <option value="masterpiece">Masterpiece</option>
+                        <option value="good">Good</option>
+                        <option value="average">Average</option>
+                        <option selected value="bad">Bad</option>
+                        <option value="horrible">Horrible</option>
+                    {% elif re_sel.review == 3 %}
+                        <option value="">Select</option>
+                        <option value="masterpiece">Masterpiece</option>
+                        <option value="good">Good</option>
+                        <option selected value="average">Average</option>
+                        <option value="bad">Bad</option>
+                        <option value="horrible">Horrible</option>
+                    {% elif re_sel.review == 4 %}
+                        <option value="">Select</option>
+                        <option value="masterpiece">Masterpiece</option>
+                        <option selected value="good">Good</option>
+                        <option value="average">Average</option>
+                        <option value="bad">Bad</option>
+                        <option value="horrible">Horrible</option>
+                    {% elif re_sel.review == 5 %}
+                        <option value="">Select</option>
+                        <option selected value="masterpiece">Masterpiece</option>
+                        <option value="good">Good</option>
+                        <option value="average">Average</option>
+                        <option value="bad">Bad</option>
+                        <option value="horrible">Horrible</option>
+                    {% endif %}
+                {% else %}
+                    <option value="">Select</option>
+                    <option value="masterpiece">Masterpiece</option>
+                    <option value="good">Good</option>
+                    <option value="average">Average</option>
+                    <option value="bad">Bad</option>
+                    <option value="horrible">Horrible</option>
+                {% endif %}    
             </select>
         </form>
         <p class="result"></p>
@@ -174,8 +241,8 @@
             var val = $('#select option:selected').val();
             var text = $('#select option:selected').text();
             var manga_id = $(this).attr("data-review");
-            $('.result').text("Select Value = " + val);
-            $('.result').append("<br>Select Text = " + text);
+            //$('.result').text("Select Value = " + val);
+            //$('.result').append("<br>Select Text = " + text);
 
             console.log(text)
             console.log(manga_id)

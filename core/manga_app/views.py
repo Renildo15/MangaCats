@@ -9,7 +9,7 @@ from .forms import MangaForm
 from django.contrib import messages
 from comment_app.views import comment_list, total_comments_manga
 from .favorite_manga_views.views import favorite_button
-from .manga_review_views.views import review_avarege
+from .manga_review_views.views import review_avarege, review_selected
 
 # Create your views here.
 
@@ -36,15 +36,26 @@ def manga_view(request, pk):
     chapter = Chapter.objects.filter(manga_id=pk)
     manga_genre = manga.genre.all()
     form_comment = CommentMangaForm()
+
+
     total_comments = total_comments_manga(pk)
     comment = comment_list(pk)
     re_ave = review_avarege(pk)
     reviews = re_ave['total_reviews']
     average = re_ave['average']
+   
+
+    try:
+         re_sel = review_selected(request,pk)
+    except:
+          re_sel = None
+
     try:
         favorites = favorite_button(request,pk)
+        re_sel = review_selected(request,pk)
     except:
         favorites = None
+      
     
     if request.method == "POST":
         if request.user.is_authenticated:
@@ -85,7 +96,8 @@ def manga_view(request, pk):
         'total_comments': total_comments,
         'favorites': favorites,
         "average":average,
-        'reviews':reviews
+        'reviews':reviews,
+        're_sel': re_sel
     }
 
     return render(request, "pages/manga/manga_view.html", context)

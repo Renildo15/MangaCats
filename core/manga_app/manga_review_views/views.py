@@ -27,13 +27,18 @@ def score_manga(review):
 
     return score
 
+
 def manga_review(request):
     status = ""
     manga_id = request.GET.get('manga_id')
     review = request.GET.get('text')
 
-    if ReviewManga.objects.filter(manga=manga_id, user=request.user):
-        status = "Já existe no banco de dados"
+    if ReviewManga.objects.filter(manga=manga_id, user=request.user).exists():
+        review_manga = get_object_or_404(ReviewManga, manga=manga_id, user=request.user)
+        score = score_manga(review)
+        review_manga.review = score
+        review_manga.save()
+        status = "Atualizado!"
 
     else:
         manga = get_object_or_404(Manga, id_manga=manga_id)
@@ -44,6 +49,7 @@ def manga_review(request):
 
     data = {'status':status, 'text':review}
     return JsonResponse(data) 
+
 
 def review_avarege(pk):
     manga = ReviewManga.objects.filter(manga=pk).values_list('review', flat=True)
@@ -67,5 +73,12 @@ def review_avarege(pk):
         "average": average
     }
     return dict
+
+
+def review_selected(request,pk):
+    manga = get_object_or_404(Manga, id_manga=pk)
+    review_manga = get_object_or_404(ReviewManga, manga=manga, user=request.user)
+    print(review_manga)
+    return review_manga
 
     

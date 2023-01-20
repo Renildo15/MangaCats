@@ -22,32 +22,76 @@
         </li>
     </ul>
     <div>
-       
-        <legend>Score</legend>
-        <h3>{{average}}</h3>
+        
+        <legend>Score <i class="fa-solid fa-star"></i></legend>
+        <h3>{{average}} </h3>
 
         <div>
             {% if average %}
                 {% if average >= 0 and average <= 1.99 %}
-                     <i>⭐</i>
+                    {% if average >= 1.5 %}
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    {% else %}
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    {% endif %}
                 {% elif average >= 2 and average <= 2.99 %}
-                    <i>⭐</i>
-                    <i>⭐</i>
+                    {% if average >= 2.5 %}
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    {% else %}
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    {% endif %}
+                    
                 {% elif average >= 3 and average <= 3.99 %}
-                    <i>⭐</i>
-                    <i>⭐</i>
-                    <i>⭐</i>
+                    {% if average >= 3.5 %}
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <i class="fa-regular fa-star"></i>
+                    {% else %}
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    {% endif %}
+                   
                 {% elif average >= 4 and average <= 4.99 %}
-                    <i>⭐</i>
-                    <i>⭐</i>
-                    <i>⭐</i>
-                    <i>⭐</i>
+                {% if average >= 4.5 %}
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
                 {% else %}
-                    <i>⭐</i>
-                    <i>⭐</i>
-                    <i>⭐</i>
-                    <i>⭐</i>
-                    <i>⭐</i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                {% endif %}
+                {% elif average == 5 %}
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
                 {% endif %}
             {% endif %}
         </div>
@@ -256,6 +300,7 @@
                     console.log(data)
                     if(data.status == "review"){
                         alert("Reviewed")
+                        location.reload()
                     }
                 }
             })

@@ -1,3 +1,5 @@
+{% load static %}
+
 {% include "partials/head.html" %}
 
 {% block content %}
@@ -21,6 +23,160 @@
             {% endfor %}
         </li>
     </ul>
+    <div>
+        
+        <legend>Score <i class="fa-solid fa-star"></i></legend>
+        <h3>{{average}} </h3>
+
+        <div>
+            {% if average %}
+                {% if average >= 0 and average <= 1.99 %}
+                    {% if average >= 1.5 %}
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    {% else %}
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    {% endif %}
+                {% elif average >= 2 and average <= 2.99 %}
+                    {% if average >= 2.5 %}
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    {% else %}
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    {% endif %}
+                    
+                {% elif average >= 3 and average <= 3.99 %}
+                    {% if average >= 3.5 %}
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star-half-stroke"></i>
+                        <i class="fa-regular fa-star"></i>
+                    {% else %}
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                        <i class="fa-regular fa-star"></i>
+                    {% endif %}
+                   
+                {% elif average >= 4 and average <= 4.99 %}
+                {% if average >= 4.5 %}
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star-half-stroke"></i>
+                {% else %}
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-regular fa-star"></i>
+                {% endif %}
+                {% elif average == 5 %}
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                {% endif %}
+            {% endif %}
+        </div>
+        {% if reviews %}
+            <span>
+                Has a total of {{reviews}} reviews!
+            </span>
+        {% endif %}
+
+    </div>
+    <hr>
+
+    {% if perms.manga_app.add_reviewmanga %}
+        <div>
+            <form action="" method="GET">
+                <legend>Review</legend>
+                <select data-review={{manga.id_manga}} id="select" name="select">
+                    {% if re_sel %}
+                        {% if  re_sel.review == 1 %}
+                            <option value="null">Select</option>
+                            <option value="masterpiece">Masterpiece</option>
+                            <option value="good">Good</option>
+                            <option value="average">Average</option>
+                            <option value="bad">Bad</option>
+                            <option selected value="horrible">Horrible</option>
+                        {% elif re_sel.review == 2 %}
+                            <option value="null">Select</option>
+                            <option value="masterpiece">Masterpiece</option>
+                            <option value="good">Good</option>
+                            <option value="average">Average</option>
+                            <option selected value="bad">Bad</option>
+                            <option value="horrible">Horrible</option>
+                        {% elif re_sel.review == 3 %}
+                            <option value="null">Select</option>
+                            <option value="masterpiece">Masterpiece</option>
+                            <option value="good">Good</option>
+                            <option selected value="average">Average</option>
+                            <option value="bad">Bad</option>
+                            <option value="horrible">Horrible</option>
+                        {% elif re_sel.review == 4 %}
+                            <option value="null">Select</option>
+                            <option value="masterpiece">Masterpiece</option>
+                            <option selected value="good">Good</option>
+                            <option value="average">Average</option>
+                            <option value="bad">Bad</option>
+                            <option value="horrible">Horrible</option>
+                        {% elif re_sel.review == 5 %}
+                            <option value="null">Select</option>
+                            <option selected value="masterpiece">Masterpiece</option>
+                            <option value="good">Good</option>
+                            <option value="average">Average</option>
+                            <option value="bad">Bad</option>
+                            <option value="horrible">Horrible</option>
+                        {% else %}
+                            <option value="null">Select</option>
+                            <option value="masterpiece">Masterpiece</option>
+                            <option value="good">Good</option>
+                            <option value="average">Average</option>
+                            <option value="bad">Bad</option>
+                            <option value="horrible">Horrible</option>
+                       
+                        
+                        {% endif %}
+                    {% else %}
+                        <option value="null">Select</option>
+                        <option value="masterpiece">Masterpiece</option>
+                        <option value="good">Good</option>
+                        <option value="average">Average</option>
+                        <option value="bad">Bad</option>
+                        <option value="horrible">Horrible</option>
+                    {% endif %}    
+                </select>
+            </form>
+            {% comment %} <p class="result"></p> {% endcomment %}
+            <div class="output d-none">
+                <div id="ajaxprogress">
+                    <h6>Loading</h6>
+                    <img src="{% static "/imgs/load.gif" %}" alt="load" />
+                </div>
+            </div>
+        </div>
+    {% endif %}
+   
     {% if perms.manga_app.add_favoritemanga %}
         {% if favorites %}
             {% if favorites.manga.id_manga == manga.id_manga %}
@@ -36,36 +192,11 @@
        
     {% endif %}
     
-    <div>
-        <ul>
-           {% for chapter in chapters %}
-                <li>
-                    <a href={% url 'chapter:page_list' chapter.id_chapter %}>
-                        {{chapter.name_chapter}}
-                    </a>
-                </li>
-           {% endfor %}
-        </ul>
-    </div>
+    {% include "partials/chapters_list.html" %}
    
     {% include "partials/comments_list.html" %}
     
-    <div >
-        <h3>Add your comment:</h3>
-        <hr>
-        <form  method="POST" class="form" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group">
-                {{form_comment.comment.errors}}
-                <label for="">Comment:</label>
-                {{form_comment.comment}}
-            </div>
-            <div>
-                <input class="btn btn-primary" type="submit" value="Comment"/>
-            </div>
-        </form>
-            
-    </div>
+   {% include "partials/comments_form.html" %}
     
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script type="text/javascript">
@@ -166,6 +297,38 @@
                 }
             })
         })
-        
+
+        var review = $('#select').find(":selected").val();
+        console.log(review)
+
+        $(document).on('change','#select' ,function(e){
+            e.preventDefault();
+            var val = $('#select option:selected').val();
+            var text = $('#select option:selected').text();
+            var manga_id = $(this).attr("data-review");
+            //$('.result').text("Select Value = " + val);
+            //$('.result').append("<br>Select Text = " + text);
+
+            console.log(text)
+            console.log(manga_id)
+            $('#ajaxprogress').remove('d-none');
+            $.ajax({
+                type: "GET",
+                url: '{% url "manga:manga_review" %}',
+                data: {'manga_id': manga_id, 'text': text},
+                datatype: "json",
+                success: function(data, url){
+                    console.log(data, url)
+                    if(data.status == "review"){
+                        $('#ajaxprogress').addClass('d-none');
+                        alert("Reviewed")
+                        location.reload()
+                    }else if (data.status == "changed"){
+                        $('#ajaxprogress').addClass('d-none');
+                        alert("Reviewe changed!")
+                    }
+                }
+            })
+          })
     </script>
 {% endblock content %}

@@ -2,6 +2,8 @@ from django.urls import path
 from manga_app import views
 from manga_app.genre_views import views_genre
 from manga_app.favorite_manga_views import views as favorite_views
+from manga_app.manga_review_views.views import manga_review
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 app_name="manga"
 
@@ -18,5 +20,7 @@ urlpatterns = [
    path('genre_delete/<str:pk>', views_genre.genre_delete, name="genre_delete"),
    path("favorite_add/",favorite_views.favorite_manga, name="favorite_manga"),
    path('favorite_list/', favorite_views.favorite_list, name="favorite_list"),
-   path('favorite_remove/', favorite_views.favorite_remove, name="favorite_remove")
+   path('favorite_remove/', favorite_views.favorite_remove, name="favorite_remove"),
+   path('manga_review/',manga_review, name="manga_review" )
 ]
+urlpatterns += staticfiles_urlpatterns()

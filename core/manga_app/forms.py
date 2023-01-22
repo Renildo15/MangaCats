@@ -1,5 +1,10 @@
 from django import forms
-from .models import Manga, Genre, FavoriteManga
+from .models import Manga, Genre, FavoriteManga, ReviewManga
+
+class ReviewMangaForm(forms.ModelForm):
+    class Meta:
+        model = ReviewManga
+        fields = '__all__'
 
 
 class FavoriteMangaForm(forms.ModelForm):

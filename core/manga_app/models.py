@@ -34,14 +34,7 @@ class Manga(models.Model):
         ("Pause",("Pause"))
     )
 
-    choice_avaliation = (
-        ('M', "Masterpiece"),
-        ('G', "Good"),
-        ('A', "Average"),
-        ('B', "Bad"),
-        ('H', "Horrible")
-    )
-
+    
     choice_languages = (
         ('ENG', "English"),
         ("PT-BR", "Português"),
@@ -59,7 +52,6 @@ class Manga(models.Model):
     status = models.CharField(max_length=300, choices=choice_status)
     views_manga = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(9000000)])
     description = models.TextField()
-    review = models.CharField(max_length=200, choices=choice_avaliation, null=True, blank=True)
     date_created = models.DateTimeField(auto_now=True, blank=True, null=True)
     create_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
     genre = models.ManyToManyField(Genre, blank=True)
@@ -85,5 +77,30 @@ class FavoriteManga(models.Model):
     manga = models.ForeignKey(Manga, on_delete=models.CASCADE, null=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
 
+    class Meta:
+        verbose_name_plural = "Favorites Manga"
+        ordering = ("favorite_manga",)
+
     def __str__(self):
         return f'User: {self.user.username}-favorite manga: {self.manga.name_manga}'
+
+
+class ReviewManga(models.Model):
+    choice_review = (
+        (1, "Horrible"),
+        (2, "Bad"),
+        (3, "Average"),
+        (4, "Good"),
+        (5, "Masterpiece")
+    )
+    id_review = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    review = models.IntegerField(choices=choice_review, null=True, blank=True)
+    manga = models.ForeignKey(Manga, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
+    
+    class Meta:
+        verbose_name_plural = "Reviews Manga"
+        ordering = ("review",)
+
+    def __str__(self):
+        return f'User: {self.user.username}-favorite manga: {self.manga.name_manga} - Review: {self.review}'

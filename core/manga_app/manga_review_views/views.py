@@ -23,10 +23,12 @@ def score_manga(review):
        
     elif review == "Bad":
         score = BAD
+
     elif review == "Horrible":
         score = HORRIBLE
-    
 
+    else:
+        score = None
     return score
 
 def remove_review(request, manga_id):
@@ -46,7 +48,7 @@ def manga_review(request):
     if ReviewManga.objects.filter(manga=manga_id, user=request.user).exists():
         if review == "Select":
             remove_review(request,manga_id)
-            status = 'review deleted'
+            status = 'deleted'
         review_manga = get_object_or_404(ReviewManga, manga=manga_id, user=request.user)
         score = score_manga(review)
         review_manga.review = score

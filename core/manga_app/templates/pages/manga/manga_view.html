@@ -1,3 +1,5 @@
+{% load static %}
+
 {% include "partials/head.html" %}
 
 {% block content %}
@@ -145,6 +147,15 @@
                             <option value="average">Average</option>
                             <option value="bad">Bad</option>
                             <option value="horrible">Horrible</option>
+                        {% else %}
+                            <option value="null">Select</option>
+                            <option value="masterpiece">Masterpiece</option>
+                            <option value="good">Good</option>
+                            <option value="average">Average</option>
+                            <option value="bad">Bad</option>
+                            <option value="horrible">Horrible</option>
+                       
+                        
                         {% endif %}
                     {% else %}
                         <option value="null">Select</option>
@@ -157,6 +168,12 @@
                 </select>
             </form>
             {% comment %} <p class="result"></p> {% endcomment %}
+            <div class="output d-none">
+                <div id="ajaxprogress">
+                    <h6>Loading</h6>
+                    <img src="{% static "/imgs/load.gif" %}" alt="load" />
+                </div>
+            </div>
         </div>
     {% endif %}
    
@@ -294,18 +311,20 @@
 
             console.log(text)
             console.log(manga_id)
-
+            $('#ajaxprogress').remove('d-none');
             $.ajax({
                 type: "GET",
                 url: '{% url "manga:manga_review" %}',
                 data: {'manga_id': manga_id, 'text': text},
                 datatype: "json",
-                success: function(data){
-                    console.log(data)
+                success: function(data, url){
+                    console.log(data, url)
                     if(data.status == "review"){
+                        $('#ajaxprogress').addClass('d-none');
                         alert("Reviewed")
                         location.reload()
                     }else if (data.status == "changed"){
+                        $('#ajaxprogress').addClass('d-none');
                         alert("Reviewe changed!")
                     }
                 }

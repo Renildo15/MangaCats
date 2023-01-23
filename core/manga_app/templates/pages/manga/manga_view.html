@@ -320,7 +320,7 @@
                 success: function(data, url){
                     console.log(data, url)
                     if(data.status == "review"){
-                        $('#ajaxprogress').addClass('d-none');
+                        $('#ajaxprogress').remove('d-none');
                         alert("Reviewed")
                         location.reload()
                     }else if (data.status == "changed"){

@@ -1,0 +1,31 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Account {% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div>
+        <h1>Account</h1>
+    </div>
+    <div class="content">
+      <div class="img">
+        <img style="width:300px;" src="{{request.user.profile.image_profile.url}}" alt="">
+      </div>
+
+      <div class="info">
+        <h3>Basic information</h3>
+        <ul>
+            <li>
+                <p>Username: <strong>{{request.user.profile.user.username}}</strong></p>
+            </li>
+            <li>
+                <p>Register email: <strong>{{request.user.profile.user.email}}</strong></p>
+            </li>
+            <li>
+                <p>Register date: <strong>{{request.user.profile.date_created}}</strong></p>
+            </li>
+        </ul>
+      </div>
+    </div>
+</div>
+
+{% endblock content %}

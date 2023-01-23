@@ -46,6 +46,15 @@
     {% if comments %}
         {% for comment in comments %}
             <ul id="{{comment.id_comment}}">
+                {% if comment.user.profile.image_profile %}
+                    <li>
+                        <img style="width:50px; border-radius:50%;" src="{{comment.user.profile.image_profile.url}}" alt="">
+                    </li>
+                {% else %}
+                    <li>
+                    {% load static %}   <img style="width:50px; border-radius:50%;" src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
+                    </li>
+                {% endif %}
                 <li>{{comment.user}}</li>
                 <li class="comment" id="comment{{comment.id_comment}}" data-comment="{{comment.id_comment}}">{{comment.comment|safe}}</li>
                 <li>{{comment.date_created}}</li>
@@ -65,6 +74,15 @@
                 {% endif %}
                 {% for reply in comment.replies.all %}
                     <ul id="{{reply.id_comment}}">
+                        {% if reply.user.profile.image_profile %}
+                            <li>
+                                <img style="width:50px; border-radius:50%;" src="{{reply.user.profile.image_profile.url}}" alt="">
+                            </li>
+                        {% else %}
+                            <li>
+                            {% load static %}   <img style="width:50px; border-radius:50%;" src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
+                            </li>
+                        {% endif %}
                         <li>{{reply.user}}</li>
                         <li class="comment" id="comment{{reply.id_comment}}" data-chapter="{{reply.id_comment}}">{{reply.comment|safe}}</li>
                         <li>{{reply.date_created}}</li>

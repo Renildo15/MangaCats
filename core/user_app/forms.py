@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from .models import Profile
+from django.forms import ImageField, FileInput
 
 class RegisterUserForm(UserCreationForm):
     email = forms.EmailField(widget=forms.EmailInput(), label="Email")
@@ -25,6 +26,8 @@ class ProfileUserForm(forms.ModelForm):
         exclude = ['password']
 
 class ProfileAvatarForm(forms.ModelForm):
+    #esconde o imagge currently
+    image_profile = ImageField(widget=FileInput)
     class Meta:
         model = Profile
         fields = ('image_profile',)

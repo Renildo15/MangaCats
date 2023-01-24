@@ -23,14 +23,10 @@
             <div class="accordion-body">
                 <div class="content">
                     <div class="img" style="border: 2px solid black;width:304px; height:304px;">
-                      {% if request.user.profile.image_profile %}
-                      
-                          <img style="object-fit: cover;" width="300" height="300" src="{{request.user.profile.image_profile.url}}" alt="">
-                     
-                  {% else %}
-                      <li>
+                      {% if request.user.profile.image_profile %}                   
+                          <img style="object-fit: cover;" width="300" height="300" src="{{request.user.profile.image_profile.url}}" alt="">                    
+                  {% else %}  
                        {% load static %} <img style="object-fit: cover;" width="300" height="300" src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
-                      </li>
                   {% endif %}
                     </div>
               
@@ -46,7 +42,43 @@
                           <li>
                               <p>Register date: <strong>{{request.user.profile.date_created}}</strong></p>
                           </li>
+                          {% if request.user.is_staff %}
+
+                          {% else %}
+                            <li> 
+                              <a href={% url 'manga:favorite_list' %}>
+                                  Favorites Manga
+                              </a>
+                            </li>
+                          {% endif %}
+                          
                       </ul>
+                      {% if perms.manga_app.can_view_manga %}
+                        <h3>Manager Manga</h3>
+                        <ul>
+                            <li>
+                                {% if perms.manga_app.can_add_manga %}
+                                    <a href={% url 'manga:manga_add' %}>Upload Manga</a>
+                                {% endif %}
+                            </li>
+                                {% if perms.manga_app.can_add_genre and perms.manga_app.can_view_genre %}
+                                    <li>
+                                        <a href={% url 'manga:genre_add' %}>Add new genre</a>
+                                    </li>
+                                    <li>
+                                      <a href={% url 'manga:genre_list' %}>Genre list</a>
+                                    </li>
+                                {% endif %}
+                            <li>
+                              <a href={% url 'manga:manga_uploaded' %}>Manga uploaded</a>
+                            </li>
+                            <li> 
+                              <a href={% url 'manga:favorite_list' %}>
+                                  Favorites Manga
+                              </a>
+                          </li>
+                        </ul>
+                      {% endif %}
                     </div>
                   </div>
             </div>

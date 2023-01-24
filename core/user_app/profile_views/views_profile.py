@@ -1,14 +1,8 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect
+from django.shortcuts import render,HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from ..forms import ProfileAvatarForm, ProfileUserForm
 from django.contrib import messages
-
-
-@login_required(login_url='user:login')
-def profile_home(request):
-    return render(request, "pages/profile.html")
-
 
 @login_required(login_url='user:login')
 def account(request):

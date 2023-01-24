@@ -22,14 +22,14 @@
           <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <div class="content">
-                    <div class="img">
+                    <div class="img" style="border: 2px solid black;width:304px; height:304px;">
                       {% if request.user.profile.image_profile %}
                       
-                          <img style="width:300px;" src="{{request.user.profile.image_profile.url}}" alt="">
+                          <img style="object-fit: cover;" width="300" height="300" src="{{request.user.profile.image_profile.url}}" alt="">
                      
                   {% else %}
                       <li>
-                       {% load static %}   <img style="width:50px; border-radius:50%;" src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
+                       {% load static %} <img style="object-fit: cover;" width="300" height="300" src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
                       </li>
                   {% endif %}
                     </div>

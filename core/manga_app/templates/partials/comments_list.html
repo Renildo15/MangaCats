@@ -6,11 +6,11 @@
             <ul id="{{comment.id_comment}}">
                 {% if comment.user.profile.image_profile %}
                     <li >
-                        <img style="width:50px; border-radius:50%;" src="{{comment.user.profile.image_profile.url}}" alt="">
+                        <img style="object-fit: cover; border-radius:50%" width="50" height="50" src="{{comment.user.profile.image_profile.url}}" alt="">
                     </li>
                 {% else %}
                     <li>
-                     {% load static %}   <img style="width:50px; border-radius:50%;" src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
+                     {% load static %}   <img style="object-fit: cover;border-radius:50%" width="50" height="50" src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
                     </li>
                 {% endif %}
               
@@ -38,11 +38,11 @@
                     <ul id="{{reply.id_comment}}">
                         {% if reply.user.profile.image_profile %}
                             <li>
-                                <img style="width:50px; border-radius:50%;" src="{{reply.user.profile.image_profile.url}}" alt="">
+                                <img style="object-fit: cover;border-radius:50%" width="50" height="50" src="{{reply.user.profile.image_profile.url}}" alt="">
                             </li>
                         {% else %}
                             <li>
-                                {% load static %}   <img style="width:50px; border-radius:50%;" src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
+                                {% load static %}   <img style="object-fit: cover;border-radius:50%" width="50" height="50" src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
                            </li>
                         {% endif %}
                         <li>{{reply.user}}</li>

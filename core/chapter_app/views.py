@@ -6,7 +6,6 @@ from .forms import PageForm, ChapterForm
 from manga_app.models import Manga
 from django.contrib import messages
 # Create your views here.
-#TODO: Add campo de imagem para o user
 #TODO: Tentar preecenher o select de forma automatica
 #TODO: Criar uma página para onde redirecionar os usuários sem permissões
 

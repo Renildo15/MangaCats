@@ -1,0 +1,167 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Account {% endblock title %}
+
+{% block content %}
+{% for msg in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+        </div>
+{% endfor %}
+<div class="container">
+    <div>
+        <h1>Account</h1>
+    </div>
+    <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <h3>Informations</h3>
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="content">
+                    <div class="img" style="border: 2px solid black;width:304px; height:304px;">
+                      {% if request.user.profile.image_profile %}                   
+                          <img style="object-fit: cover;" width="300" height="300" src="{{request.user.profile.image_profile.url}}" alt="">                    
+                  {% else %}  
+                       {% load static %} <img style="object-fit: cover;" width="300" height="300" src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
+                  {% endif %}
+                    </div>
+              
+                    <div class="info">
+                      <h3>Basic information</h3>
+                      <ul>
+                          <li>
+                              <p>Username: <strong>{{request.user.profile.user.username}}</strong></p>
+                          </li>
+                          <li>
+                              <p>Register email: <strong>{{request.user.profile.user.email}}</strong></p>
+                          </li>
+                          <li>
+                              <p>Register date: <strong>{{request.user.profile.date_created}}</strong></p>
+                          </li>
+                          {% if request.user.is_staff %}
+
+                          {% else %}
+                            <li> 
+                              <a href={% url 'manga:favorite_list' %}>
+                                  Favorites Manga
+                              </a>
+                            </li>
+                          {% endif %}
+                          
+                      </ul>
+                      {% if perms.manga_app.can_view_manga %}
+                        <h3>Manager Manga</h3>
+                        <ul>
+                            <li>
+                                {% if perms.manga_app.can_add_manga %}
+                                    <a href={% url 'manga:manga_add' %}>Upload Manga</a>
+                                {% endif %}
+                            </li>
+                                {% if perms.manga_app.can_add_genre and perms.manga_app.can_view_genre %}
+                                    <li>
+                                        <a href={% url 'manga:genre_add' %}>Add new genre</a>
+                                    </li>
+                                    <li>
+                                      <a href={% url 'manga:genre_list' %}>Genre list</a>
+                                    </li>
+                                {% endif %}
+                            <li>
+                              <a href={% url 'manga:manga_uploaded' %}>Manga uploaded</a>
+                            </li>
+                            <li> 
+                              <a href={% url 'manga:favorite_list' %}>
+                                  Favorites Manga
+                              </a>
+                          </li>
+                        </ul>
+                      {% endif %}
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+             <h3>Update Information</h3>
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+             <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                  {{form_user.username.errors}}
+                  <label for="">Username:</label>
+                  {{form_user.username}}
+                </div>
+                <div class="form-group">
+                  {{form_user.email.errors}}
+                  <label for="">Email:</label>
+                  {{form_user.email}}
+                </div>
+                <div class="form-group">
+                  {{form_user.first_name.errors}}
+                  <label for="">First Name:</label>
+                  {{form_user.first_name}}
+                </div>
+                <div class="form-group">
+                  {{form_user.last_name.errors}}
+                  <label for="">Last Name:</label>
+                  {{form_user.last_name}}
+                </div>
+                <div>
+                    <button class="submit_update">Save changes</button>
+                </div>
+                <div class="output d-none">
+                    <div id="ajaxprogress">
+                        <h6>Loading</h6>
+                       {% load static %} <img src="{% static "/imgs/load.gif" %}" alt="load" />
+                    </div>
+                </div>
+             </form>
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+             <h3>Update Avatar</h3>
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <form method="post" class="form" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                  {{form_avatar.image_profile.errors}}
+                  <label for="">Image:</label>
+                  {{form_avatar.image_profile}}
+                </div>
+                <div>
+                    <button class="submit_update">Save changes</button>
+                </div>
+                <div class="output d-none">
+                    <div id="ajaxprogress">
+                        <h6>Loading</h6>
+                       {% load static %} <img src="{% static "/imgs/load.gif" %}" alt="load" />
+                    </div>
+                </div>
+             </form>
+          </div>
+        </div>
+      </div>
+   
+    
+</div>
+<script type="text/javascript">
+   
+
+</script>
+
+{% endblock content %}

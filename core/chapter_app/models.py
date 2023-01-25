@@ -12,6 +12,7 @@ class Chapter(models.Model):
     name_chapter = models.CharField(max_length=300)
     manga = models.ForeignKey(Manga,on_delete=models.CASCADE, null=True, blank=True)
     date_create = models.DateTimeField(auto_now_add=True,blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
 
 

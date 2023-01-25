@@ -10,6 +10,7 @@ from django.contrib import messages
 from comment_app.views import comment_list, total_comments_manga
 from .favorite_manga_views.views import favorite_button
 from .manga_review_views.views import review_avarege, review_selected
+from home_app.views import  manga_id
 
 # Create your views here.
 
@@ -21,14 +22,21 @@ def manga_list(request):
     }
     return render(request,"pages/manga/manga_list.html", context)
 
+
+
 @login_required(login_url='user:login')
 @permission_required("manga_app.view_manga", login_url='user:login')
 def manga_uploaded(request):
     manga = Manga.objects.filter(create_by=request.user)
+    id_manga= manga.values_list('id_manga', flat=True)
+    _last = manga_id(id_manga)
     context = {
-        "mangas": manga
+        "mangas": manga,
+        "last":_last
     }
     return render(request,"pages/manga/manga_uploaded.html", context)
+
+
 
 
 def manga_view(request, pk):

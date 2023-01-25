@@ -1,4 +1,5 @@
 {% extends "base_templates/base.html" %}
+{% load static %}
 {% block title %}MangaCats - Homepage{% endblock title %}
 
 {% block content %}
@@ -8,10 +9,20 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
   </div>
 {% endfor %}
-<div class="container">
-  <div class="content">
+<div id="container" class="container">
+  <div class="title">
     <h1>Popular Manga</h1>
-   
+    <div>
+      <div>
+        <form action="" method="get">
+          <input type="submit" name="JP" value="JP">
+          <input type="submit" name="PT-BR" value="PT-BR">
+          <input type="submit" name="ENG" value="ENG">
+        </form>
+      </div>
+    </div>
+  </div>
+  <div id="content" class="content">
     <div class="manga-list">
       {% for manga in mangas %}
           <ul>
@@ -41,5 +52,7 @@
 
   </div>
 </div>
+
+<script src="{% static "/js/script.js" %}"></script>
    
 {% endblock content %}

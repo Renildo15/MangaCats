@@ -22,9 +22,14 @@
         <tbody>
         {% for manga in mangas %}
             <tr>
-                <td><img src="{{manga.cover.url}}" ></td>
+                <td><img width="320" height="454" src="{{manga.cover.url}}" ></td>
                 <td>{{manga.name_manga}}</td>
-                <td>101</td>
+                {% for l in last %}
+                    {% if manga.id_manga == l.manga.id_manga %}
+                        <td>{{l}}</td>
+                    {% endif %}
+                {% endfor %}
+                
                 <td>{{manga.status}}</td>
                 <td>{{manga.date_created}}</td>
                 <td>

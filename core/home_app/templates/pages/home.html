@@ -2,16 +2,44 @@
 {% block title %}MangaCats - Homepage{% endblock title %}
 
 {% block content %}
-      {% for msg in messages %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          {{msg}}
-          <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
-        </div>
+{% for msg in messages %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{msg}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+  </div>
+{% endfor %}
+<div class="container">
+  <div class="content">
+    <h1>Popular Manga</h1>
+   
+    <div class="manga-list">
+      {% for manga in mangas %}
+          <ul>
+              <li>{{manga.name_manga}}</li>
+              <li>{{manga.num_chapter}}</li>
+              <li>{{manga.views_manga}}</li>
+              <li> 
+                  <a href={% url 'manga:manga_view' manga.id_manga %}>
+                      <img src="{{manga.cover.url}}" width="320" height="454">
+                  </a>  
+              </li>
+              <li>{{manga.date_created}}</li> 
+              <li>{{manga.updated_at}}</li> 
+            
+              {% for l in last %}
+                {% if manga.id_manga == l.manga.id_manga%}
+                  <li>{{l}} - {{l.updated_at}}</li>
+                 
+                {% endif %}
+                
+                 
+              {% endfor %}
+          </ul>
+          
       {% endfor %}
-    <div class="container">
-      <div class="content">
-        <h1>Popular Manga</h1>
-      </div>
     </div>
+
+  </div>
+</div>
    
 {% endblock content %}

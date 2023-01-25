@@ -52,7 +52,8 @@ class Manga(models.Model):
     status = models.CharField(max_length=300, choices=choice_status)
     views_manga = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(9000000)])
     description = models.TextField()
-    date_created = models.DateTimeField(auto_now=True, blank=True, null=True)
+    date_created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
     create_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
     genre = models.ManyToManyField(Genre, blank=True)
 

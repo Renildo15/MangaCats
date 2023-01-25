@@ -15,10 +15,35 @@ from home_app.views import  manga_id
 # Create your views here.
 
 def manga_list(request):
-    manga = Manga.objects.all()
+    laguage_pt = request.GET.get('PT-BR')
+    laguage_jp = request.GET.get('JP')
+    laguage_eng = request.GET.get('ENG')
+    laguage_all = request.GET.get('ALL')
+
+    manga = Manga.objects.all().order_by('-views_manga')
+    id_manga= manga.values_list('id_manga', flat=True)
+    _last = manga_id(id_manga)
+    
+    if laguage_eng:
+        manga = Manga.objects.filter(language=laguage_eng).order_by('-views_manga')
+        id_manga= manga.values_list('id_manga', flat=True)
+        _last = manga_id(id_manga)
+    elif laguage_pt: 
+        manga = Manga.objects.filter(language=laguage_pt).order_by('-views_manga')
+        id_manga= manga.values_list('id_manga', flat=True)
+        _last = manga_id(id_manga)
+    elif laguage_jp:
+        manga = Manga.objects.filter(language=laguage_jp).order_by('-views_manga')
+        id_manga= manga.values_list('id_manga', flat=True)
+        _last = manga_id(id_manga)
+    elif laguage_all:
+        manga = Manga.objects.all().order_by('-views_manga')
+        id_manga= manga.values_list('id_manga', flat=True)
+        _last = manga_id(id_manga)
     
     context = {
-        "mangas": manga,
+        "mangas":manga,
+        "last":_last
     }
     return render(request,"pages/manga/manga_list.html", context)
 

@@ -7,7 +7,11 @@ def manga_popular(request):
     laguage_pt = request.GET.get('PT-BR')
     laguage_jp = request.GET.get('JP')
     laguage_eng = request.GET.get('ENG')
-
+    laguage_all = request.GET.get('ALL')
+    manga_popular = Manga.objects.all().order_by('-views_manga')
+    id_manga= manga_popular.values_list('id_manga', flat=True)
+    _last = manga_id(id_manga)
+    
     if laguage_eng:
         manga_popular = Manga.objects.filter(language=laguage_eng).order_by('-views_manga')
         id_manga= manga_popular.values_list('id_manga', flat=True)
@@ -20,8 +24,8 @@ def manga_popular(request):
         manga_popular = Manga.objects.filter(language=laguage_jp).order_by('-views_manga')
         id_manga= manga_popular.values_list('id_manga', flat=True)
         _last = manga_id(id_manga)
-    else:
-        manga_popular = Manga.objects.filter(language="JP").order_by('-views_manga')
+    elif laguage_all:
+        manga_popular = Manga.objects.all().order_by('-views_manga')
         id_manga= manga_popular.values_list('id_manga', flat=True)
         _last = manga_id(id_manga)
     

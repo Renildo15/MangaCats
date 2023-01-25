@@ -8,7 +8,21 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
         </div>
 {% endfor %}
+<div class="title">
+    <h1>Manga list</h1>
+    <div>
+      <div>
+        <form action="" method="get">
+          <input type="submit" name="JP" value="JP">
+          <input type="submit" name="PT-BR" value="PT-BR">
+          <input type="submit" name="ENG" value="ENG">
+          <input type="submit" name="ALL" value="ALL">
+        </form>
+      </div>
+    </div>
+</div>
 {% for manga in mangas %}
+   <div>
     <ul>
         <li>{{manga.name_manga}}</li>
         <li>{{manga.num_chapter}}</li>
@@ -18,8 +32,14 @@
             </a>  
         </li>
         <li>{{manga.date_created}}</li> 
-        <li>{{manga.updated_at}}</li> 
+        <li>{{manga.updated_at}}</li>
+        {% for l in last %}
+            {% if manga.id_manga == l.manga.id_manga%}
+                 <li>{{l}} - {{l.updated_at}}</li>      
+             {% endif %}    
+        {% endfor %}
     </ul>
+   </div>
     
 {% endfor %}
 {% endblock content %}

@@ -16,7 +16,7 @@
         <li>{{manga.manga.num_chapter}}</li>
         <li> 
             <a href={% url 'manga:manga_view' manga.manga.id_manga %}>
-                <img src="{{manga.manga.cover.url}}" >
+                <img src="{{manga.manga.cover.url}}" width="320" height="454">
             </a>  
         </li>
         <li>{{manga.manga.date_created}}</li> 

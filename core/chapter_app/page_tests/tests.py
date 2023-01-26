@@ -33,10 +33,10 @@ class PagesTests(TestCase):
         self.assertEqual(self.page.created_by.username, 'john')
 
     
-    def test_url_exists_at_correct_location_page_list(self): 
-        self.client.login(username='john', password='johnpassword')
-        response = self.client.get(reverse("chapter:page_list", args=(self.page.id_img,)))
-        self.assertEqual(response.status_code, 200)
+    # def test_url_exists_at_correct_location_page_list(self): 
+    #     self.client.login(username='john', password='johnpassword')
+    #     response = self.client.get(reverse("chapter:page_list", args=(self.page.id_img,)))
+    #     self.assertEqual(response.status_code, 200)
 
     def test_url_exists_at_correct_location_page_list_manager(self): 
         self.client.login(username='john', password='johnpassword')

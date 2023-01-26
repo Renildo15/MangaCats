@@ -11,7 +11,19 @@
 {% endfor %}
 <div id="container" class="container">
   <div class="title">
-    <h1>Popular Manga</h1>
+    <div class="search">
+      <form action="">
+        <input type="text" placeholder="Search Manga here...">
+        <button>Search</button>
+      </form>
+    </div>
+    {% if language %}
+
+      <h1>Popular Manga - {{language}}</h1>
+    {% else %}
+      <h1>Popular Manga - ALL</h1>
+    {% endif %}
+   
     <div>
       <div>
         <form action="" method="get">
@@ -24,36 +36,38 @@
     </div>
   </div>
   <div id="content" class="content">
-    <div class="manga-list">
-      {% for manga in mangas %}
-          <ul>
-              <li>{{manga.name_manga}}</li>
-              <li>{{manga.num_chapter}}</li>
-              <li>{{manga.views_manga}}</li>
-              <li> 
-                  <a href={% url 'manga:manga_view' manga.id_manga %}>
-                      <img src="{{manga.cover.url}}" width="320" height="454">
-                  </a>  
-              </li>
-              <li>{{manga.date_created}}</li> 
-              <li>{{manga.updated_at}}</li> 
-            
-              {% for l in last %}
-                {% if manga.id_manga == l.manga.id_manga%}
-                  <li>{{l}} - {{l.updated_at}}</li>
-                 
-                {% endif %}
-                
-                 
-              {% endfor %}
-          </ul>
+   {% if mangas %}
+   <div class="manga-list">
+    {% for manga in mangas %}
+        <ul>
+            <li>{{manga.name_manga}}</li>
+            <li>{{manga.num_chapter}}</li>
+            <li>{{manga.views_manga}}</li>
+            <li> 
+                <a href={% url 'manga:manga_view' manga.id_manga %}>
+                    <img src="{{manga.cover.url}}" width="320" height="454">
+                </a>  
+            </li>
+            <li>{{manga.date_created}}</li> 
+            <li>{{manga.updated_at}}</li> 
           
-      {% endfor %}
-    </div>
-
+            {% for l in last %}
+              {% if manga.id_manga == l.manga.id_manga%}
+                <li>{{l}} - {{l.updated_at}}</li>
+               
+              {% endif %}
+              
+               
+            {% endfor %}
+        </ul>
+        
+    {% endfor %}
+   </div>
+   {% else %}
+    <h5>No register</h5>
+   {% endif %}
   </div>
 </div>
 
-<script src="{% static "/js/script.js" %}"></script>
    
 {% endblock content %}

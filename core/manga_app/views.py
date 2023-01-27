@@ -13,6 +13,8 @@ from .manga_review_views.views import review_avarege, review_selected
 from home_app.views import  manga_id
 
 # Create your views here.
+#TODO: Desenvolver histórico de acesso
+
 
 def manga_list(request):
     laguage_pt = request.GET.get('PT-BR')

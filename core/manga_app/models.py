@@ -105,3 +105,25 @@ class ReviewManga(models.Model):
 
     def __str__(self):
         return f'User: {self.user.username}-favorite manga: {self.manga.name_manga} - Review: {self.review}'
+
+class StatusManga(models.Model):
+
+    status_choice = (
+        ("not_read","Not read"),
+        ("reading","Reading"),
+        ("plan_to_read","Plan to Read"),
+        ("dropped","Dropped"),
+        ("completed","Completed")
+    )
+
+    id_status = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    status = models.CharField(max_length=200, null=True, blank=True, choices=status_choice, default="not_read")
+    manga = models.ForeignKey(Manga, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
+
+    class Meta:
+        verbose_name_plural = "Status Manga"
+        ordering = ("manga",)
+
+    def __str__(self):
+        return f'User: {self.user.username} - {self.manga.name_manga}'

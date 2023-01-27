@@ -1,9 +1,56 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from manga_app.forms import GenreForm
-from manga_app.models import Genre
+from manga_app.models import Genre, Manga
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 
+
+def language(request,queryset):
+    laguage_pt = request.GET.get('PT-BR')
+    laguage_jp = request.GET.get('JP')
+    laguage_eng = request.GET.get('ENG')
+    laguage_all = request.GET.get('ALL')
+
+    manga = queryset.all()
+
+    if laguage_eng:
+        manga = queryset.filter(language=laguage_eng)
+        return manga
+    elif laguage_pt: 
+        manga = queryset.filter(language=laguage_pt)
+        return manga
+    elif laguage_jp:
+        manga = queryset.filter(language=laguage_jp)
+        return manga
+    elif laguage_all:
+        manga = queryset.all()
+        return manga
+    
+    return manga
+       
+
+def genre(request):
+    genre = Genre.objects.all()
+    genre_id = genre.values_list('id_genre', flat=True)
+
+    context = {
+        "genres": genre,
+    }
+
+    return render(request, "pages/genre/genre.html", context)
+
+
+def genre_filter(request, pk, name_genre):
+    manga = Manga.objects.filter(genre=pk)
+    manga = language(request, manga)
+    manga_total = manga.count()
+    context = {
+        "mangas": manga,
+        "manga_total":manga_total,
+        "name_genre":name_genre
+    }
+    return render(request, "pages/genre/genre_manga.html", context)
+   
 
 @login_required(login_url='user:login')
 @permission_required({("manga_app.view_genre"), "genre.can_view_genre"})

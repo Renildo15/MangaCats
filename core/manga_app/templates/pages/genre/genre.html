@@ -1,0 +1,28 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Genre List{% endblock title %}
+
+{% block content %}
+{% for msg in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+        </div>
+{% endfor %}
+
+<div class="container">
+    <div>
+        <h4>Genre List</h4>
+    </div>
+    <div class="content">
+        <ul>
+            {% for genre in genres %}
+            
+                <li>
+                    <a href={% url 'manga:genre_manga' genre.name_genre genre.id_genre%}>{{genre.name_genre}}</a>
+                </li>
+
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock content %}

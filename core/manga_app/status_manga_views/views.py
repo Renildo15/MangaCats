@@ -7,8 +7,7 @@ from ..models import StatusManga, Manga
 def status_manga(request):
     manga_status_val = request.GET.get('status_val')
     manga_id = request.GET.get('manga_id')
-    teste = request.GET.get('status')
-    print(teste)
+    
     status = ''
    
     if StatusManga.objects.filter(manga=manga_id, user=request.user).exists():

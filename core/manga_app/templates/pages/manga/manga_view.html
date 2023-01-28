@@ -178,16 +178,14 @@
         </div>
         <div>
             <legend>Status Manga</legend>
-            {{status.status}}
-
             {% if status %}
                 <form action="" method="GET">
                     <select data-status={{manga.id_manga}} name="status" id="status">
-                        <option value="not_read">Not Read</option>
-                        <option value="reading">Reading</option>
-                        <option value="plan_to_read">Plan to Read</option>
-                        <option value="dropped">Dropped</option>
-                        <option value="completed">Completed</option>
+                        <option value="not_read" {% if status.status == 'not_read' %}selected{% endif %}>Not Read</option>
+                        <option value="reading"{% if status.status == 'reading' %}selected{% endif %}>Reading</option>
+                        <option value="plan_to_read"{% if status.status == 'plan_to_read' %}selected{% endif %}>Plan to Read</option>
+                        <option value="dropped"{% if status.status == 'dropped' %}selected{% endif %}>Dropped</option>
+                        <option value="completed"{% if status.status == 'completed' %}selected{% endif %}>Completed</option>
                     </select>
                 </form>
             {% else %}
@@ -386,5 +384,6 @@
                 }
             })
           })
+
     </script>
 {% endblock content %}

@@ -93,7 +93,6 @@ def review_avarege(pk):
 def review_selected(request,pk):
     manga = get_object_or_404(Manga, id_manga=pk)
     review_manga = get_object_or_404(ReviewManga, manga=manga, user=request.user)
-    print(review_manga)
     return review_manga
 
     

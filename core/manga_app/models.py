@@ -126,4 +126,4 @@ class StatusManga(models.Model):
         ordering = ("manga",)
 
     def __str__(self):
-        return f'User: {self.user.username} - {self.manga.name_manga}'
+        return f'User: {self.user.username} - {self.manga.name_manga} - Status - {self.status}'

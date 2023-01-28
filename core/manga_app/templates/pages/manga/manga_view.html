@@ -176,6 +176,33 @@
                 </div>
             </div>
         </div>
+        <div>
+            <legend>Status Manga</legend>
+            {{status.status}}
+
+            {% if status %}
+                <form action="" method="GET">
+                    <select data-status={{manga.id_manga}} name="status" id="status">
+                        <option value="not_read">Not Read</option>
+                        <option value="reading">Reading</option>
+                        <option value="plan_to_read">Plan to Read</option>
+                        <option value="dropped">Dropped</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </form>
+            {% else %}
+                <form action="" method="GET">
+                    <select data-status={{manga.id_manga}} name="status" id="status">
+                        <option value="not_read">Not Read</option>
+                        <option value="reading">Reading</option>
+                        <option value="plan_to_read">Plan to Read</option>
+                        <option value="dropped">Dropped</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </form>
+            {% endif %}
+            
+        </div>
     {% endif %}
    
     {% if perms.manga_app.add_favoritemanga %}
@@ -327,6 +354,34 @@
                     }else if (data.status == "changed"){
                         $('#ajaxprogress').addClass('d-none');
                         alert("Reviewe changed!")
+                    }
+                }
+            })
+          })
+
+          var status = $("#status").find(":selected").val();
+          console.log(status)
+          $(document).on("change", "#status", function(e){
+            e.preventDefault();
+
+            var status_val = $("#status option:selected").val();
+            var manga_id = $(this).attr("data-status");
+            console.log(status_val);
+            console.log(manga_id)
+
+            $.ajax({
+                type:'GET',
+                url: '{% url "manga:manga_status"  %}',
+                data: {'status_val':status_val, 'manga_id':manga_id },
+                datatype: "json",
+                success: function(data){
+                    console.log(data)
+                    if(data.status == "added"){
+                        alert("Added to ")
+                        location.reload()
+                    }else if(data.status == "changed"){
+                        alert("Changed to ")
+                        location.reload()
                     }
                 }
             })

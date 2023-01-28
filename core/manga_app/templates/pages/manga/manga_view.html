@@ -113,51 +113,12 @@
                 <legend>Review</legend>
                 <select data-review={{manga.id_manga}} id="select" name="select">
                     {% if re_sel %}
-                        {% if  re_sel.review == 1 %}
-                            <option value="null">Select</option>
-                            <option value="masterpiece">Masterpiece</option>
-                            <option value="good">Good</option>
-                            <option value="average">Average</option>
-                            <option value="bad">Bad</option>
-                            <option selected value="horrible">Horrible</option>
-                        {% elif re_sel.review == 2 %}
-                            <option value="null">Select</option>
-                            <option value="masterpiece">Masterpiece</option>
-                            <option value="good">Good</option>
-                            <option value="average">Average</option>
-                            <option selected value="bad">Bad</option>
-                            <option value="horrible">Horrible</option>
-                        {% elif re_sel.review == 3 %}
-                            <option value="null">Select</option>
-                            <option value="masterpiece">Masterpiece</option>
-                            <option value="good">Good</option>
-                            <option selected value="average">Average</option>
-                            <option value="bad">Bad</option>
-                            <option value="horrible">Horrible</option>
-                        {% elif re_sel.review == 4 %}
-                            <option value="null">Select</option>
-                            <option value="masterpiece">Masterpiece</option>
-                            <option selected value="good">Good</option>
-                            <option value="average">Average</option>
-                            <option value="bad">Bad</option>
-                            <option value="horrible">Horrible</option>
-                        {% elif re_sel.review == 5 %}
-                            <option value="null">Select</option>
-                            <option selected value="masterpiece">Masterpiece</option>
-                            <option value="good">Good</option>
-                            <option value="average">Average</option>
-                            <option value="bad">Bad</option>
-                            <option value="horrible">Horrible</option>
-                        {% else %}
-                            <option value="null">Select</option>
-                            <option value="masterpiece">Masterpiece</option>
-                            <option value="good">Good</option>
-                            <option value="average">Average</option>
-                            <option value="bad">Bad</option>
-                            <option value="horrible">Horrible</option>
-                       
-                        
-                        {% endif %}
+                        <option value="null">Select</option>
+                        <option value="masterpiece" {% if re_sel.review == 5 %}selected{% endif %}>Masterpiece</option>
+                        <option value="good" {% if re_sel.review == 4 %}selected{% endif %}>Good</option>
+                        <option value="average" {% if re_sel.review == 3 %}selected{% endif %}>Average</option>
+                        <option value="bad" {% if re_sel.review == 2 %}selected{% endif %}>Bad</option>
+                        <option value="horrible" {% if re_sel.review == 1 %}selected{% endif %}>Horrible</option> 
                     {% else %}
                         <option value="null">Select</option>
                         <option value="masterpiece">Masterpiece</option>

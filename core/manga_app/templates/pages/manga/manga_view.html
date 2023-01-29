@@ -129,13 +129,6 @@
                     {% endif %}    
                 </select>
             </form>
-            {% comment %} <p class="result"></p> {% endcomment %}
-            <div class="output d-none">
-                <div id="ajaxprogress">
-                    <h6>Loading</h6>
-                    <img src="{% static "/imgs/load.gif" %}" alt="load" />
-                </div>
-            </div>
         </div>
         <div>
             <legend>Status Manga</legend>
@@ -286,19 +279,11 @@
         })
 
         var review = $('#select').find(":selected").val();
-        console.log(review)
-
         $(document).on('change','#select' ,function(e){
             e.preventDefault();
             var val = $('#select option:selected').val();
             var text = $('#select option:selected').text();
             var manga_id = $(this).attr("data-review");
-            //$('.result').text("Select Value = " + val);
-            //$('.result').append("<br>Select Text = " + text);
-
-            console.log(text)
-            console.log(manga_id)
-            $('#ajaxprogress').remove('d-none');
             $.ajax({
                 type: "GET",
                 url: '{% url "manga:manga_review" %}',
@@ -307,11 +292,9 @@
                 success: function(data, url){
                     console.log(data, url)
                     if(data.status == "review"){
-                        $('#ajaxprogress').remove('d-none');
                         alert("Reviewed")
                         location.reload()
                     }else if (data.status == "changed"){
-                        $('#ajaxprogress').addClass('d-none');
                         alert("Reviewe changed!")
                     }
                 }
@@ -319,15 +302,11 @@
           })
 
           var status = $("#status").find(":selected").val();
-          console.log(status)
           $(document).on("change", "#status", function(e){
             e.preventDefault();
 
             var status_val = $("#status option:selected").val();
             var manga_id = $(this).attr("data-status");
-            console.log(status_val);
-            console.log(manga_id)
-
             $.ajax({
                 type:'GET',
                 url: '{% url "manga:manga_status"  %}',

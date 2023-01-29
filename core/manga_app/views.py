@@ -15,7 +15,7 @@ from home_app.views import  manga_id
 
 # Create your views here.
 #TODO: Desenvolver histórico de acesso
-#BUG: Corrigir o problema do botão de favoritar
+#BUG: Corrigir os problemas das reviews, status e favoritos
 
 def manga_list(request):
     laguage_pt = request.GET.get('PT-BR')

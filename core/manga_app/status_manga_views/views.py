@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from ..models import StatusManga, Manga
 
 
+#TODO: Adicionar a remoção do status do banco de dados quando clicar em not_read
 def status_manga(request):
     manga_status_val = request.GET.get('status_val')
     manga_id = request.GET.get('manga_id')
@@ -11,6 +12,10 @@ def status_manga(request):
     status = ''
    
     if StatusManga.objects.filter(manga=manga_id, user=request.user).exists():
+        if manga_status_val == "not_read":
+            st = get_object_or_404(StatusManga, manga=manga_id, user=request.user)
+            st.delete()
+            status="deleted"
         _status = get_object_or_404(StatusManga, manga=manga_id, user = request.user)
         _status.status = manga_status_val
         _status.save()

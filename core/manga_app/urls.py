@@ -26,5 +26,6 @@ urlpatterns = [
    path("favorite_remove/", favorite_views.favorite_remove, name="favorite_remove"),
    path("manga_review/",manga_review, name="manga_review" ),
    path("manga_status/", status_views.status_manga, name="manga_status"),
+   path("manga_list_by_status/<str:status>",status_views.status, name="list_status" ),
 ]
 urlpatterns += staticfiles_urlpatterns()

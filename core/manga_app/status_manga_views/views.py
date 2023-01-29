@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, HttpResponse
+from django.shortcuts import render, get_object_or_404, HttpResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.http import JsonResponse
 from ..models import StatusManga, Manga
@@ -8,6 +8,7 @@ from ..models import StatusManga, Manga
 def status_manga(request):
     manga_status_val = request.GET.get('status_val')
     manga_id = request.GET.get('manga_id')
+    
     
     status = ''
    
@@ -37,3 +38,34 @@ def status_selected(request,pk):
     manga = get_object_or_404(Manga, id_manga=pk)
     status_manga = get_object_or_404(StatusManga, manga=manga, user=request.user)
     return status_manga
+
+def status(request, status):
+    manga_reading = StatusManga.objects.filter(status=status, user=request.user)
+    title = status_title(status)
+    total_list = manga_reading.count()
+    context = {
+        "manga_reading":manga_reading,
+        "total_list":total_list,
+        "title": title
+    }
+    return render(request,"pages/status/status.html", context)
+
+
+def status_title(status):
+    if status == "reading":
+        title = "Reading"
+        return title
+    elif status == "dropped":
+        title = "Dropped"
+        return title
+    elif status == "completed":
+        title = "Completed"
+        return title
+    else:
+        title = "Plan to Read"
+        return title
+
+
+
+
+

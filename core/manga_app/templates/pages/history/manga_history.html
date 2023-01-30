@@ -10,7 +10,11 @@
 {% endfor %}
 <div class="title">
     <h1>History Manga List</h1>
-    <a href={% url 'manga:manga_history_reset' %}> Reset all</a>
+    {% if perms.manga_app.delete_historymanga %}
+        <a href={% url 'manga:manga_history_reset' %}> Reset all</a>
+    {% endif %}
+    
+   
 </div>
 {% if manga_history %}
   {% for manga in manga_history %}

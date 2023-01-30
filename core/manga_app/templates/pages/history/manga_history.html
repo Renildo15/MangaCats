@@ -1,0 +1,34 @@
+{% extends "base_templates/base.html" %}
+{% block title %}MangaCats - Manga List{% endblock title %}
+
+{% block content %}
+{% for msg in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{msg}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
+        </div>
+{% endfor %}
+<div class="title">
+    <h1>History Manga List</h1>
+    <a href={% url 'manga:manga_history_reset' %}> Reset all</a>
+</div>
+{% if manga_history %}
+  {% for manga in manga_history %}
+    <div>
+      <ul>
+          <li>{{manga.manga.name_manga}}</li>
+          <li>{{manga.manga.num_chapter}}</li>
+          <li> 
+              <a href={% url 'manga:manga_view' manga.manga.id_manga %}>
+                  <img src="{{manga.manga.cover.url}}" width="320" height="454">
+              </a>  
+          </li>
+          <li>{{manga.manga.date_created}}</li> 
+          <li>{{manga.manga.updated_at}}</li>
+      </ul>
+    </div> 
+  {% endfor %}
+{% else %}
+    <h5>No register</h5>
+{% endif %}
+{% endblock content %}

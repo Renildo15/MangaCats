@@ -73,8 +73,7 @@ def manga_view(request, pk):
     manga_genre = manga.genre.all()
     form_comment = CommentMangaForm()
     user = request.user
-    history = manga_history(request,manga,user)
-    print(history)
+    history = manga_history(manga, user)
     total_comments = total_comments_manga(pk)
     comment = comment_list(pk)
     re_ave = review_avarege(pk)

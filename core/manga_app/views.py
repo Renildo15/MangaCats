@@ -10,9 +10,12 @@ from django.contrib import messages
 from comment_app.views import comment_list, total_comments_manga
 from .favorite_manga_views.views import favorite_button
 from .manga_review_views.views import review_avarege, review_selected
+from .status_manga_views.views import status_selected
 from home_app.views import  manga_id
 
 # Create your views here.
+#TODO: Desenvolver histórico de acesso
+#BUG: Corrigir os problemas das reviews, status e favoritos
 
 def manga_list(request):
     laguage_pt = request.GET.get('PT-BR')
@@ -79,15 +82,15 @@ def manga_view(request, pk):
    
 
     try:
-         re_sel = review_selected(request,pk)
-    except:
-          re_sel = None
-
-    try:
+        status = status_selected(request,pk)
         favorites = favorite_button(request,pk)
         re_sel = review_selected(request,pk)
     except:
+        re_sel = None
+        status = None
         favorites = None
+
+   
       
     
     if request.method == "POST":
@@ -130,7 +133,8 @@ def manga_view(request, pk):
         'favorites': favorites,
         "average":average,
         'reviews':reviews,
-        're_sel': re_sel
+        're_sel': re_sel,
+        "status":status
     }
 
     return render(request, "pages/manga/manga_view.html", context)

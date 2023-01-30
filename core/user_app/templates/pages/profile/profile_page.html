@@ -50,6 +50,26 @@
                                   Favorites Manga
                               </a>
                             </li>
+                            <li> 
+                              <a href={% url 'manga:list_status' 'reading' %}>
+                                  Reading
+                              </a>
+                            </li>
+                            <li> 
+                              <a href={% url 'manga:list_status' 'dropped' %}>
+                                  Doppred
+                              </a>
+                            </li>
+                            <li> 
+                              <a href={% url 'manga:list_status' 'completed'%}>
+                                  Completed
+                              </a>
+                            </li>
+                            <li> 
+                              <a href={% url 'manga:list_status' 'plan_to_watch' %}>
+                                  Plan to Read
+                              </a>
+                            </li>
                           {% endif %}
                           
                       </ul>

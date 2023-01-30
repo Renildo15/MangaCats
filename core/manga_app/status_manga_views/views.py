@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.http import JsonResponse
 from ..models import StatusManga, Manga
 
-
-#TODO: Adicionar a remoção do status do banco de dados quando clicar em not_read
+@login_required(login_url='user:login')
+@permission_required("manga_app.add_statusmanga", login_url='user:login')
 def status_manga(request):
     manga_status_val = request.GET.get('status_val')
     manga_id = request.GET.get('manga_id')
@@ -39,6 +39,8 @@ def status_selected(request,pk):
     status_manga = get_object_or_404(StatusManga, manga=manga, user=request.user)
     return status_manga
 
+@login_required(login_url='user:login')
+@permission_required("manga_app.view_statusmanga", login_url='user:login')
 def status(request, status):
     manga_reading = StatusManga.objects.filter(status=status, user=request.user)
     title = status_title(status)

@@ -127,3 +127,17 @@ class StatusManga(models.Model):
 
     def __str__(self):
         return f'User: {self.user.username} - {self.manga.name_manga} - Status - {self.status}'
+
+
+class HistoryManga(models.Model):
+    id_history = models.UUIDField(primary_key=True, default=uuid4, editable=False)
+    manga = models.ForeignKey(Manga, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    view_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "History Mangas"
+        ordering = ("manga",)
+
+    def __str__(self):
+        return f'Histórico - User: {self.user.username} - Manga: {self.manga.name_manga}'

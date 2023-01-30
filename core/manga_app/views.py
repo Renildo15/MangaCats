@@ -11,11 +11,11 @@ from comment_app.views import comment_list, total_comments_manga
 from .favorite_manga_views.views import favorite_button
 from .manga_review_views.views import review_avarege, review_selected
 from .status_manga_views.views import status_selected
+from .manga_history.views_history import manga_history
 from home_app.views import  manga_id
 
 # Create your views here.
 #TODO: Desenvolver histórico de acesso
-#BUG: Corrigir os problemas das reviews, status e favoritos
 
 def manga_list(request):
     laguage_pt = request.GET.get('PT-BR')
@@ -72,8 +72,8 @@ def manga_view(request, pk):
     chapter = Chapter.objects.filter(manga_id=pk)
     manga_genre = manga.genre.all()
     form_comment = CommentMangaForm()
-
-
+    user = request.user
+    history = manga_history(manga, user)
     total_comments = total_comments_manga(pk)
     comment = comment_list(pk)
     re_ave = review_avarege(pk)

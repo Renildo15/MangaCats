@@ -3,6 +3,7 @@ from manga_app import views
 from manga_app.genre_views import views_genre
 from manga_app.favorite_manga_views import views as favorite_views
 from manga_app.status_manga_views import views as status_views
+from manga_app.manga_history import views_history as history_views
 from manga_app.manga_review_views.views import manga_review
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
@@ -27,5 +28,7 @@ urlpatterns = [
    path("manga_review/",manga_review, name="manga_review" ),
    path("manga_status/", status_views.status_manga, name="manga_status"),
    path("manga_list_by_status/<str:status>",status_views.status, name="list_status" ),
+   path("manga_history/",history_views.manga_history_list, name="manga_history" ),
+   path("manga_history_reset/", history_views.manga_history_reset, name="manga_history_reset")
 ]
 urlpatterns += staticfiles_urlpatterns()

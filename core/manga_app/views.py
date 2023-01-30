@@ -83,12 +83,17 @@ def manga_view(request, pk):
 
     try:
         status = status_selected(request,pk)
+    except:   
+        status = None
+    try:
         favorites = favorite_button(request,pk)
+    except:
+        favorites = None
+
+    try:
         re_sel = review_selected(request,pk)
     except:
         re_sel = None
-        status = None
-        favorites = None
 
    
       

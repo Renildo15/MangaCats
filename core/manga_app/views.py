@@ -15,7 +15,6 @@ from .manga_history.views_history import manga_history
 from home_app.views import  manga_id
 
 # Create your views here.
-#TODO: Desenvolver histórico de acesso
 
 def manga_list(request):
     laguage_pt = request.GET.get('PT-BR')
@@ -69,9 +68,12 @@ def manga_uploaded(request):
 
 def manga_view(request, pk):
     manga = Manga.objects.get(id_manga=pk)
+    manga.views_manga += 1
+    manga.save()
     chapter = Chapter.objects.filter(manga_id=pk)
     manga_genre = manga.genre.all()
     form_comment = CommentMangaForm()
+
     user = request.user
     history = manga_history(manga, user)
     total_comments = total_comments_manga(pk)

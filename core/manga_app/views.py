@@ -64,12 +64,12 @@ def manga_uploaded(request):
     return render(request,"pages/manga/manga_uploaded.html", context)
 
 
-
-
 def manga_view(request, pk):
     manga = Manga.objects.get(id_manga=pk)
     manga.views_manga += 1
     manga.save()
+
+
     chapter = Chapter.objects.filter(manga_id=pk)
     manga_genre = manga.genre.all()
     form_comment = CommentMangaForm()

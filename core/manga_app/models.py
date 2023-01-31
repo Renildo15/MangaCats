@@ -3,6 +3,8 @@ from uuid import uuid4
 from django.core.validators import MaxValueValidator, MinValueValidator 
 from django.contrib.auth import settings
 from django.db.models import F
+from chapter_app.models import Chapter
+from django.db.models.signals import post_save
 # Create your models here.
 
 
@@ -46,7 +48,7 @@ class Manga(models.Model):
     name_in_japanese = models.CharField(max_length=300, null=True, blank=True)
     name_in_english = models.CharField(max_length=300, null=True, blank=True)
     language = models.CharField(max_length=200, choices=choice_languages)
-    num_chapter = models.PositiveIntegerField(default=0, validators=[MinValueValidator(1), MaxValueValidator(9000000)], null=True, blank=True)
+    num_chapter = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(9000000)], null=True, blank=True)
     cover = models.ImageField(upload_to ='uploads')
     author = models.CharField(max_length=300)
     status = models.CharField(max_length=300, choices=choice_status)
@@ -70,6 +72,15 @@ class Manga(models.Model):
 
     def __unicode__(self):
         return self.name_manga
+
+    def add_chapter(self):
+        self.num_chapter += 1
+        self.save()
+
+def add_new_chapter(sender, instance, **kwargs):
+    instance.manga.add_chapter()
+
+post_save.connect(add_new_chapter, sender=Chapter)
 
 
 class FavoriteManga(models.Model):

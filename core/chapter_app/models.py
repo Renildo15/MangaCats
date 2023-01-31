@@ -1,6 +1,6 @@
 from django.db import models
 from uuid import uuid4
-from manga_app.models import Manga
+# from manga_app.models import Manga
 from django.contrib.auth import settings
 from django.db.models import F
 
@@ -10,7 +10,7 @@ from django.db.models import F
 class Chapter(models.Model):
     id_chapter = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     name_chapter = models.CharField(max_length=300)
-    manga = models.ForeignKey(Manga,on_delete=models.CASCADE, null=True, blank=True)
+    manga = models.ForeignKey("manga_app.Manga",on_delete=models.CASCADE, null=True, blank=True)
     date_create = models.DateTimeField(auto_now_add=True,blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)

@@ -24,7 +24,7 @@
                                 <img src="{{manga.manga.cover.url}}" width="320" height="454">
                             </a>  
                         </li>
-                        <li>{{manga.manga.date_created}}</li> 
+                        <li>{{manga.manga.date_created|date:"D d M Y"}}</li> 
                     {% endfor %}
                 </ul>
             </div>

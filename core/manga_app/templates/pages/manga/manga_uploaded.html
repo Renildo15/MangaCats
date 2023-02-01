@@ -31,7 +31,7 @@
                 {% endfor %}
                 
                 <td>{{manga.status}}</td>
-                <td>{{manga.date_created}}</td>
+                <td>{{manga.date_created|date:"D d M Y"}}</td>
                 <td>
                     {% if perms.manga_app.can_edit_manga and perms.manga_app.can_delete_manga%}
                         <a href={% url 'chapter:chapter_list' manga.id_manga %}>Chapters</a>

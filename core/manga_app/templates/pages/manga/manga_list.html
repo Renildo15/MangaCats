@@ -1,4 +1,5 @@
 {% extends "base_templates/base.html" %}
+{% load tz %}
 {% block title %}MangaCats - Manga List{% endblock title %}
 
 {% block content %}
@@ -38,11 +39,10 @@
                   <img src="{{manga.cover.url}}" width="320" height="454">
               </a>  
           </li>
-          <li>{{manga.date_created}}</li> 
-          <li>{{manga.updated_at}}</li>
+          <li>{{manga.date_created|date:"D d M Y"}}</li> 
           {% for l in last %}
               {% if manga.id_manga == l.manga.id_manga%}
-                  <li>{{l}} - {{l.updated_at}}</li>      
+                  <li>{{l}} - {{l.updated_at|timesince}}</li>      
               {% endif %}    
           {% endfor %}
       </ul>

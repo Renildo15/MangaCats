@@ -5,6 +5,9 @@ from django.contrib.auth import settings
 from django.db.models import F
 from chapter_app.models import Chapter
 from django.db.models.signals import post_save
+from datetime import datetime, timedelta
+from django.utils import timezone
+import pytz
 # Create your models here.
 
 
@@ -77,6 +80,7 @@ class Manga(models.Model):
         self.num_chapter += 1
         self.save()
 
+       
 def add_new_chapter(sender, instance, **kwargs):
     instance.manga.add_chapter()
 

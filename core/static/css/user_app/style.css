@@ -52,15 +52,18 @@
     margin: 0 auto;
     padding: 30px;
 }
+
 .register .content .form-div form .form .inputs,
 .login .content .form-div form .form .inputs{
     padding: 5px 5px;
-    margin: 8px;
+    margin: 0 auto;
+    width: 50%;
 }
 .login .content .form-div form .form .inputs label{
     display: block;
     font-weight: bold;
     font-size: 20px;
+    
 }
 .register .content .form-div form .form .inputs input,
 .login .content .form-div form .form .inputs input{

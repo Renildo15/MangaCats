@@ -49,7 +49,7 @@ def login_user(request):
         form_login = AuthenticationForm()
 
     context = {
-        "form_login": form_login
+        "form_login": form_login,
     }
 
     return render(request, "pages/login.html", context)

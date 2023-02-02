@@ -164,39 +164,39 @@
     background-color: white;
     
 }
-
+.reset-confirm .form-div form,
 .reset .content .form-div form{
     padding: 15px;
 }
 
-.reset  .content .form-div form .form{
+.reset .content .form-div form .form{
     width: 80%;
     border-radius: 5px;
     background-color: #ffff;
     margin: 0 auto;
 }
 
-.reset  .content .form-div form .form input{
+.reset .content .form-div form .form input{
     width: 50%;
     margin: 0 auto;
     margin-top: 5px;
     display: block;
    
 }
-.reset  .content .form-div form .form label{
+.reset .content .form-div form .form label{
     display: block;
     font-weight: bold;
     margin: 0 auto;
     font-size: 20px;
     width: 50%;
 }
-.reset  .content .form-div form .form input:focus{
+.reset .content .form-div form .form input:focus{
     outline: none;
     border: 1px solid var(--color4);
     padding-left: 0 5px;
 }
 
-.reset  .content .form-div form .form .btn-reset{
+.reset .content .form-div form .form .btn-reset{
     width: 50%;
     padding: 0 5px;
     background-color: var(--color5);
@@ -205,7 +205,7 @@
     cursor: pointer;
 }
 
-.reset  .content .form-div form .form .btn-reset:hover{
+.reset .content .form-div form .form .btn-reset:hover{
     background-color: var(--color4);
     transition: 0.3s;
     border: 1px solid var(--color1);
@@ -213,12 +213,73 @@
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
-.reset  .content .form-div .msg{
+.reset .content .form-div .msg{
 
     width: 50%;
     margin: 0 auto;
 }
 
-.reset  .content .form-div .msg h2{
+.reset .content .form-div .msg h2{
+    text-align: center;
+}
+
+/* reset-confrim */
+
+.reset-confirm{
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:30px;
+    margin-top: 30px;  
+    margin-bottom: 30px;  
+    background-color: var(--color1);
+    border-radius: 5px;
+}
+
+.reset-confirm .content .form-div form .form{
+    margin: 0 auto;
+}
+
+.reset-confirm .form-div form .form input{
+    display:block;
+    width: 100%;
+}
+
+.reset-confirm .form-div form .form label{
+    display: block;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.reset-confirm .form-div{
+    border-radius: 5px;
+    padding: 20px;
+    width: 90%;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    background-color: white;
+    margin: 0 auto;
+}
+
+.reset-confirm  .content .form-div form .form .btn-reset{
+    width: 100%;
+    padding: 0 5px;
+    background-color: var(--color5);
+    border: none;
+    margin-top: 4px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.reset-confirm .content .form-div form .form .btn-reset:hover{
+    background-color: var(--color4);
+    transition: 0.3s;
+    border: 1px solid var(--color1);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.reset-confirm .content .form-div .msg h2,
+.reset-confirm .content .form-div .msg p{
     text-align: center;
 }

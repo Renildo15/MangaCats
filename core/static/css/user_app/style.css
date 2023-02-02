@@ -21,9 +21,7 @@
     align-items: center;
     justify-content: center;
     height: 520px;
-    margin: 6px;
-    border: 1px solid black;
-   
+    margin: 6px;  
 }
 .register .content .form-div,
 .login .content .form-div{
@@ -142,4 +140,85 @@
     display: block;
     font-weight: bold;
     font-size: 20px;
+}
+
+
+/* reset */
+
+.reset .content{
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    margin-top: 30px;  
+    background-color: var(--color1);
+    border-radius: 5px;
+}
+
+.reset .content .form-div{
+    border-radius: 5px;
+    padding: 20px;
+    width: 80%;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    background-color: white;
+    
+}
+
+.reset .content .form-div form{
+    padding: 15px;
+}
+
+.reset  .content .form-div form .form{
+    width: 80%;
+    border-radius: 5px;
+    background-color: #ffff;
+    margin: 0 auto;
+}
+
+.reset  .content .form-div form .form input{
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 5px;
+    display: block;
+   
+}
+.reset  .content .form-div form .form label{
+    display: block;
+    font-weight: bold;
+    margin: 0 auto;
+    font-size: 20px;
+    width: 50%;
+}
+.reset  .content .form-div form .form input:focus{
+    outline: none;
+    border: 1px solid var(--color4);
+    padding-left: 0 5px;
+}
+
+.reset  .content .form-div form .form .btn-reset{
+    width: 50%;
+    padding: 0 5px;
+    background-color: var(--color5);
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.reset  .content .form-div form .form .btn-reset:hover{
+    background-color: var(--color4);
+    transition: 0.3s;
+    border: 1px solid var(--color1);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.reset  .content .form-div .msg{
+
+    width: 50%;
+    margin: 0 auto;
+}
+
+.reset  .content .form-div .msg h2{
+    text-align: center;
 }

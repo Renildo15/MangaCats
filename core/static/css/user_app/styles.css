@@ -16,8 +16,10 @@
 }
 
 body{
+    background-image: url('../../imgs/background.jpg');
     background-color: var(--color1);
 }
+   
 
 .container{
     background-color: white;

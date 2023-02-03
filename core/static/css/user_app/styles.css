@@ -458,8 +458,11 @@ body{
 /* mangá popular */
 .content .manga-list{
     padding: 10px;
+    border-left-width: 1px;
+    border-right-width: 2px;
 }
 .content .manga-list .card{
+    margin: 0 auto;
     width:320px; 
     height:454px;
     position: relative;
@@ -509,13 +512,14 @@ body{
     opacity: 1;
     cursor: pointer;
 }
-
+.history-list,
+.content-list,
 .content-popular{
     background-color: var(--color1);
+    padding: 20px;
 }
 
 .container .title{
-    border: 1px solid pink;
     background-color: var(--color3);
     padding: 8px;
 }
@@ -596,4 +600,16 @@ body{
     background-color: var(--color2);
     color: var(--color5);
     transition: all 0.3s ease;
+}
+
+.container .title .btn-reset{
+    text-decoration: none;
+    font-size: 20px;
+    border: 1px solid var(--color5);
+    width: 60px;
+    padding: 6px;
+    background-color: var(--color4);
+    color: white;
+    border-radius: 5px;
+    margin-left: 8px;
 }

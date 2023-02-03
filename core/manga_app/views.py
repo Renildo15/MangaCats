@@ -22,24 +22,24 @@ def manga_list(request):
     laguage_eng = request.GET.get('ENG')
     laguage_all = request.GET.get('ALL')
 
-    manga = Manga.objects.all().order_by('-views_manga')
+    manga = Manga.objects.all().order_by('name_manga')
     id_manga= manga.values_list('id_manga', flat=True)
     _last = manga_id(id_manga)
     
     if laguage_eng:
-        manga = Manga.objects.filter(language=laguage_eng).order_by('-views_manga')
+        manga = Manga.objects.filter(language=laguage_eng).order_by('name_manga')
         id_manga= manga.values_list('id_manga', flat=True)
         _last = manga_id(id_manga)
     elif laguage_pt: 
-        manga = Manga.objects.filter(language=laguage_pt).order_by('-views_manga')
+        manga = Manga.objects.filter(language=laguage_pt).order_by('name_manga')
         id_manga= manga.values_list('id_manga', flat=True)
         _last = manga_id(id_manga)
     elif laguage_jp:
-        manga = Manga.objects.filter(language=laguage_jp).order_by('-views_manga')
+        manga = Manga.objects.filter(language=laguage_jp).order_by('name_manga')
         id_manga= manga.values_list('id_manga', flat=True)
         _last = manga_id(id_manga)
     elif laguage_all:
-        manga = Manga.objects.all().order_by('-views_manga')
+        manga = Manga.objects.all().order_by('name_manga')
         id_manga= manga.values_list('id_manga', flat=True)
         _last = manga_id(id_manga)
     

@@ -10,30 +10,37 @@
         </div>
 {% endfor %}
 <div class="container">
-    <div class="content">
-        <div class="title">
-            <h1>History Manga List</h1>
-            {% if perms.manga_app.delete_historymanga %}
-                <a href={% url 'manga:manga_history_reset' %}> Reset all</a>
-            {% endif %}
-            
-           
-        </div>
+    <div class="title">
+        <h1>History Manga List</h1>
+        {% if perms.manga_app.delete_historymanga %}
+            <a class="btn-reset" href={% url 'manga:manga_history_reset' %}>
+                Reset all
+                <i class="fa-solid fa-trash"></i>
+            </a>
+        {% endif %}
+    </div>
+    <div class="content history-list">
         {% if manga_history %}
-          {% for manga in manga_history %}
-            <div>
-              <ul>
-                  <li>{{manga.manga.name_manga}}</li>
-                  <li>{{manga.manga.num_chapter}}</li>
-                  <li> 
-                      <a href={% url 'manga:manga_view' manga.manga.id_manga %}>
-                          <img src="{{manga.manga.cover.url}}" width="320" height="454">
-                      </a>  
-                  </li>
-                  <li>{{manga.manga.updated_at|timesince}}</li>
-              </ul>
-            </div> 
-          {% endfor %}
+            <div class="manga-list">
+                <div class="row">
+                    {% for manga in manga_history %}
+                    <div class="col-md-4">
+                        <a href={% url 'manga:manga_view' manga.manga.id_manga %}>
+                            <div class="card">
+                                <img src="{{manga.manga.cover.url}}">
+                                <div class="info">
+                                    <h2>{{manga.manga.name_manga}}</h2>
+                                    <p>Chapters: {{manga.manga.num_chapter}}</p>
+                                    <p>Views:{{manga.manga.views_manga}} </p>
+                                    <p>Visited: {{manga.manga.updated_at|timesince}}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div> 
+                  {% endfor %}
+                </div>
+            </div>
+        
         {% else %}
             <h5>No register</h5>
         {% endif %}

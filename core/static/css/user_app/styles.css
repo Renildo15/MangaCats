@@ -461,6 +461,10 @@ body{
     border-left-width: 1px;
     border-right-width: 2px;
 }
+
+.content .manga-list h1{
+    color: var(--color3);
+}
 .content .manga-list .card{
     margin: 0 auto;
     width:320px; 

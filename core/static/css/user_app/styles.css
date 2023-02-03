@@ -18,6 +18,41 @@
 body{
     background-image: url('../../imgs/background.jpg');
     background-color: var(--color1);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+header{
+    border: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.nav-links{
+    background-color: var(--color5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.nav-links li{
+    list-style: none;
+    padding: 15px;
+}
+
+.nav-links li a{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    transition: .2 ease-in-out;
+}
+
+.nav-links li a:hover{
+    color: var(--color4);
+    transform: scale(2);
+    text-decoration: underline;
 }
    
 
@@ -662,3 +697,62 @@ body{
     text-decoration: underline;
     transition: 0.3s ease-in-out;
 }
+
+
+/* manga view */
+
+.content-manga-info .manga-info .manga-info-content{
+    display: flex;
+}
+.content-manga-info .manga-info .manga-info-content .img-div{
+    border: 1px solid red;
+}
+.content-manga-info .manga-info .manga-info-content .manga-info-div{
+    padding: 10px;
+    width: 80%;
+    background-color: var(--color1);
+}
+
+.content-manga-info .manga-info .manga-info-content .manga-info-div h2, h4, h5{
+    color: var(--color3);
+}
+
+.content-manga-info .manga-info .manga-info-content .manga-info-div span{
+    display: block;
+    color: var(--color3);
+}
+
+.content-manga-info .manga-info .manga-info-content .manga-info-div .description{
+   padding: 4px;
+}
+.content-manga-info .manga-info .manga-info-content .manga-info-div .description h3{
+    color: var(--color3);
+}
+.content-manga-info .manga-info .manga-info-content .manga-info-div .description p{
+    color: var(--color3);
+    text-indent: 10%;
+    text-align: justify;
+}
+.content-manga-info .manga-info .manga-info-content .manga-info-div span .span-list{
+    display: inline;
+    color: var(--color3);
+    border: 1px solid var(--color4);
+    padding: 4px;
+    border-radius: 10px;
+    background-color: var(--color4);
+}
+
+/* .content-manga-info .manga-info ul{
+    border: 1px solid pink;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+    padding-left: 10px; 
+}
+.content-manga-info .manga-info img{
+    width: 50%;
+    height: 454px;
+    object-fit: cover;
+    margin-right: 10px;
+} */

@@ -6,28 +6,41 @@
 {% block content %}
 {% include "partials/message.html" %}
 <div class="container">
-    <div class="content">
-        <ul>
-            <li>{{manga.name_manga}}</li>
-            <li>{{manga.name_in_japanese}}</li>
-            <li>{{manga.name_in_english}}</li>
-            <li>{{manga.num_chapter}}</li>
-            <li> 
-                <img src="{{manga.cover.url}}" width="320" height="454">
-            </li>
-            <li>{{manga.author}}</li>
-            <li>{{manga.status}}</li>
-            <li> {{manga.views_manga}}</li>
-            <li>{{manga.description}}</li>
-            <li>{{manga.date_created|date:"D d M Y"}}</li>
-            <li>
-                {% for genre in manga_genre %}
-                    {{genre}}
-                {% endfor %}
-            </li>
-        </ul>
-        <div>
-            
+    <div class="content content-manga-info">
+        <div class="manga-info">
+            <div class="manga-info-content">
+                <div class="img-div">
+                    <img src="{{manga.cover.url}}" width="320" height="454">
+                </div>
+
+                <div class="manga-info-div">
+                    <h2>{{manga.name_manga}}</h2>
+                    <hr>
+                    <h4>Other names:</h4>
+                    <h5>{{manga.name_in_japanese}}</h5>
+                    <h5>{{manga.name_in_english}}</h5>
+
+                    <span><strong>Chapters: </strong>{{manga.num_chapter}}</span>
+                    <span><strong>Author :</strong>{{manga.author}}</span>
+                    <span><strong>Views: </strong>{{manga.views_manga}}</span>
+                    <span><strong>Status: </strong>{{manga.status}}</span>
+                    <span><strong>Added: </strong>{{manga.date_created|date:"D d M Y"}}</span>
+                    <span><strong>Genre: </strong>
+                        {% for genre in manga_genre %}
+                            <span class="span-list">{{genre}}</span>
+                            
+                        {% endfor %}
+                    </span>
+                    <div class="description">
+                        <h3>Description</h3>
+                        <p>{{manga.description}}</p>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+        
+        <div>  
             <legend>Score <i class="fa-solid fa-star"></i></legend>
             <h3>{{average}} </h3>
     

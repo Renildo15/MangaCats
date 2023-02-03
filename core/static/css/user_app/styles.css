@@ -613,3 +613,19 @@ body{
     border-radius: 5px;
     margin-left: 8px;
 }
+
+
+
+.content .manga-list .row .col-md-4 .favorite-div{
+    margin: 0 auto;
+    margin-top:0;
+    border: 1px solid white;
+    background-color: var(--color3);
+}
+.content .manga-list .row .col-md-4 .favorite-div .btn-favorite{
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color5);
+}

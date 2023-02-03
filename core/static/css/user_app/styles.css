@@ -465,6 +465,7 @@ body{
     position: relative;
     overflow: hidden;
     border: none;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 .content .manga-list a{
@@ -510,5 +511,89 @@ body{
 }
 
 .content-popular{
+    background-color: var(--color1);
+}
+
+.container .title{
+    border: 1px solid pink;
     background-color: var(--color3);
+    padding: 8px;
+}
+
+.container .title h1{
+    border: 1px solid white;
+    text-align: center;
+    color: var(--color2);
+    background-color: var(--color1);
+    margin: 10px;
+}
+
+.container .title .form-container .form-content{
+    width: 50%;
+    margin: 0 auto;
+}
+.container .title .form-container .form-content form{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container .title .form-container .form-content form input{
+    width: 60px;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    padding: 3px;
+    font-size: 15px;
+    background-color: var(--color5);
+    color: var(--color2);
+}
+
+.container .title .form-container .form-content form input:hover{
+    cursor: pointer;
+    background-color: var(--color2);
+    color: var(--color5);
+    transition: all 0.3s ease;
+}
+.container .title .search{
+    width: 60%;
+    margin: 0 auto;
+   
+} */
+.container .title .search form{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+.container .title .search form input{
+    width: 80%;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid black;
+    font-size: 15px;
+}
+.container .title .search form input:focus{
+    outline: none;
+    border: 1px solid var(--color4);
+    padding-left: 0 5px;
+}
+
+.container .title .search form button{
+    outline: none;
+    border: none;
+    width: 100px;
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 5px;
+    background-color: var(--color5);
+    color: var(--color2);
+    margin-left: 26px;
+}
+.container .title .search form button:hover{
+    cursor: pointer;
+    background-color: var(--color2);
+    color: var(--color5);
+    transition: all 0.3s ease;
 }

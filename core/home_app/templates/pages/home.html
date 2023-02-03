@@ -19,14 +19,13 @@
       </form>
     </div>
     {% if language %}
-
       <h1>Popular Manga - {{language}}</h1>
     {% else %}
       <h1>Popular Manga - ALL</h1>
     {% endif %}
    
-    <div>
-      <div>
+    <div class="form-container">
+      <div class="form-content">
         <form action="" method="get">
           <input type="submit" name="JP" value="JP">
           <input type="submit" name="PT-BR" value="PT-BR">
@@ -36,6 +35,7 @@
       </div>
     </div>
   </div>
+
   <div id="content" class="content content-popular">
    {% if mangas %}
    <div class="manga-list">

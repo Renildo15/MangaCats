@@ -329,6 +329,14 @@
    
 }
 
+.content .accordion .accordion-item .accordion-collapse .accordion-body .content .img-div{
+    background-image: url('../../imgs/capa.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+}
+
 .content .accordion .accordion-item .accordion-collapse .accordion-body .content hr{
     color: var(--color5);
 }
@@ -371,4 +379,59 @@
     text-decoration: underline;
     transition: 0.3s;
     letter-spacing: 2px;
+}
+
+.content .accordion .accordion-item .accordion-collapse .accordion-body form{
+    border-radius: 5px;
+    padding: 50px;
+    background-color: var(--color1);
+}
+
+.content .accordion .accordion-item .accordion-collapse .accordion-body form .form-group{
+    width: 50%;
+    padding: 5px;
+    margin: 0 auto;
+}
+
+.content .accordion .accordion-item .accordion-collapse .accordion-body form .form-group label{
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color3);
+}
+
+.content .accordion .accordion-item .accordion-collapse .accordion-body form .form-group input{
+    width: 100%;
+    font-size: 20px;
+    border-radius: 4px;
+    padding: 0 5px;
+    border: 1px solid white;
+}
+.content .accordion .accordion-item .accordion-collapse .accordion-body form .form-group input:focus{
+    outline: none;
+    border: 1px solid var(--color4);
+    padding-left: 0 5px;
+}
+.content .accordion .accordion-item .accordion-collapse .accordion-body form .button{
+    width: 50%;
+    padding: 5px;
+    margin: 0 auto;
+}
+
+.content .accordion .accordion-item .accordion-collapse .accordion-body form .button button{
+    outline: none;
+    border: none;
+    width: 200px;
+    padding: 5px;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: var(--color3);
+    color: var(--color2);
+}
+
+.content .accordion .accordion-item .accordion-collapse .accordion-body form .button button:hover {
+    cursor: pointer;
+    background-color: var(--color2);
+    color: var(--color3);
+    transition: all 0.3s ease;
 }

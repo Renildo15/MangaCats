@@ -153,38 +153,32 @@
           </h2>
           <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-            <form method="post">
-                {% csrf_token %}
-                <div class="form-group">
-                  {{form_user.username.errors}}
-                  <label for="">Username:</label>
-                  {{form_user.username}}
-                </div>
-                <div class="form-group">
-                  {{form_user.email.errors}}
-                  <label for="">Email:</label>
-                  {{form_user.email}}
-                </div>
-                <div class="form-group">
-                  {{form_user.first_name.errors}}
-                  <label for="">First Name:</label>
-                  {{form_user.first_name}}
-                </div>
-                <div class="form-group">
-                  {{form_user.last_name.errors}}
-                  <label for="">Last Name:</label>
-                  {{form_user.last_name}}
-                </div>
-                <div>
-                    <button class="submit_update">Save changes</button>
-                </div>
-                <div class="output d-none">
-                    <div id="ajaxprogress">
-                        <h6>Loading</h6>
-                      {% load static %} <img src="{% static "/imgs/load.gif" %}" alt="load" />
-                    </div>
-                </div>
-            </form>
+              <form method="post">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    {{form_user.username.errors}}
+                    <label for="">Username:</label>
+                    {{form_user.username}}
+                  </div>
+                  <div class="form-group">
+                    {{form_user.email.errors}}
+                    <label for="">Email:</label>
+                    {{form_user.email}}
+                  </div>
+                  <div class="form-group">
+                    {{form_user.first_name.errors}}
+                    <label for="">First Name:</label>
+                    {{form_user.first_name}}
+                  </div>
+                  <div class="form-group">
+                    {{form_user.last_name.errors}}
+                    <label for="">Last Name:</label>
+                    {{form_user.last_name}}
+                  </div>
+                  <div class="button">
+                      <button class="submit_update">Save changes</button>
+                  </div>
+              </form>
             </div>
           </div>
         </div>

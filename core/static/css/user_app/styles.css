@@ -293,3 +293,82 @@
 .reset-confirm .content .form-div .msg p{
     text-align: center;
 }
+
+
+/* Profile */
+.content{
+    border: 1px solid black;
+    border-radius: 5px;
+    margin:30px 0;
+}
+
+.content .account-username h1{
+    text-align: center;
+    background-color: #a9a17a;
+    color: white;
+}
+
+/* .content .accordion .accordion-item{
+    border: 1px solid red;
+} */
+
+.content .accordion .accordion-item .accordion-header .accordion-button:focus,
+.content .accordion .accordion-item .accordion-header .accordion-button:not(.collapsed) {
+    z-index: 3;
+    background-color: var(--color1);
+    color: white;
+    box-shadow: none;
+}
+.content .accordion .accordion-item .accordion-collapse .accordion-body .content .img,
+.content .accordion .accordion-item .accordion-collapse .accordion-body .content .img img{
+    width:304px; 
+    height:304px;
+    margin: 0 auto;
+    border-radius: 10%;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+   
+}
+
+.content .accordion .accordion-item .accordion-collapse .accordion-body .content hr{
+    color: var(--color5);
+}
+.content .accordion .accordion-item .accordion-collapse .accordion-body .content .info{
+    background-color: var(--color1);
+    padding: 5px;
+}
+
+.content .accordion .accordion-item .accordion-collapse .accordion-body .content .info h3{
+    text-align: center;
+    color: var(--color2);
+}
+
+.content .accordion .accordion-item .accordion-collapse .accordion-body .content .info ul{
+    border: 1px solid white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.content .accordion .accordion-item .accordion-collapse .accordion-body .content .info ul li{
+    list-style: none;
+}
+
+.content .accordion .accordion-item .accordion-collapse .accordion-body .content .info ul li p{
+    color: var(--color2);
+    font-size: 20px;
+}
+
+.content .accordion .accordion-item .accordion-collapse .accordion-body .content .info ul li a{
+    color: var(--color2);
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.content .accordion .accordion-item .accordion-collapse .accordion-body .content .info ul li a:hover{
+    text-decoration: underline;
+    transition: 0.3s;
+    letter-spacing: 2px;
+}

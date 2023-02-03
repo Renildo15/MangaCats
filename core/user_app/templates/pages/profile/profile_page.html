@@ -1,4 +1,5 @@
 {% extends "base_templates/base.html" %}
+{% load static %}
 {% block title %}MangaCats - Account {% endblock title %}
 
 {% block content %}
@@ -9,9 +10,11 @@
         </div>
 {% endfor %}
 <div class="container">
-    <div>
-        <h1>Account</h1>
+  <div class="content">
+    <div class="account-username">
+        <h1>Account - {{request.user.username}}</h1>
     </div>
+
     <div class="accordion" id="accordionExample">
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingOne">
@@ -22,97 +25,135 @@
           <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
             <div class="accordion-body">
                 <div class="content">
-                    <div class="img" style="border: 2px solid black;width:304px; height:304px;">
+                   <div class="img-div">
+                    <div class="img">
                       {% if request.user.profile.image_profile %}                   
-                          <img style="object-fit: cover;" width="300" height="300" src="{{request.user.profile.image_profile.url}}" alt="">                    
-                  {% else %}  
-                       {% load static %} <img style="object-fit: cover;" width="300" height="300" src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
-                  {% endif %}
-                    </div>
-              
-                    <div class="info">
-                      <h3>Basic information</h3>
-                      <ul>
-                          <li>
-                              <p>Username: <strong>{{request.user.profile.user.username}}</strong></p>
-                          </li>
-                          <li>
-                              <p>Register email: <strong>{{request.user.profile.user.email}}</strong></p>
-                          </li>
-                          <li>
-                              <p>Register date: <strong>{{request.user.profile.date_created}}</strong></p>
-                          </li>
-                          {% if request.user.is_staff %}
-
-                          {% else %}
-                            <li> 
-                              <a href={% url 'manga:favorite_list' %}>
-                                  Favorites Manga
-                              </a>
-                            </li>
-                            <li> 
-                              <a href={% url 'manga:list_status' 'reading' %}>
-                                  Reading
-                              </a>
-                            </li>
-                            <li> 
-                              <a href={% url 'manga:list_status' 'dropped' %}>
-                                  Doppred
-                              </a>
-                            </li>
-                            <li> 
-                              <a href={% url 'manga:list_status' 'completed'%}>
-                                  Completed
-                              </a>
-                            </li>
-                            <li> 
-                              <a href={% url 'manga:list_status' 'plan_to_watch' %}>
-                                  Plan to Read
-                              </a>
-                            </li>
-                          {% endif %}
-                          
-                      </ul>
-                      {% if perms.manga_app.can_view_manga %}
-                        <h3>Manager Manga</h3>
-                        <ul>
-                            <li>
-                                {% if perms.manga_app.can_add_manga %}
-                                    <a href={% url 'manga:manga_add' %}>Upload Manga</a>
-                                {% endif %}
-                            </li>
-                                {% if perms.manga_app.can_add_genre and perms.manga_app.can_view_genre %}
-                                    <li>
-                                        <a href={% url 'manga:genre_add' %}>Add new genre</a>
-                                    </li>
-                                    <li>
-                                      <a href={% url 'manga:genre_list' %}>Genre list</a>
-                                    </li>
-                                {% endif %}
-                            <li>
-                              <a href={% url 'manga:manga_uploaded' %}>Manga uploaded</a>
-                            </li>
-                            <li> 
-                              <a href={% url 'manga:favorite_list' %}>
-                                  Favorites Manga
-                              </a>
-                          </li>
-                        </ul>
+                              <img style="object-fit: cover;" width="300" height="300" src="{{request.user.profile.image_profile.url}}" alt="">                    
+                      {% else %}  
+                          {% load static %} <img style="object-fit: cover;" width="300" height="300" src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
                       {% endif %}
                     </div>
                   </div>
+                  <hr>
+                  <div class="info">
+                    <h3>Basic information</h3>
+                    <ul>
+                        <li>
+                            <p>Username: <strong>{{request.user.profile.user.username}}</strong></p>
+                        </li>
+                        <li>
+                            <p>Register email: <strong>{{request.user.profile.user.email}}</strong></p>
+                        </li>
+                        <li>
+                            <p>Register date: <strong>{{request.user.profile.date_created}}</strong></p>
+                        </li>
+                    </ul>
+                    {% if not request.user.is_staff %}
+                      <h3>User Manga</h3>
+                      <ul>
+                        <li> 
+                          <a href={% url 'manga:favorite_list' %}>
+                              Favorites Manga <i class="fa-solid fa-heart"></i>
+                          </a>
+                        </li>
+                        <li> 
+                          <a href={% url 'manga:list_status' 'reading' %}>
+                              Reading <i class="fa-solid fa-bookmark"></i>
+                          </a>
+                        </li>
+                        <li> 
+                          <a href={% url 'manga:list_status' 'dropped' %}>
+                              Doppred <i class="fa-solid fa-ban"></i>
+                          </a>
+                        </li>
+                        <li> 
+                          <a href={% url 'manga:list_status' 'completed'%}>
+                              Completed <i class="fa-solid fa-circle-check"></i>
+                          </a>
+                        </li>
+                        <li> 
+                          <a href={% url 'manga:list_status' 'plan_to_watch' %}>
+                              Plan to Read <i class="fa-solid fa-book"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    {% endif %}
+                    {% if perms.manga_app.can_view_manga %}
+                      <h3>Manager Manga</h3>
+                      <ul>
+                          <li>
+                              {% if perms.manga_app.can_add_manga %}
+                                  <a href={% url 'manga:manga_add' %}>
+                                    Upload Manga 
+                                    <i class="fa-solid fa-upload"></i>
+                                  </a>
+                                 
+                              {% endif %}
+                          </li>
+                              {% if perms.manga_app.can_add_genre and perms.manga_app.can_view_genre %}
+                                  <li>
+                                      <a href={% url 'manga:genre_add' %}>
+                                        Add new genre
+                                        <i class="fa-solid fa-square-plus"></i>
+                                      </a>
+                                  </li>
+                                  <li>
+                                    <a href={% url 'manga:genre_list' %}>
+                                      Genre list
+                                      <i class="fa-solid fa-list"></i>
+                                    </a>
+                                  </li>
+                              {% endif %}
+                          <li>
+                            <a href={% url 'manga:manga_uploaded' %}>
+                              Manga uploaded
+                              <i class="fa-solid fa-list"></i>
+                            </a>
+                          </li>
+                      </ul>
+                      <h3>User Manga</h3>
+                      <ul>
+                        <li> 
+                          <a href={% url 'manga:favorite_list' %}>
+                              Favorites Manga <i class="fa-solid fa-heart"></i>
+                          </a>
+                        </li>
+                        <li> 
+                          <a href={% url 'manga:list_status' 'reading' %}>
+                              Reading <i class="fa-solid fa-bookmark"></i>
+                          </a>
+                        </li>
+                        <li> 
+                          <a href={% url 'manga:list_status' 'dropped' %}>
+                              Doppred <i class="fa-solid fa-ban"></i>
+                          </a>
+                        </li>
+                        <li> 
+                          <a href={% url 'manga:list_status' 'completed'%}>
+                              Completed <i class="fa-solid fa-circle-check"></i>
+                          </a>
+                        </li>
+                        <li> 
+                          <a href={% url 'manga:list_status' 'plan_to_watch' %}>
+                              Plan to Read <i class="fa-solid fa-book"></i>
+                          </a>
+                        </li>
+                      </ul>
+                    {% endif %}
+                  </div>
+                </div>
             </div>
           </div>
         </div>
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingTwo">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-             <h3>Update Information</h3>
+            <h3>Update Information</h3>
             </button>
           </h2>
           <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-             <form method="post">
+            <form method="post">
                 {% csrf_token %}
                 <div class="form-group">
                   {{form_user.username.errors}}
@@ -140,17 +181,17 @@
                 <div class="output d-none">
                     <div id="ajaxprogress">
                         <h6>Loading</h6>
-                       {% load static %} <img src="{% static "/imgs/load.gif" %}" alt="load" />
+                      {% load static %} <img src="{% static "/imgs/load.gif" %}" alt="load" />
                     </div>
                 </div>
-             </form>
+            </form>
             </div>
           </div>
         </div>
         <div class="accordion-item">
           <h2 class="accordion-header" id="headingThree">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-             <h3>Update Avatar</h3>
+            <h3>Update Avatar</h3>
             </button>
           </h2>
           <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
@@ -169,15 +210,14 @@
                 <div class="output d-none">
                     <div id="ajaxprogress">
                         <h6>Loading</h6>
-                       {% load static %} <img src="{% static "/imgs/load.gif" %}" alt="load" />
+                      {% load static %} <img src="{% static "/imgs/load.gif" %}" alt="load" />
                     </div>
                 </div>
-             </form>
+            </form>
           </div>
         </div>
-      </div>
-   
-    
+    </div>  
+  </div> 
 </div>
 <script type="text/javascript">
    

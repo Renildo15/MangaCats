@@ -15,7 +15,14 @@
     font-family: 'Sofia', 'sans-serif';
 }
 
+body{
+    background-color: var(--color1);
+}
 
+.container{
+    background-color: white;
+    padding: 10px;
+}
 .login .content{
     display: flex;
     align-items: center;
@@ -406,6 +413,16 @@
     border-radius: 4px;
     padding: 0 5px;
     border: 1px solid white;
+}
+
+.content .accordion .accordion-item .accordion-collapse .accordion-body form .form-group input[type="file"]{
+    width: 100%;
+    font-size: 20px;
+    border-radius: 4px;
+    padding: 0 5px;
+    border: none;
+    cursor: pointer;
+    color: var(--color3);
 }
 .content .accordion .accordion-item .accordion-collapse .accordion-body form .form-group input:focus{
     outline: none;

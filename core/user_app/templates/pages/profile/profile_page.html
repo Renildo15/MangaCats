@@ -195,27 +195,17 @@
                 
                 <div class="form-group">
                   {{form_avatar.image_profile.errors}}
-                  <label for="">Image:</label>
+                  <label for="id_image_profile" class="custom-file-upload">Image:</label>
                   {{form_avatar.image_profile}}
                 </div>
-                <div>
+                <div class="button">
                     <button class="submit_update">Save changes</button>
                 </div>
-                <div class="output d-none">
-                    <div id="ajaxprogress">
-                        <h6>Loading</h6>
-                      {% load static %} <img src="{% static "/imgs/load.gif" %}" alt="load" />
-                    </div>
-                </div>
+  
             </form>
           </div>
         </div>
     </div>  
   </div> 
 </div>
-<script type="text/javascript">
-   
-
-</script>
-
 {% endblock content %}

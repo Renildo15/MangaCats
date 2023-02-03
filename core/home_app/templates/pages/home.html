@@ -52,7 +52,7 @@
                 <p>Created at:{{manga.date_created|date:"D d M Y"}}</p>
                 {% for l in last %}
                 {% if manga.id_manga == l.manga.id_manga%}
-                  <p>{{l}} - {{l.updated_at|timesince}}</p> 
+                  <p>Last chapter: {{l}} - {{l.updated_at|timesince}}</p> 
                 {% endif %}  
               {% endfor %}
               </div>

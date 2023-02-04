@@ -770,18 +770,72 @@ header{
     width:320px; 
     height:454px;
 }
-/* .content-manga-info .manga-info ul{
-    border: 1px solid pink;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 50%;
-    padding-left: 10px; 
-}
-.content-manga-info .manga-info img{
-    width: 50%;
-    height: 454px;
-    object-fit: cover;
-    margin-right: 10px;
-} */
 
+
+.content-manga-info .more-info{
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: var(--color2);
+    padding: 10px;
+}
+.content-manga-info .more-info .manga-review{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5px;
+    background-color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    border-radius: 5px;
+}
+
+.content-manga-info .more-info .manga-review .stars-div{
+    background-color: var(--color3);
+    padding: 0 4px;
+}
+
+.content-manga-info .more-info  .add-review{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5px;
+    background-color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    border-radius: 5px;
+}
+.content-manga-info .more-info  .manga-status form,
+.content-manga-info .more-info  .add-review form{
+    border: 1px solid var(--color1);
+    text-align: center;
+    background-color: var(--color3);
+    padding: 5px;
+}
+.content-manga-info .more-info  .manga-status form legend,
+.content-manga-info .more-info  .add-review form legend{
+    color: white;
+}
+.content-manga-info .more-info  .manga-status form select,
+.content-manga-info .more-info  .add-review form select{
+    width: 100%;
+    font-size: 20px;
+    border: none;
+    color: var(--color3);
+}
+
+.content-manga-info .more-info  .add-review form select option:hover {
+    background-color: var(--color5);
+}
+
+.content-manga-info .more-info .manga-status{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 5px;
+    background-color: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    border-radius: 5px;
+}

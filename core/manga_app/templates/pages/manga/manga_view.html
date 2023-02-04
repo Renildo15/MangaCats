@@ -56,90 +56,10 @@
           
         </div>
         
-        <div>  
-            <legend>Score <i class="fa-solid fa-star"></i></legend>
-            <h3>{{average}} </h3>
-    
-            <div>
-                {% if average %}
-                    {% if average >= 0 and average <= 1.99 %}
-                        {% if average >= 1.5 %}
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star-half-stroke"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        {% else %}
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        {% endif %}
-                    {% elif average >= 2 and average <= 2.99 %}
-                        {% if average >= 2.5 %}
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star-half-stroke"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        {% else %}
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        {% endif %}
-                        
-                    {% elif average >= 3 and average <= 3.99 %}
-                        {% if average >= 3.5 %}
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star-half-stroke"></i>
-                            <i class="fa-regular fa-star"></i>
-                        {% else %}
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        {% endif %}
-                       
-                    {% elif average >= 4 and average <= 4.99 %}
-                    {% if average >= 4.5 %}
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star-half-stroke"></i>
-                    {% else %}
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-regular fa-star"></i>
-                    {% endif %}
-                    {% elif average == 5 %}
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                        <i class="fa-solid fa-star"></i>
-                    {% endif %}
-                {% endif %}
-            </div>
-            {% if reviews %}
-                <span>
-                    Has a total of {{reviews}} reviews!
-                </span>
-            {% endif %}
-    
-        </div>
-        <hr>
-    
-        {% if perms.manga_app.add_reviewmanga %}
-            <div>
+        <div class="more-info"> 
+            
+            {% if perms.manga_app.add_reviewmanga %}
+            <div class="add-review">
                 <form action="" method="GET">
                     <legend>Review</legend>
                     <select data-review={{manga.id_manga}} id="select" name="select">
@@ -161,10 +81,95 @@
                     </select>
                 </form>
             </div>
-            <div>
-                <legend>Status Manga</legend>
+            
+            <div class="manga-review">
+              
+                <h3>{{average}} <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i></h3>
+                {% if average %}
+                   <div class="stars-div">
+                    {% if average >= 0 and average <= 1.99 %}
+                        {% if average >= 1.5 %}
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star-half-stroke"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-regular fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-regular fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-regular fa-star"></i>
+                            
+                        {% else %}
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-regular fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-regular fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-regular fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-regular fa-star"></i>
+                            
+                        {% endif %}
+                    {% elif average >= 2 and average <= 2.99 %}
+                        {% if average >= 2.5 %}
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star-half-stroke"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-regular fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-regular fa-star"></i>
+                        {% else %}
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-regular fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-regular fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-regular fa-star"></i>
+                        {% endif %}
+                    
+                    {% elif average >= 3 and average <= 3.99 %}
+                        {% if average >= 3.5 %}
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star-half-stroke"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-regular fa-star"></i>
+                        {% else %}
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-regular fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-regular fa-star"></i>
+                        {% endif %}
+                   
+                    {% elif average >= 4 and average <= 4.99 %}
+                        {% if average >= 4.5 %}
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star-half-stroke"></i>
+                        {% else %}
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                            <i style="color: rgb(233, 233, 54);" class="fa-regular fa-star"></i>
+                        {% endif %}
+                    {% elif average == 5 %}
+                        <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                        <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                        <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                        <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                        <i style="color: rgb(233, 233, 54);" class="fa-solid fa-star"></i>
+                    {% endif %}
+                   </div>
+                {% endif %}
+
+                <div class="total-review">
+                    {% if reviews %}
+                        <span>
+                            Has a total of {{reviews}} reviews!
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="manga-status">         
                 {% if status %}
                     <form action="" method="GET">
+                        <legend>Status Manga</legend>
                         <select data-status={{manga.id_manga}} name="status" id="status">
                             <option value="not_read" {% if status.status == 'not_read' %}selected{% endif %}>Not Read</option>
                             <option value="reading"{% if status.status == 'reading' %}selected{% endif %}>Reading</option>
@@ -175,6 +180,7 @@
                     </form>
                 {% else %}
                     <form action="" method="GET">
+                        <legend>Status Manga</legend>
                         <select data-status={{manga.id_manga}} name="status" id="status">
                             <option value="not_read">Not Read</option>
                             <option value="reading">Reading</option>
@@ -185,9 +191,12 @@
                     </form>
                 {% endif %}
                 
-            </div>
-        {% endif %}
-       
+                </div>
+            {% endif %}
+        </div>
+        <hr>
+    
+        
         
         
         {% include "partials/chapters_list.html" %}

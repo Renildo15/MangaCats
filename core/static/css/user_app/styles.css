@@ -838,3 +838,54 @@ header{
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     border-radius: 5px;
 }
+
+
+/* chapter */
+.content-manga-info .chapter-list{
+    padding: 10px;
+    background-color: var(--color1);
+}
+.content-manga-info .chapter-list .no-exists{
+    padding: 10px;
+    background-color: var(--color1);
+}
+.content-manga-info .chapter-list .no-exists h3{
+    color: var(--color3);
+    text-align: center;
+}
+.content-manga-info .chapter-list legend{
+    color: var(--color3);
+}
+.content-manga-info .chapter-list ul{
+    padding: 10px;
+    margin: 0;
+    overflow: auto;
+    height: 300px;
+}
+
+.content-manga-info .chapter-list ul::-webkit-scrollbar {
+    width: 5px;
+    background-color: #F5F5F5;
+  }
+
+.content-manga-info .chapter-list ul::-webkit-scrollbar-thumb {
+    background-color: var(--color5);
+    border-radius: 10px;
+}
+
+.content-manga-info .chapter-list ul li{
+    list-style: none;
+    background-color: var(--color3);
+    margin: 5px;
+    padding: 5px;
+}
+
+.content-manga-info .chapter-list ul li a{
+    text-decoration: none;
+    color: var(--color1);
+}
+
+.content-manga-info .chapter-list ul li a:hover{
+    text-decoration: underline;
+    color: var(--color2);
+}

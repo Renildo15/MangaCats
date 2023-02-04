@@ -1,5 +1,6 @@
 {% if chapters %}
-    <div>
+    <div class="chapter-list">
+        <legend>List Chapters</legend>
         <ul>
         {% for chapter in chapters %}
                 <li>
@@ -11,5 +12,10 @@
         </ul>
     </div>
 {% else %}
-    <h4>Not Exists Chapters</h4>
+    <div class="chapter-list">
+        <div class="no-exists">
+            <h3>Not Exists Chapters</h3>
+        </div>
+    </div>
+    
 {% endif %}

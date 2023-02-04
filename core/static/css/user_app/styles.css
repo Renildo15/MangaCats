@@ -16,7 +16,7 @@
 }
 
 body{
-    background-image: url('../../imgs/background.jpg');
+    background-image: url('../../imgs/back.jpg');
     background-color: var(--color1);
     margin: 0;
     padding: 0;
@@ -33,7 +33,7 @@ header{
     background-color: var(--color5);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     margin: 0 auto;
 }
 
@@ -773,7 +773,6 @@ header{
 
 
 .content-manga-info .more-info{
-    border: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: space-around;

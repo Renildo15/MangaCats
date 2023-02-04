@@ -35,124 +35,113 @@
         </div>
 {% endfor %}
 <div class="container">
-    <div class="content">
+    <div class="content content-pages">
+        {% include "partials/pages.html" %}
         {% if pages %}
-        {% for page in pages %}
-            <ul>
-                <li> 
-                    <img src="{{page.image_chapter}}" >
-                </li>
-            </ul>
-            
-        {% endfor %}   
-        <div>
-            <h3>Comments ({{total_comments}})</h3>
-            <hr>
-            {% if comments %}
-                {% for comment in comments %}
-                    <ul id="{{comment.id_comment}}">
-                        {% if comment.user.profile.image_profile %}
-                            <li>
-                                <img style="object-fit: cover; border-radius:50%" width="50" height="50"  src="{{comment.user.profile.image_profile.url}}" alt="">
-                            </li>
-                        {% else %}
-                            <li>
-                            {% load static %}   <img style="object-fit: cover; border-radius:50%" width="50" height="50"  src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
-                            </li>
-                        {% endif %}
-                        <li>{{comment.user}}</li>
-                        <li class="comment" id="comment{{comment.id_comment}}" data-comment="{{comment.id_comment}}">{{comment.comment|safe}}</li>
-                        <li>{{comment.date_created|timesince}}</li>
-                        {% if perms.comment_app.change_commentchapter and request.user == comment.user%}
-                            <li><a class="comment btn btn-warning" id="comment{{comment.id_comment}}" data-comment="{{comment.id_comment}}">Edit</a></li>
-                            <form class="d-none d-flex" class="form" id="form-comment{{comment.id_comment}}" method="GET">
-                                <input class="form-control" class="edit" type="text" id="inputText{{comment.id_comment}}" value="{{comment.comment|safe}}">
-                                <button type="submit" class="btn btn-warning" id="edit{{comment.id_comment}}">Save Changes</i></button>
-                            </form>
-                        {% endif %}     
-                        {% if perms.comment_app.delete_commentchapter and request.user.is_staff or request.user == comment.user%}
-                            <li><a class="btn btn-primary" id="btn-delete" data-chapter="{{comment.id_comment}}">Delete</a></li>
-                        {% endif %}
-                    
-                        {% if comment.replies.all %}
-                            <h4 id="title-replies">Replies</h4>
-                        {% endif %}
-                        {% for reply in comment.replies.all %}
-                            <ul id="{{reply.id_comment}}">
-                                {% if reply.user.profile.image_profile %}
-                                    <li>
-                                        <img style="object-fit: cover; border-radius:50%" width="50" height="50"  src="{{reply.user.profile.image_profile.url}}" alt="">
-                                    </li>
-                                {% else %}
-                                    <li>
-                                    {% load static %}   <img style="object-fit: cover; border-radius:50%" width="50" height="50"  src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
-                                    </li>
-                                {% endif %}
-                                <li>{{reply.user}}</li>
-                                <li class="comment" id="comment{{reply.id_comment}}" data-chapter="{{reply.id_comment}}">{{reply.comment|safe}}</li>
-                                <li>{{reply.date_created|timesince}}</li>
-
-                                {% if perms.comment_app.change_commentmanga and request.user == reply.user%}
-                                <li><a class="comment btn btn-warning" id="comment{{reply.id_comment}}" data-comment="{{reply.id_comment}}">Edit</a></li>
-                                <form class="d-none d-flex" class="form" id="form-comment{{reply.id_comment}}" method="GET">
-                                    <input class="form-control" class="edit" type="text" id="inputText{{reply.id_comment}}" value="{{reply.comment|safe}}">
-                                    <button type="submit" class="btn btn-warning" id="edit{{reply.id_comment}}">Save Changes</i></button>
+            <div>
+                <h3>Comments ({{total_comments}})</h3>
+                <hr>
+                {% if comments %}
+                    {% for comment in comments %}
+                        <ul id="{{comment.id_comment}}">
+                            {% if comment.user.profile.image_profile %}
+                                <li>
+                                    <img style="object-fit: cover; border-radius:50%" width="50" height="50"  src="{{comment.user.profile.image_profile.url}}" alt="">
+                                </li>
+                            {% else %}
+                                <li>
+                                {% load static %}   <img style="object-fit: cover; border-radius:50%" width="50" height="50"  src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
+                                </li>
+                            {% endif %}
+                            <li>{{comment.user}}</li>
+                            <li class="comment" id="comment{{comment.id_comment}}" data-comment="{{comment.id_comment}}">{{comment.comment|safe}}</li>
+                            <li>{{comment.date_created|timesince}}</li>
+                            {% if perms.comment_app.change_commentchapter and request.user == comment.user%}
+                                <li><a class="comment btn btn-warning" id="comment{{comment.id_comment}}" data-comment="{{comment.id_comment}}">Edit</a></li>
+                                <form class="d-none d-flex" class="form" id="form-comment{{comment.id_comment}}" method="GET">
+                                    <input class="form-control" class="edit" type="text" id="inputText{{comment.id_comment}}" value="{{comment.comment|safe}}">
+                                    <button type="submit" class="btn btn-warning" id="edit{{comment.id_comment}}">Save Changes</i></button>
                                 </form>
-                                {% endif %}
+                            {% endif %}     
+                            {% if perms.comment_app.delete_commentchapter and request.user.is_staff or request.user == comment.user%}
+                                <li><a class="btn btn-primary" id="btn-delete" data-chapter="{{comment.id_comment}}">Delete</a></li>
+                            {% endif %}
+                        
+                            {% if comment.replies.all %}
+                                <h4 id="title-replies">Replies</h4>
+                            {% endif %}
+                            {% for reply in comment.replies.all %}
+                                <ul id="{{reply.id_comment}}">
+                                    {% if reply.user.profile.image_profile %}
+                                        <li>
+                                            <img style="object-fit: cover; border-radius:50%" width="50" height="50"  src="{{reply.user.profile.image_profile.url}}" alt="">
+                                        </li>
+                                    {% else %}
+                                        <li>
+                                        {% load static %}   <img style="object-fit: cover; border-radius:50%" width="50" height="50"  src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
+                                        </li>
+                                    {% endif %}
+                                    <li>{{reply.user}}</li>
+                                    <li class="comment" id="comment{{reply.id_comment}}" data-chapter="{{reply.id_comment}}">{{reply.comment|safe}}</li>
+                                    <li>{{reply.date_created|timesince}}</li>
 
-                                {% if perms.comment_app.delete_commentmanga and request.user.is_staff or request.user == reply.user %}
-                                    <li><a class="btn btn-primary" id="btn-delete" data-delete="{{reply.id_comment}}">Delete</a></li>
-                                {% endif %}
-                            </ul>
-                        {% endfor %}
-                        <p>
-                            <button class="btn btn-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample{{comment.id_comment}}" aria-expanded="false" aria-controls="collapseExample{{comment.id_comment}}">
-                            Replay
-                            </button>
-                            <hr>
-                        </p>
-                        <div class="collapse" id="collapseExample{{comment.id_comment}}" style="">
-                            <div class="card card-body">
-                                <form  method="POST" class="form" enctype="multipart/form-data">
-                                    {% csrf_token %}
-                                    <div class="form-group">
-                                        {{form_comment.comment.errors}}
-                                        <label for="">Comment:</label>
-                                        {{form_comment.comment}}
-                                    </div>
-                                    <div>
-                                        <input type="hidden" name="parent_id" value="{{ comment.id_comment }}">
-                                        <input class="btn btn-primary" type="submit" value="Replay">
-                                    </div>
-                                </form>
+                                    {% if perms.comment_app.change_commentmanga and request.user == reply.user%}
+                                    <li><a class="comment btn btn-warning" id="comment{{reply.id_comment}}" data-comment="{{reply.id_comment}}">Edit</a></li>
+                                    <form class="d-none d-flex" class="form" id="form-comment{{reply.id_comment}}" method="GET">
+                                        <input class="form-control" class="edit" type="text" id="inputText{{reply.id_comment}}" value="{{reply.comment|safe}}">
+                                        <button type="submit" class="btn btn-warning" id="edit{{reply.id_comment}}">Save Changes</i></button>
+                                    </form>
+                                    {% endif %}
+
+                                    {% if perms.comment_app.delete_commentmanga and request.user.is_staff or request.user == reply.user %}
+                                        <li><a class="btn btn-primary" id="btn-delete" data-delete="{{reply.id_comment}}">Delete</a></li>
+                                    {% endif %}
+                                </ul>
+                            {% endfor %}
+                            <p>
+                                <button class="btn btn-primary collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample{{comment.id_comment}}" aria-expanded="false" aria-controls="collapseExample{{comment.id_comment}}">
+                                Replay
+                                </button>
+                                <hr>
+                            </p>
+                            <div class="collapse" id="collapseExample{{comment.id_comment}}" style="">
+                                <div class="card card-body">
+                                    <form  method="POST" class="form" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            {{form_comment.comment.errors}}
+                                            <label for="">Comment:</label>
+                                            {{form_comment.comment}}
+                                        </div>
+                                        <div>
+                                            <input type="hidden" name="parent_id" value="{{ comment.id_comment }}">
+                                            <input class="btn btn-primary" type="submit" value="Replay">
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    </ul>
-                {% endfor %}
-            {% else %}
-                <h4>Not exists comments</h4>
-            {% endif %}
-        </div>
-        <div >
-            <h3>Add your comment:</h3>
-            <hr>
-            <form  method="POST" class="form" enctype="multipart/form-data">
-                {% csrf_token %}
-                <div class="form-group">
-                    {{form_comment.comment.errors}}
-                    <label for="">Comment:</label>
-                    {{form_comment.comment}}
-                </div>
-                <div>
-                    <input class="btn btn-primary" type="submit" value="Comment"/>
-                </div>
-            </form>
-        </div>
+                        </ul>
+                    {% endfor %}
+                {% else %}
+                    <h4>Not exists comments</h4>
+                {% endif %}
+            </div>
+            <div >
+                <h3>Add your comment:</h3>
+                <hr>
+                <form  method="POST" class="form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{form_comment.comment.errors}}
+                        <label for="">Comment:</label>
+                        {{form_comment.comment}}
+                    </div>
+                    <div>
+                        <input class="btn btn-primary" type="submit" value="Comment"/>
+                    </div>
+                </form>
+            </div>
         {% else %}
-
-        <div>
-            <h1>Page not exists!</h1>
-        </div>
 
         {% endif %}
     </div>

@@ -1,8 +1,8 @@
-<div>
+<div class="comment-section">
     <h3>Comments ({{total_comments}})</h3>
     <hr>
     {% for comment in comments %}
-        <div>
+        <div class="comment-div">
             <ul id="{{comment.id_comment}}">
                 {% if comment.user.profile.image_profile %}
                     <li >

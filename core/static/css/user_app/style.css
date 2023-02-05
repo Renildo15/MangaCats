@@ -908,9 +908,11 @@ header{
     border-radius: 5px;
     padding: 10px;
 }
+.content-manga-info .comment-section .comment-div-replies{
+    background-color: var(--color4);
+}
 
 .content-manga-info .comment-section .comment-div .comment-content{
-    border: 1px solid black;
     padding: 5px;
 }
 
@@ -925,7 +927,7 @@ header{
 }
 
 .content-manga-info .comment-section .comment-div .comment-content .comment-header .comment-user{
-    border: 1px solid white;
+
     border-radius:50%;
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     margin-right: 10px;
@@ -954,7 +956,7 @@ header{
 
 .content-manga-info .comment-section .comment-div .comment-content .comment-body .comment-date span{
     text-align: right;
-    background-color: var(--color1);
+    background-color: var(--color5);
     padding: 6px;
     display: flex;
     align-items: center;
@@ -962,11 +964,13 @@ header{
 }
 
 .content-manga-info .comment-section .comment-div .comment-content .comment-options{
-    background-color: var(--color3);
+    background-color: var(--color1);
     display: flex;
     align-items: center;
     justify-content:flex-end;
     padding: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 .content-manga-info .comment-section .comment-div .comment-content .comment-options a{
     margin: 5px;
@@ -988,6 +992,14 @@ header{
     letter-spacing: 2px;
 }
 
+
+.content-manga-info .comment-section .comment-div .comment-container{
+    background-color: var(--color2);
+    padding: 10px;
+}
+.content-manga-info .comment-section .comment-div .comment-container h4{
+    padding: 0 10px;
+}
 /* pages */
 
 .content-pages .pages-list{

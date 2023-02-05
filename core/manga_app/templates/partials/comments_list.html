@@ -72,43 +72,56 @@
                     </div>
                 </div>
             </div>
-            <ul id="{{comment.id_comment}}" class="comments-p">
+            <div id="{{comment.id_comment}}" class="comment-container">
                 {% if comment.replies.all %}
-                            <h4>Replies</h4>
-                    {% else %}
-                            
-                    {% endif %}
+                    <h4>Replies</h4>          
+                {% endif %}
                 {% for reply in comment.replies.all %}
-                    
-                    <ul id="{{reply.id_comment}}">
-                        {% if reply.user.profile.image_profile %}
-                            <li>
-                                <img style="object-fit: cover;border-radius:50%" width="50" height="50" src="{{reply.user.profile.image_profile.url}}" alt="">
-                            </li>
-                        {% else %}
-                            <li>
-                                {% load static %}   <img style="object-fit: cover;border-radius:50%" width="50" height="50" src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
-                            </li>
-                        {% endif %}
-                        <li>{{reply.user}}</li>
-                        <li class="comment" id="comment{{reply.id_comment}}" data-comment="{{reply.id_comment}}">{{reply.comment|safe}}</li>
-                        <li>{{reply.date_created|timesince}}</li>
+                    <div id="{{reply.id_comment}}" class="comment-div  comment-div-replies">
+                        <div class="comment-content">
+                            <div class="comment-header">
+                                {% if reply.user.profile.image_profile %}
+                                    <div class="comment-user">
+                                        <img style="object-fit: cover;border-radius:50%" width="50" height="50" src="{{reply.user.profile.image_profile.url}}" alt="">
+                                    </div>
+                                {% else %}
+                                    <div class="comment-user">
+                                        {% load static %}   <img style="object-fit: cover;border-radius:50%" width="50" height="50" src="{% static "/imgs/placeholder.jpg" %}" alt="load" />
+                                    </div>
+                                {% endif %}
+                                <span>{{reply.user}}</span>
+                            </div>
+                            <div class="comment-body">
+                                <div class="comment-text">
+                                    <li class="comment" id="comment{{reply.id_comment}}" data-comment="{{reply.id_comment}}">{{reply.comment|safe}}</li>
+                                </div>
+                                <div class="comment-date">
+                                    <span>{{reply.date_created|timesince}}</span>
+                                </div>
+                            </div>
+                            <div class="comment-options">
+                                {% if perms.comment_app.change_commentmanga and request.user == reply.user%}
+                                    <a class="comment btn-edit" id="comment{{reply.id_comment}}" data-comment="{{reply.id_comment}}">
+                                        Edit
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <form class="d-none d-flex" class="form" id="form-comment{{reply.id_comment}}" method="GET">
+                                        <input class="form-control" class="edit" type="text" id="inputText{{reply.id_comment}}" value="{{reply.comment|safe}}">
+                                        <button type="submit" class="btn btn-warning" id="edit{{reply.id_comment}}">Save Changes</i></button>
+                                    </form>
+                                {% endif %}
 
-                        {% if perms.comment_app.change_commentmanga and request.user == reply.user%}
-                        <li><a class="comment btn btn-warning" id="comment{{reply.id_comment}}" data-comment="{{reply.id_comment}}">Edit</a></li>
-                        <form class="d-none d-flex" class="form" id="form-comment{{reply.id_comment}}" method="GET">
-                            <input class="form-control" class="edit" type="text" id="inputText{{reply.id_comment}}" value="{{reply.comment|safe}}">
-                            <button type="submit" class="btn btn-warning" id="edit{{reply.id_comment}}">Save Changes</i></button>
-                        </form>
-                        {% endif %}
-
-                        {% if perms.comment_app.delete_commentmanga and request.user.is_staff or request.user == reply.user %}
-                            <li><a class="btn btn-primary" id="btn-delete" data-delete="{{reply.id_comment}}">Delete</a></li>
-                        {% endif %}
-                        
-                    </ul>
+                                {% if perms.comment_app.delete_commentmanga and request.user.is_staff or request.user == reply.user %}
+                                    <a class="btn-delete" id="btn-delete" data-delete="{{reply.id_comment}}">
+                                        Delete
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                 {% endfor %}
-            </ul>
+            </div>
         </div>
     {% empty %}
         <h4>There are no comments yet.</h4>

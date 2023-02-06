@@ -34,8 +34,11 @@
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                         <form class="d-none d-flex" class="form" id="form-comment{{comment.id_comment}}" method="GET">
-                            <input class="form-control" class="edit" type="text" id="inputText{{comment.id_comment}}" value="{{comment.comment|safe}}">
-                            <button type="submit" class="btn btn-warning" id="edit{{comment.id_comment}}">Save Changes</i></button>
+                            <div class="form-input">
+                                <input class="form-control" class="edit" type="text" id="inputText{{comment.id_comment}}" value="{{comment.comment|safe}}">
+                                <button type="submit" class="btn btn-warning btn-edit" id="edit{{comment.id_comment}}">Save Changes</i></button>
+                            </div>
+                            
                         </form>
                     {% endif %}
 
@@ -52,10 +55,8 @@
                     
                 </div>
                 <div class="reply-div">
-                    
-                    
-                    <div class="collapse" id="collapseExample{{comment.id_comment}}" style="">
-                        <div class="card card-body">
+                    <div class="collapse comment-form-div" id="collapseExample{{comment.id_comment}}" style="">
+                        <div class="card card-body comment-form mt-3">
                             <form  method="POST" class="form" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="form-group">
@@ -63,9 +64,9 @@
                                     <label for="">Comment:</label>
                                     {{form_comment.comment}}
                                 </div>
-                                <div>
+                                <div class="btn-comment-div">
                                     <input type="hidden" name="parent_id" value="{{ comment.id_comment }}">
-                                    <input class="btn btn-primary" type="submit" value="Replay">
+                                    <input class="btn btn-primary btn-comment" type="submit" value="Reply">
                                 </div>
                             </form>
                         </div>
@@ -105,9 +106,11 @@
                                         Edit
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    <form class="d-none d-flex" class="form" id="form-comment{{reply.id_comment}}" method="GET">
-                                        <input class="form-control" class="edit" type="text" id="inputText{{reply.id_comment}}" value="{{reply.comment|safe}}">
-                                        <button type="submit" class="btn btn-warning" id="edit{{reply.id_comment}}">Save Changes</i></button>
+                                    <form class="d-none d-flex form-edit" class="form" id="form-comment{{reply.id_comment}}" method="GET">
+                                        <div class="form-input">
+                                            <input class="form-control" class="edit" type="text" id="inputText{{reply.id_comment}}" value="{{reply.comment|safe}}">
+                                            <button type="submit" class="btn btn-warning btn-edit" id="edit{{reply.id_comment}}">Save Changes</i></button>
+                                        </div>
                                     </form>
                                 {% endif %}
 

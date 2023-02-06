@@ -1,0 +1,212 @@
+:root{
+    --color1:#444444;
+    --color2:#fcf7d1;
+    --color3:#a9a17a;
+    --color4:#b52c00;
+    --color5:#8c0005;
+}
+
+
+/* comments */
+.content-manga-info .comment-section{
+    margin-top: 10px;
+    padding: 10px 0;
+    background-color: var(--color4);
+}
+
+.content-manga-info .comment-section h3{
+    background-color: var(--color2);
+    padding: 10px;
+    color: var(--color4);
+}
+.content-manga-info .comment-section .comment-div{
+    border: 1px solid white;
+    margin: 10px;
+    background-color: var(--color2);
+    border-radius: 5px;
+    padding: 10px;
+}
+.content-manga-info .comment-section .comment-div-replies{
+    background-color: var(--color4);
+}
+
+.content-manga-info .comment-section .comment-div .comment-content{
+    padding: 5px;
+}
+
+.content-manga-info .comment-section .comment-div .comment-content .comment-header{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 5px;
+    background-color: var(--color1);
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.content-manga-info .comment-section .comment-div .comment-content .comment-header .comment-user{
+
+    border-radius:50%;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    margin-right: 10px;
+}
+.content-manga-info .comment-section .comment-div .comment-content .comment-header .comment-user img{
+    object-fit: cover; 
+    border-radius:50%;
+    width:50px;
+    height:50px;
+}
+.content-manga-info .comment-section .comment-div .comment-content .comment-header span{
+    font-size: 20px;
+    color: var(--color3);
+}
+
+.content-manga-info .comment-section .comment-div .comment-content .comment-body{
+    background-color: var(--color3);
+    color: white;
+}
+
+.content-manga-info .comment-section .comment-div .comment-content .comment-body .comment-text li{
+    display: block;
+    list-style: none;
+    padding: 10px;
+}
+
+.content-manga-info .comment-section .comment-div .comment-content .comment-body .comment-date span{
+    text-align: right;
+    background-color: var(--color5);
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.content-manga-info .comment-section .comment-div .comment-content .comment-options{
+    background-color: var(--color1);
+    display: flex;
+    align-items: center;
+    justify-content:flex-end;
+    padding: 10px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.content-manga-info .comment-section .comment-div .comment-content .comment-options a{
+    margin: 5px;
+}
+.content-manga-info .comment-section .comment-div .comment-content .comment-options form {
+    padding: 10px;
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 200px;
+}
+
+.content-manga-info .comment-section .comment-div .comment-content .comment-options form .form-input{
+    width: 100%;
+    background-color: var(--color2);
+    border-radius: 5px;
+    position: absolute;
+    padding: 10px;
+}
+
+.content-manga-info .comment-section .comment-div .comment-content .comment-options form .form-input input{
+    margin-bottom: 5px;
+    padding: 20px;
+}
+.content-manga-info .comment-section .comment-div .comment-content .comment-options form .form-input input:focus{
+    box-shadow: none;
+}
+.content-manga-info .comment-section .comment-div .comment-content .comment-options form .form-input button.btn-edit{
+    background-color: var(--color5);
+    color: white;
+    border: none;
+}
+
+.content-manga-info .comment-section .comment-div .comment-content .comment-options form .form-input button.btn-edit:hover{
+    background-color: white;
+    color: var(--color5);
+}
+
+.content-manga-info .comment-section .comment-div .comment-content .comment-options form .form-input button.btn-edit:focus{
+    box-shadow: none;
+}
+
+.content-manga-info .comment-section .comment-div .comment-content .comment-options a.btn-edit,
+.content-manga-info .comment-section .comment-div .comment-content .comment-options a.btn-delete,
+.content-manga-info .comment-section .comment-div .comment-content .comment-options a.btn-reply{
+    text-decoration: none;
+    color: var(--color2);
+    width: 90px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.content-manga-info .comment-section .comment-div .comment-content .comment-options a.btn-edit:hover,
+.content-manga-info .comment-section .comment-div .comment-content .comment-options a.btn-delete:hover,
+.content-manga-info .comment-section .comment-div .comment-content .comment-options a.btn-reply:hover{
+    text-decoration: underline;
+    letter-spacing: 2px;
+}
+
+
+.content-manga-info .comment-section .comment-div .comment-container{
+    background-color: var(--color2);
+    padding: 10px;
+}
+.content-manga-info .comment-section .comment-div .comment-container h4{
+    padding: 0 10px;
+
+}
+/* comment form */
+
+.content-manga-info .comment-form{
+    padding: 10px;
+    background-color: var(--color1);
+}
+
+.content-manga-info .comment-form h3{
+    color: var(--color3);
+}
+.content-manga-info .comment-form form{
+    border: 1px solid var(--color2);
+    padding: 5px;
+    border-radius: 5px;
+    
+}
+.content-manga-info .comment-form form .form-group label{
+    color: var(--color3);
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+.content-manga-info .comment-form form .btn-comment-div{
+    margin: 10px 0;
+    padding: 10px 0;
+}
+.content-manga-info .comment-form form .btn-comment-div .btn-comment{
+    background-color: var(--color5);
+    border: none;
+}
+
+.content-manga-info .comment-form form .btn-comment-div .btn-comment:hover{
+    color: var(--color5);
+    background-color: white;
+}
+
+.content-manga-info .comment-form form .btn-comment-div .btn-comment:focus{
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.content-manga-info .comment-form form .form-group .errorlist{
+    color: var(--color5);
+    background-color: var(--color2);
+    padding: 10px;
+}
+
+.content-manga-info .comment-form form .form-group .errorlist li{
+    list-style: none;
+}
+

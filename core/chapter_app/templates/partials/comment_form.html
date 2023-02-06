@@ -1,0 +1,16 @@
+<div class="comment-form">
+    <h3>Add your comment:</h3>
+    <hr style="color:white;">
+    <form  method="POST" class="form" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            {{form_comment.comment.errors}}
+            <label for="">Comment:</label>
+            {{form_comment.comment}}
+        </div>
+        <div class="btn-comment-div">
+            <input class="btn btn-primary btn-comment" type="submit" value="Comment"/>
+        </div>
+    </form>
+        
+</div>

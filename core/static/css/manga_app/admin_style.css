@@ -57,6 +57,7 @@
 .content-manga-uploaded .manga-table table tbody tr td img{
     width:160px; 
     height:227px; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 .content-manga-uploaded .manga-table table tbody tr td .links{
@@ -109,6 +110,11 @@
 
 .content-manga-uploaded .container-chapter .info-manga-chapter h1{
     color: var(--color2);
+}
+.content-manga-uploaded .container-chapter .info-manga-chapter img{
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    width:320px;
+    height:454px;
 }
 
 .content-manga-uploaded .container-chapter .manga-table{

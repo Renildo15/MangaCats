@@ -3,8 +3,8 @@
 
 {% block content %}
 <div class="container">
-    <div class="content">
-        <div>
+    <div class="content content-manga-form">
+        <div class="form-div">
             <form method="POST" class="form" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
@@ -62,8 +62,8 @@
                     <label for="">Genre:</label>
                     {{form_manga.genre}}
                 </div>
-                <div>
-                    <input class="btn btn-primary" type="submit" value="Edit Manga"/>
+                <div class="button-add-div">
+                    <input class="btn btn-primary btn-add" type="submit" value="Edit Manga"/>
                 </div>
             </form>
         </div>

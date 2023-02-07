@@ -1,0 +1,77 @@
+:root{
+    --color1:#444444;
+    --color2:#fcf7d1;
+    --color3:#a9a17a;
+    --color4:#b52c00;
+    --color5:#8c0005;
+}
+
+.content-manga-uploaded{
+    border: none;
+    padding: 10px;
+    background-color: var(--color1);
+}
+
+.content-manga-uploaded h3{
+    color: var(--color1);
+    text-align: center;
+    background-color: var(--color3);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.content-manga-uploaded .manga-table{
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.content-manga-uploaded .manga-table table{
+    /* border: 1px solid red; */
+    border-collapse: collapse;
+    width: 100%;
+
+}
+
+.content-manga-uploaded .manga-table table thead{
+    background-color: var(--color3);
+}
+.content-manga-uploaded .manga-table table thead tr th{
+    border: 1px solid var(--color5);
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    color: var(--color1);
+}
+.content-manga-uploaded .manga-table table tbody tr{
+    margin-top: 6px;
+}
+.content-manga-uploaded .manga-table table tbody tr td{
+    background-color: var(--color2);
+    border: 1px solid var(--color5);
+    width: 90px;
+    padding: 10px;
+    text-align: center;
+}
+
+.content-manga-uploaded .manga-table table tbody tr td img{
+    width:160px; 
+    height:227px; 
+}
+
+.content-manga-uploaded .manga-table table tbody tr td .links{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.content-manga-uploaded .manga-table table tbody tr td .links a{
+    text-decoration: none;
+    color: var(--color4);
+}
+
+.content-manga-uploaded .manga-table table tbody tr td .links a:hover{
+    background-color: var(--color1);
+    width: 60px;
+    color: white;
+}

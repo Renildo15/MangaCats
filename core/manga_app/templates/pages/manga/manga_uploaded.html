@@ -9,42 +9,56 @@
         </div>
 {% endfor %}
 <div class="container">
-    <div class="content">
-        <table>
-            <thead>
-                <tr>
-                    <th>Cover</th>
-                    <th>Name</th>
-                    <th>Last Chapter</th>
-                    <th>Status</th>
-                    <th>Date Created</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for manga in mangas %}
-                <tr>
-                    <td><img width="320" height="454" src="{{manga.cover.url}}" ></td>
-                    <td>{{manga.name_manga}}</td>
-                    {% for l in last %}
-                        {% if manga.id_manga == l.manga.id_manga %}
-                            <td>{{l}}</td>
-                        {% endif %}
-                    {% endfor %}
-                    
-                    <td>{{manga.status}}</td>
-                    <td>{{manga.date_created|date:"D d M Y"}}</td>
-                    <td>
-                        {% if perms.manga_app.can_edit_manga and perms.manga_app.can_delete_manga%}
-                            <a href={% url 'chapter:chapter_list' manga.id_manga %}>Chapters</a>
-                            <a href={% url 'manga:manga_edit' manga.id_manga %}>Edit</a>
-                            <a href={% url 'manga:manga_delete' manga.id_manga %}>Delete</a>
-                        {% endif %} 
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+    <div class="content content-manga-uploaded">
+        <h3>Manga uploaded list</h3>
+        <hr>
+        <div class="manga-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cover</th>
+                        <th>Name</th>
+                        <th>Last Chapter</th>
+                        <th>Status</th>
+                        <th>Date Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for manga in mangas %}
+                    <tr>
+                        <td><img src="{{manga.cover.url}}" ></td>
+                        <td>{{manga.name_manga}}</td>
+                        <td>
+                            {% if last %}
+                                {% for l in last %}
+                                    {% if manga.id_manga == l.manga.id_manga %}
+                                        {{l}}
+                                    {% else %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                ---
+                            {% endif %}
+                        </td>
+                        <td>{{manga.status}}</td>
+                        <td>{{manga.date_created|date:"D d M Y"}}</td>
+                        <td>
+                            <div class="links">
+                                {% if perms.manga_app.can_edit_manga and perms.manga_app.can_delete_manga%}
+                                    <a href={% url 'chapter:chapter_list' manga.id_manga %}>Chapters</a>
+                                    <a href={% url 'manga:manga_edit' manga.id_manga %}>Edit</a>
+                                    <a href={% url 'manga:manga_delete' manga.id_manga %}>Delete</a>
+                                {% endif %} 
+                            </div>
+                            
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
     </div>
 </div>
     

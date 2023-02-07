@@ -10,49 +10,61 @@
 {% endfor %}
 
 <div class="container">
-    <div class="content">
-        {% if perms.chapter.can_add_chapter %}
-            <a href={% url 'chapter:chapter_Add' manga_id %}>Add Chapter</a>
-        {% endif %}
+    <div class="content content-manga-uploaded">
+        <div class="add-button-div">
+            {% if perms.chapter.can_add_chapter %}
+                <a href={% url 'chapter:chapter_Add' manga_id %}>
+                    <i class="fa-solid fa-plus"></i>
+                    Add Chapter
+                </a>
+            {% endif %}
+        </div>
 
-        {% if chapters %}
-        <h1>{{name_manga}}</h1>
-        <img src="{{manga_cover.url}}" width="320" height="454">
-
-        <table>
-            <thead>
-                <tr>
-                    <th>Chapters Name</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for chapter in chapters %}
-                <tr>
-                    <td>
-                        <a href={% url 'chapter:page_list' chapter.id_chapter %}>
-                            {{chapter.name_chapter}}
-                        </a>
-                    </td>
-                    <td>
-                        {% if perms.page.can_add_page %}
-                            <a href={% url 'chapter:page_add' chapter.id_chapter %}>Add page</a>
-                        {% endif %}               
-                        {% if perms.chapter.can_edit_chapter and perms.chapter.can_delete_chapter %}
-                            <a href={% url 'chapter:chapter_edit' chapter.id_chapter %}>Edit</a>
-                            <a href={% url 'chapter:chapter_delete' chapter.id_chapter %}>Delete</a>
-                        {% endif %}
-                        {% if perms.page.can_edit_page %}
-                            <a href={% url 'chapter:page_list_manager' chapter.id_chapter %}>Pages List</a>
-                        {% endif %}
-                    </td>
-                </tr> 
-            {% endfor %}
-            </tbody>
-        </table>
-        {% else %}
-        <h1>Chapters not exists</h1>
-        {% endif %}
+        <div class="container-chapter">
+            <div class="info-manga-chapter">
+                {% if chapters %}
+                    <h1>{{name_manga}}</h1>
+                    <img src="{{manga_cover.url}}" width="320" height="454">
+                </div>
+                <div class="manga-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Chapters Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for chapter in chapters %}
+                            <tr>
+                                <td>
+                                    <a href={% url 'chapter:page_list' chapter.id_chapter %}>
+                                        {{chapter.name_chapter}}
+                                    </a>
+                                </td>
+                                <td>
+                                    <div class="link">
+                                        {% if perms.page.can_add_page %}
+                                            <a href={% url 'chapter:page_add' chapter.id_chapter %}>Add page |</a>
+                                        {% endif %}               
+                                        {% if perms.chapter.can_edit_chapter and perms.chapter.can_delete_chapter %}
+                                            <a href={% url 'chapter:chapter_edit' chapter.id_chapter %}>Edit |</a>
+                                            <a href={% url 'chapter:chapter_delete' chapter.id_chapter %}>Delete |</a>
+                                        {% endif %}
+                                        {% if perms.page.can_edit_page %}
+                                            <a href={% url 'chapter:page_list_manager' chapter.id_chapter %}>Pages List</a>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr> 
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                    <h1>Chapters not exists</h1>
+                {% endif %}
+        </div>
     </div>
 </div>
 {% endblock content %}

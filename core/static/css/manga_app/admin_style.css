@@ -41,6 +41,7 @@
     height: 50px;
     text-align: center;
     color: var(--color1);
+    font-size: 20px;
 }
 .content-manga-uploaded .manga-table table tbody tr{
     margin-top: 6px;
@@ -68,10 +69,59 @@
 .content-manga-uploaded .manga-table table tbody tr td .links a{
     text-decoration: none;
     color: var(--color4);
+    font-size: 15px;
 }
 
 .content-manga-uploaded .manga-table table tbody tr td .links a:hover{
-    background-color: var(--color1);
-    width: 60px;
-    color: white;
+    text-decoration: underline;
+    font-weight: bold;
+    transition: 0.3 ease-in;
+}
+
+
+/* chapter list manager */
+
+.content-manga-uploaded .add-button-div{
+    padding: 5px;
+    text-align: center;
+    background-color: var(--color3);
+}
+
+.content-manga-uploaded .add-button-div a{
+    background-color: var(--color5);
+    width: 90px;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: var(--color2);
+}
+
+.content-manga-uploaded .add-button-div a:hover{
+    transition: 0.3 ease-in;
+    background-color: var(--color2);
+    color: var(--color5);
+}
+
+.content-manga-uploaded .container-chapter .info-manga-chapter{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.content-manga-uploaded .container-chapter .info-manga-chapter h1{
+    color: var(--color2);
+}
+
+.content-manga-uploaded .container-chapter .manga-table{
+    border: none;
+}
+.content-manga-uploaded .container-chapter .manga-table  table tbody tr td a,
+.content-manga-uploaded .container-chapter .manga-table  table tbody tr td .link a{
+    text-decoration: none;
+    color: var(--color4);
+    font-size: 20px;
+}
+.content-manga-uploaded .container-chapter .manga-table  table tbody tr td a:hover,
+.content-manga-uploaded .container-chapter .manga-table  table tbody tr td .link a:hover{
+    text-decoration: underline;
+    font-weight: bold;
 }

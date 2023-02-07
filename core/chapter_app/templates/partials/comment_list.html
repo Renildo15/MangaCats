@@ -132,5 +132,9 @@
         </div>
     {% endfor %}
 </div>
-{% include "partials/comment_form.html" %}
+{% if pages %}
+    {% include "partials/comment_form.html" %}
+{% endif %}
+
+
 

@@ -8,32 +8,28 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
         </div>
 {% endfor %}
-<div >
-    <form action="" method="POST" class="form" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-group">
-            {{form_page.image_chapter.errors}}
-            <label for="">Page:</label>
-            {{form_page.image_chapter}}
+<div class="container">
+    <div class="content content-manga-form">
+        <div class="form-div">
+            <form action="" method="POST" class="form" enctype="multipart/form-data">
+                <h1>Edit page</h1>
+                {% csrf_token %}
+                <div class="form-group">
+                    {{form_page.image_chapter.errors}}
+                    <label for="">Page:</label>
+                    {{form_page.image_chapter}}
+                </div>
+                <div class="form-group">
+                    {{form_page.chapter_name.errors}}
+                    <label for="">Chapter:</label>
+                    {{form_page.chapter_name}}
+                </div>
+                <div class="button-add-div"> 
+                    <input class="btn btn-primary btn-add" type="submit" value="Save changes"/>
+                </div>
+            </form>
         </div>
-        {% comment %} <select name="" id="">
-        {% for m in form_chapter.manga %}
-            {% if form_chapter.manga == m.id_manga %}
-                <option value={{m.id_manga}} selected></option>
-            {% else %}
-                <option value={{m}}></option>
-            {% endif %}
-        {% endfor %}
-        </select> {% endcomment %}
-        <div class="form-group">
-            {{form_page.chapter_name.errors}}
-            <label for="">Chapter:</label>
-            {{form_page.chapter_name}}
-        </div>
-        <div>
-            <input class="btn btn-primary" type="submit" value="Add Chapter"/>
-        </div>
-    </form>
+    </div>
 </div>
 
 {% endblock content %}

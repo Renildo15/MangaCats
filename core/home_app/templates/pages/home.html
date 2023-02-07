@@ -19,14 +19,13 @@
       </form>
     </div>
     {% if language %}
-
       <h1>Popular Manga - {{language}}</h1>
     {% else %}
       <h1>Popular Manga - ALL</h1>
     {% endif %}
    
-    <div>
-      <div>
+    <div class="form-container">
+      <div class="form-content">
         <form action="" method="get">
           <input type="submit" name="JP" value="JP">
           <input type="submit" name="PT-BR" value="PT-BR">
@@ -36,31 +35,33 @@
       </div>
     </div>
   </div>
-  <div id="content" class="content">
+
+  <div id="content" class="content content-popular">
    {% if mangas %}
    <div class="manga-list">
-    {% for manga in mangas %}
-        <ul>
-            <li>{{manga.name_manga}}</li>
-            <li>{{manga.num_chapter}}</li>
-            <li>{{manga.views_manga}}</li>
-            <li> 
-                <a href={% url 'manga:manga_view' manga.id_manga %}>
-                    <img src="{{manga.cover.url}}" width="320" height="454">
-                </a>  
-            </li>
-            <li>{{manga.date_created|date:"D d M Y"}}</li> 
-            {% for l in last %}
-              {% if manga.id_manga == l.manga.id_manga%}
-                <li>{{l}} - {{l.updated_at|timesince}}</li>
-               
-              {% endif %}
-              
-               
-            {% endfor %}
-        </ul>
-        
+    <div class="row">
+      {% for manga in mangas %}
+        <div class="col-md-4">
+          <a href={% url 'manga:manga_view' manga.id_manga %}>
+            <div class="card">
+              <img src="{{manga.cover.url}}">
+              <div class="info">
+                <h2>{{manga.name_manga}}</h2>
+                <p>Chapters:{{manga.num_chapter}}</p>
+                <p>Views:{{manga.views_manga}} </p>
+                <p>Created at:{{manga.date_created|date:"D d M Y"}}</p>
+                {% for l in last %}
+                {% if manga.id_manga == l.manga.id_manga%}
+                  <p>Last chapter: {{l}} - {{l.updated_at|timesince}}</p> 
+                {% endif %}  
+              {% endfor %}
+              </div>
+            </div>
+          </a> 
+        </div>
     {% endfor %}
+    </div>
+    
    </div>
    {% else %}
     <h5>No register</h5>

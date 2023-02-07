@@ -10,19 +10,22 @@
 {% endfor %}
 
 <div class="container">
-    <div>
-        <h4>Genre List</h4>
+    <div class="title">
+        <h1>Genre List</h1>
     </div>
-    <div class="content">
-        <ul>
-            {% for genre in genres %}
-            
-                <li>
-                    <a href={% url 'manga:genre_manga' genre.name_genre genre.id_genre%}>{{genre.name_genre}}</a>
-                </li>
-
-            {% endfor %}
-        </ul>
+    <div class="content content-list">
+       
+        <div class="genre-list">
+            <ul>
+                {% for genre in genres %}
+                
+                    <li>
+                        <a href={% url 'manga:genre_manga' genre.name_genre genre.id_genre%}>{{genre.name_genre}}</a>
+                    </li>
+    
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 </div>
 {% endblock content %}

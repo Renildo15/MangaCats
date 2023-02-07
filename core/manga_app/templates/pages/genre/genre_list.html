@@ -8,31 +8,37 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
         </div>
 {% endfor %}
-<table>
-    <thead>
-        <tr>
-            <th>Genre</th>
-            <th>Date Created</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-
-    <tbody>
-
-
-{% for genre in genres %}
-    <tr>
-        <td>{{genre.name_genre}}</td>
-        <td>{{genre.date_created}}</td>
-        <td>
-            {% if perms.genre.can_edit_genre and perms.genre.can_delete_genre %}
-                <a href={% url 'manga:genre_edit' genre.id_genre %}>Edit</a>
-                <a href={% url 'manga:genre_delete' genre.id_genre %}>Delete</a>
-            {% endif %}
-        </td>
-    </tr>
-    </tbody>
-
-{% endfor %}
-</table>
+<div class="container">
+    <div class="content content-manga-uploaded">
+        <h3>Genre list</h3>
+        <hr>
+        <div class="manga-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Genre</th>
+                        <th>Date Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for genre in genres %}
+                        <tr>
+                            <td>{{genre.name_genre}}</td>
+                            <td>{{genre.date_created}}</td>
+                            <td>
+                                <div class="links">
+                                    {% if perms.genre.can_edit_genre and perms.genre.can_delete_genre %}
+                                    <a href={% url 'manga:genre_edit' genre.id_genre %}>Edit</a>
+                                    <a href={% url 'manga:genre_delete' genre.id_genre %}>Delete</a>
+                                {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock content %}

@@ -1,0 +1,15 @@
+{% if pages %}
+    {% for page in pages %}
+        <div class="pages-list">
+            <div class="page-img">
+                <img src="{{page.image_chapter}}" >
+            </div>
+        </div>
+    {% endfor %}   
+{% else %}
+    <div class="pages-list">
+        <div class="page-img">
+            <h1 style="color: #a9a17a">Page not exists!</h1>
+        </div>
+    </div>
+{% endif %}

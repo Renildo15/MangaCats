@@ -8,32 +8,28 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
         </div>
 {% endfor %}
-<div >
-    <form action="" method="POST" class="form" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-group">
-            {{form_chapter.name_chapter.errors}}
-            <label for="">Chapter name:</label>
-            {{form_chapter.name_chapter}}
+<div class="container">
+    <div class="content content-manga-form">
+        <div class="form-div">
+            <form action="" method="POST" class="form" enctype="multipart/form-data">
+                <h1>Edit chapter</h1>
+                {% csrf_token %}
+                <div class="form-group">
+                    {{form_chapter.name_chapter.errors}}
+                    <label for="">Chapter name:</label>
+                    {{form_chapter.name_chapter}}
+                </div>
+                <div class="form-group">
+                    {{form_chapter.manga.errors}}
+                    <label for="">Manga:</label>
+                    {{form_chapter.manga}}
+                </div>
+                <div class="button-add-div">
+                    <input class="btn btn-primary btn-add" type="submit" value="Save changes"/>
+                </div>
+            </form>
         </div>
-        {% comment %} <select name="" id="">
-        {% for m in form_chapter.manga %}
-            {% if form_chapter.manga == m.id_manga %}
-                <option value={{m.id_manga}} selected></option>
-            {% else %}
-                <option value={{m}}></option>
-            {% endif %}
-        {% endfor %}
-        </select> {% endcomment %}
-        <div class="form-group">
-            {{form_chapter.manga.errors}}
-            <label for="">Manga:</label>
-            {{form_chapter.manga}}
-        </div>
-        <div>
-            <input class="btn btn-primary" type="submit" value="Save changes"/>
-        </div>
-    </form>
+    </div>
 </div>
 
 {% endblock content %}

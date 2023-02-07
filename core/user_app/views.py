@@ -49,7 +49,7 @@ def login_user(request):
         form_login = AuthenticationForm()
 
     context = {
-        "form_login": form_login
+        "form_login": form_login,
     }
 
     return render(request, "pages/login.html", context)
@@ -92,7 +92,7 @@ def password_reset_request(request):
             if associated_users.exists():
                 for user in associated_users:
                     subject = "Password Reset Requested"
-                    email_template_name = "senha/password_reset_email.txt"
+                    email_template_name = "pages/password/password_reset_email.txt"
                     c = {
 					"email":user.email,
 					'domain':'127.0.0.1:8000',

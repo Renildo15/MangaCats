@@ -8,33 +8,48 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
         </div>
     {% endfor %}
-    <form method="post">
-        {% csrf_token %}
+    <div class="container login">
+       <div class="content">
+            <div class="form-div">
+                <form method="post">
+                    {% csrf_token %}
+                    <h2>MangaCats-Login</h2>
+                   <div class="form">
+                    
+                        <div class="inputs">
+                            {{form_login.username.error}}
+                            <label>Username: </label>
+                            {{form_login.username}}
+                        </div>
+                
+                        <div class="inputs">
+                            {{form_login.password.errors}}
+                            <label>Password: </label>
+                            {{form_login.password}}
+                        </div>
+                
+                        <div class="button">
+                            <input type="submit" value="Login" class="btn btn-primary btn-login">
+                        </div>
+                   </div>
+                </form>
 
-        <div class="form-group">
-            {{form_login.username.errors}}
-            <label>Username: </label>
-            {{form_login.username}}
+                <div class="infos-div">
+                    <div class="infos-content">
+                        <span>
+                            <a href={% url 'user:password_reset' %}>Forgot password?</a>
+                        </span>
+                    </div>
+                   
+                   <div class="infos-content ">
+                    <span>
+                        <a href={% url 'user:register' %}>New to MangaCats? Create an account.</a>
+                    </span>
+                   </div>
+                </div>
         </div>
-
-        <div class="form-group">
-            {{form_login.password.errors}}
-            <label>Senha: </label>
-            {{form_login.password}}
-        </div>
-
-        <div class="form-group">
-            <input type="submit" value="Enviar" class="btn btn-primary">
-        </div>
-    </form>
-    <div>
-        <span>
-            <a href={% url 'user:password_reset' %}>Forgot password?</a>
-        </span>
+       </div>      
     </div>
-    <div>
-        <span>
-            <a href={% url 'user:register' %}>New to MangaCats? Create an account.</a>
-        </span>
-    </div>
+
+    
 {% endblock content %}

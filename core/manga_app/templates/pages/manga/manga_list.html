@@ -9,7 +9,8 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="close"></button>
         </div>
 {% endfor %}
-<div class="title">
+<div class="container">
+  <div class="title">
     <div class="search">
         <form action="">
           <input type="text" placeholder="Search Manga here...">
@@ -17,8 +18,8 @@
         </form>
     </div>
     <h1>Manga list</h1>
-    <div>
-      <div>
+    <div class="form-container">
+      <div class="form-content">
         <form action="" method="get">
           <input type="submit" name="JP" value="JP">
           <input type="submit" name="PT-BR" value="PT-BR">
@@ -27,28 +28,36 @@
         </form>
       </div>
     </div>
+  </div>
+  <div class="content content-list">
+    {% if mangas %}
+     <div class="manga-list">
+      <div class="row">
+        {% for manga in mangas %}
+          <div class="col-md-4">
+            <a href={% url 'manga:manga_view' manga.id_manga %}>
+              <div class="card">
+                <img src="{{manga.cover.url}}">
+                <div class="info">
+                  <h2>{{manga.name_manga}}</h2>
+                  <p>Chapters:{{manga.num_chapter}}</p>
+                  <p>Views:{{manga.views_manga}} </p>
+                  <p>Created at:{{manga.date_created|date:"D d M Y"}}</p>
+                  {% for l in last %}
+                  {% if manga.id_manga == l.manga.id_manga%}
+                    <p>Last chapter: {{l}} - {{l.updated_at|timesince}}</p> 
+                  {% endif %}  
+                {% endfor %}
+                </div>
+              </div>
+            </a> 
+          </div> 
+        {% endfor %}
+      </div>
+     </div>
+    {% else %}
+        <h5>No register</h5>
+    {% endif %}
+  </div>
 </div>
-{% if mangas %}
-  {% for manga in mangas %}
-    <div>
-      <ul>
-          <li>{{manga.name_manga}}</li>
-          <li>{{manga.num_chapter}}</li>
-          <li> 
-              <a href={% url 'manga:manga_view' manga.id_manga %}>
-                  <img src="{{manga.cover.url}}" width="320" height="454">
-              </a>  
-          </li>
-          <li>{{manga.date_created|date:"D d M Y"}}</li> 
-          {% for l in last %}
-              {% if manga.id_manga == l.manga.id_manga%}
-                  <li>{{l}} - {{l.updated_at|timesince}}</li>      
-              {% endif %}    
-          {% endfor %}
-      </ul>
-    </div> 
-  {% endfor %}
-{% else %}
-    <h5>No register</h5>
-{% endif %}
 {% endblock content %}

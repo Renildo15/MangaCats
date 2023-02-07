@@ -9,9 +9,10 @@
         </div>
 {% endfor %}
 <div class="container">
-    <div class="content">
-        <div >
+    <div class="content content-manga-form">
+        <div class="form-div">
             <form action="." method="POST" class="form" enctype="multipart/form-data">
+                <h1>Add Manga</h1>
                 {% csrf_token %}
                 <div class="form-group">
                     {{form_manga.name_manga.errors}}
@@ -66,10 +67,11 @@
                 <div class="form-group">
                     {{form_manga.genre.errors}}
                     <label for="">Genre:</label>
+                    <hr>
                     {{form_manga.genre}}
                 </div>
-                <div>
-                    <input class="btn btn-primary" type="submit" value="Add Manga"/>
+                <div class="button-add-div">
+                    <input class="btn btn-primary btn-add" type="submit" value="Save Manga"/>
                 </div>
             </form>
         </div>

@@ -79,6 +79,71 @@
     transition: 0.3 ease-in;
 }
 
+/* manga form */
+
+.content-manga-form{
+    padding: 10px;
+    background-color: var(--color1);
+}
+
+.content-manga-form .form-div{
+    padding: 10px;
+}
+.content-manga-form .form-div form h1{
+    color: var(--color2);
+    text-align: center;
+}
+.content-manga-form .form-div form .form-group{
+    padding: 10px;
+    background-color: var(--color3);
+}
+
+.content-manga-form .form-div form .form-group label{
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color1);
+}
+
+.content-manga-form .form-div form .form-group input,
+.content-manga-form .form-div form .form-group textarea,
+.content-manga-form .form-div form .form-group select{
+    width: 100%;
+    padding: 5px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    color: var(--color3);
+}
+
+.content-manga-form .form-div form .form-group #id_genre div label{
+    display: inline-block;
+    width: 140px;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.content-manga-form .form-div form .form-group #id_genre div label input[type="checkbox"]{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.content-manga-form .form-div form .form-group input:focus,
+.content-manga-form .form-div form .form-group textarea:focus,
+.content-manga-form .form-div form .form-group select:focus{
+    border: 1px solid var(--color4);
+    outline: none;
+}
+.content-manga-form .form-div form .button-add-div{
+    padding: 10px;
+    text-align: center;
+}
+.content-manga-form .form-div form .button-add-div .btn-add{
+    background-color: var(--color5);
+    border: none;
+    font-size: 20px;
+    width: 200px;
+}
 
 /* chapter list manager */
 

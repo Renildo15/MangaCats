@@ -4,7 +4,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth import settings
 from django.db.models import F
 from chapter_app.models import Chapter
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from datetime import datetime, timedelta
 from django.utils import timezone
 import pytz
@@ -21,9 +21,9 @@ class Genre(models.Model):
         verbose_name_plural = "Genres"
         ordering = [F('name_genre').asc(nulls_last=True)]
         permissions = [('can_add_genre', 'Can add genre'),
-                       ('can_delete_genre', 'Can delete genre'),
-                       ('can_edit_genre', 'Can edit genre'),
-                       ('can_view_genre', 'Can view genre')]
+                    ('can_delete_genre', 'Can delete genre'),
+                    ('can_edit_genre', 'Can edit genre'),
+                    ('can_view_genre', 'Can view genre')]
 
 
     def __str__(self):
@@ -66,9 +66,9 @@ class Manga(models.Model):
         verbose_name_plural = "Mangas"
         ordering = ("name_manga",)
         permissions = [('can_add_manga', 'Can add manga'),
-                       ('can_delete_manga', 'Can delete manga'),
-                       ('can_edit_manga', 'Can edit manga'),
-                       ('can_view_manga', 'Can view manga')]
+                    ('can_delete_manga', 'Can delete manga'),
+                    ('can_edit_manga', 'Can edit manga'),
+                    ('can_view_manga', 'Can view manga')]
 
     def __str__(self):
         return self.name_manga
@@ -80,11 +80,22 @@ class Manga(models.Model):
         self.num_chapter += 1
         self.save()
 
-       
+    def delete_chapter(self):
+        self.num_chapter -= 1
+        self.save()
+
+
+##Signals
+
 def add_new_chapter(sender, instance, **kwargs):
     instance.manga.add_chapter()
 
+def delete_current_chapter(sender, instance, **kwargs):
+    instance.manga.delete_chapter()
+
 post_save.connect(add_new_chapter, sender=Chapter)
+
+post_delete.connect(delete_current_chapter, sender=Chapter)
 
 
 class FavoriteManga(models.Model):

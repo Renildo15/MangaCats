@@ -81,7 +81,6 @@ def manga_view(request, pk):
     re_ave = review_avarege(pk)
     reviews = re_ave['total_reviews']
     average = re_ave['average']
-   
 
     try:
         status = status_selected(request,pk)
@@ -97,9 +96,6 @@ def manga_view(request, pk):
     except:
         re_sel = None
 
-   
-      
-    
     if request.method == "POST":
         if request.user.is_authenticated:
             form_comment = CommentMangaForm(request.POST or None)

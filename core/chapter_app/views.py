@@ -6,9 +6,6 @@ from .forms import PageForm, ChapterForm
 from manga_app.models import Manga
 from django.contrib import messages
 # Create your views here.
-#TODO: Tentar preecenher o select de forma automatica
-#TODO: Criar uma página para onde redirecionar os usuários sem permissões
-
 
 @permission_required({("chapter.view_chapter"), "chapter.can_view_chapter"}, login_url='user:login')
 @login_required(login_url='user:login')
@@ -44,10 +41,7 @@ def chapter_list(request, pk):
 @permission_required({("chapter.add_chapter"), "chapter.can_add_chapter"}, login_url='user:login')
 @login_required(login_url='user:login')
 def chapter_add(request, pk):
-    form = ChapterForm()
     manga = get_object_or_404(Manga, id_manga=pk)
-    form.fields['manga'].queryset = Manga.objects.filter(create_by=request.user)
-
     if request.method == "POST":
         form_chapter = ChapterForm(request.POST or None)
 
@@ -62,10 +56,11 @@ def chapter_add(request, pk):
             print("Invalid")
     else:
         form_chapter = ChapterForm()
+        form_chapter['manga'].field.queryset = Manga.objects.filter(create_by=request.user)
+        form_chapter['manga'].initial = manga
 
     context = {
-        "form_chapter": form,
-        "form" : form,
+        "form_chapter": form_chapter,
         "manga": manga
     }
 
@@ -76,10 +71,9 @@ def chapter_add(request, pk):
 def chapter_edit(request, pk):
     chapter = get_object_or_404(Chapter, id_chapter=pk)
     form_chapter = ChapterForm(instance=chapter)
- 
+    form_chapter.fields['manga'].queryset = Manga.objects.filter(create_by=request.user)
     if request.method == "POST":
         form_chapter = ChapterForm(request.POST or None,instance=chapter)
-        form_chapter.fields['manga'].queryset = Manga.objects.filter(create_by=request.user)
         if form_chapter.is_valid():
             chapter = form_chapter.save(commit=False)
             chapter.created_by = request.user

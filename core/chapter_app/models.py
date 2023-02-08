@@ -20,9 +20,9 @@ class Chapter(models.Model):
         verbose_name_plural = "Chapters"
         ordering = [F('name_chapter').asc(nulls_last=True)]
         permissions = [('can_add_chapter', 'Can add chapter'),
-                       ('can_delete_chapter', 'Can delete chapter'),
-                       ('can_edit_chapter', 'Can edit chapter'),
-                       ('can_view_chapter', 'Can view chapter')]
+                    ('can_delete_chapter', 'Can delete chapter'),
+                    ('can_edit_chapter', 'Can edit chapter'),
+                    ('can_view_chapter', 'Can view chapter')]
     def __str__(self):
         return self.name_chapter
 
@@ -40,9 +40,9 @@ class Page(models.Model):
         verbose_name_plural = "Pages"
         ordering = [F('image_chapter').asc(nulls_last=True)]
         permissions = [('can_add_page', 'Can add page'),
-                       ('can_delete_page', 'Can delete page'),
-                       ('can_edit_page', 'Can edit page'),
-                       ('can_view_page', 'Can view page')]
+                    ('can_delete_page', 'Can delete page'),
+                    ('can_edit_page', 'Can edit page'),
+                    ('can_view_page', 'Can view page')]
 
     def __str__(self):
         return f'Page of {self.chapter_name.name_chapter}'

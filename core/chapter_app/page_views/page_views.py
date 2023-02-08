@@ -58,14 +58,11 @@ def page_list(request, pk):
 @permission_required({("chapter_app.add_page"), "page.can_add_page"}, login_url='user:login')
 @login_required(login_url='user:login')
 def page_add(request, pk):
-    form_page = PageForm()
     chapter = get_object_or_404(Chapter, id_chapter=pk)
-    form_page['chapter_name'].queryset = Chapter.objects.filter(created_by=request.user)
-
     if request.method == "POST":
-        form_page = PageForm(request.POST or None, request.FILES)
-        if form_page.is_valid():
-            page = form_page.save(commit=False)
+        form = PageForm(request.POST or None, request.FILES)
+        if form.is_valid():
+            page = form.save(commit=False)
             page.created_by = request.user
             page.chapter_name = chapter
             page.save()
@@ -74,10 +71,13 @@ def page_add(request, pk):
         else:
             print("Invalid")
     else:
-        form_page = PageForm()
+        manga = get_object_or_404(Manga, id_manga=chapter.manga.id_manga)
+        form = PageForm()
+        form['chapter_name'].field.queryset = Chapter.objects.filter(created_by=request.user, manga_id=manga)
+        form['chapter_name'].initial = chapter
 
     context = {
-        "form_page": form_page
+        "form_page": form
     }
 
     return render(request, "pages/page/page_add.html", context)
@@ -97,19 +97,19 @@ def page_list_manager(request, pk):
 @login_required(login_url='user:login')
 def page_edit(request, pk):
     page = get_object_or_404(Page, id_img=pk)
-    form_page = PageForm(instance=page)
-
     if request.method == "POST":
         form_page = PageForm(request.POST or None, request.FILES, instance=page)
-        form_page.fields['chapter_name'].queryset = Chapter.objects.filter(created_by=request.user)
-
         if form_page.is_valid():
             p = form_page.save(commit=False)
             p.created_by = request.user
             p.save()
             messages.success(request,"Page edited!")
             return redirect(reverse("chapter:page_list_manager", args=(page.chapter_name.id_chapter,)))
-
+    else:
+        chapter = get_object_or_404(Chapter, id_chapter=page.chapter_name.id_chapter)
+        manga = get_object_or_404(Manga, id_manga=chapter.manga.id_manga)
+        form_page = PageForm(instance=page)
+        form_page['chapter_name'].field.queryset = Chapter.objects.filter(created_by=request.user, manga=manga)
     context = {
         "form_page": form_page
     }

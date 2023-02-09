@@ -1,7 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect, HttpResponse
-from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
-from comment_app.forms import CommentChapterForm, CommentMangaForm
+from comment_app.forms import CommentMangaForm
 from comment_app.models import CommentManga
 from django.urls import reverse
 from .models import Manga

@@ -9,14 +9,18 @@
         </div>
 {% endfor %}
 <div class="container">
-    <div class="content">
-        <div>
+    <div class="content content-manga-form">
+        <div class="form-div">
             <form action="" method="POST" class="form">
+                <h1>Edit genre</h1>
                 {% csrf_token %}
-                <label>Genre</label>
-                {{form_genre.name_genre}}
-                <div>
-                    <input class="btn btn-primary" type="submit" value="Add Manga"/>
+                <div class="form-group">
+                    <label>Genre</label>
+                    {{form_genre.name_genre}}
+                </div>
+                
+                <div class="button-add-div">
+                    <input class="btn btn-primary btn-add" type="submit" value="Save changes"/>
                 </div>
             </form>
         </div>

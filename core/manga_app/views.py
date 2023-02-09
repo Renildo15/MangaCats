@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect, HttpResponse
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from comment_app.forms import CommentChapterForm, CommentMangaForm
 from comment_app.models import CommentManga
@@ -12,7 +13,7 @@ from .favorite_manga_views.views import favorite_button
 from .manga_review_views.views import review_avarege, review_selected
 from .status_manga_views.views import status_selected
 from .manga_history.views_history import manga_history
-from home_app.views import  manga_id
+from home_app.views import  manga_id, manga_search
 
 # Create your views here.
 
@@ -21,11 +22,14 @@ def manga_list(request):
     laguage_jp = request.GET.get('JP')
     laguage_eng = request.GET.get('ENG')
     laguage_all = request.GET.get('ALL')
+    search = request.GET.get("search")
 
     manga = Manga.objects.all().order_by('name_manga')
     id_manga= manga.values_list('id_manga', flat=True)
     _last = manga_id(id_manga)
-    
+    if search:
+        manga = manga_search(request, search)
+
     if laguage_eng:
         manga = Manga.objects.filter(language=laguage_eng).order_by('name_manga')
         id_manga= manga.values_list('id_manga', flat=True)
@@ -180,7 +184,7 @@ def manga_edit(request, pk):
             messages.success(request, f"Manga {manga.name_manga} updated!")
             return redirect('manga:manga_uploaded')
     elif(request.method == 'GET'):
-         return render(request, "pages/manga/manga_edit.html", {'form_manga': form_manga})
+        return render(request, "pages/manga/manga_edit.html", {'form_manga': form_manga})
 
     return render(request, "pages/manga/manga_edit.html", {'form_manga': form_manga})
 
@@ -192,3 +196,7 @@ def manga_delete(request, pk):
     manga.delete()
     messages.warning(request, f"Manga {manga.name_manga} deleted!")
     return redirect('manga:manga_uploaded')
+
+
+
+            

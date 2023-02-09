@@ -29,6 +29,6 @@ urlpatterns = [
    path("manga_status/", status_views.status_manga, name="manga_status"),
    path("manga_list_by_status/<str:status>",status_views.status, name="list_status" ),
    path("manga_history/",history_views.manga_history_list, name="manga_history" ),
-   path("manga_history_reset/", history_views.manga_history_reset, name="manga_history_reset")
+   path("manga_history_reset/", history_views.manga_history_reset, name="manga_history_reset"),
 ]
 urlpatterns += staticfiles_urlpatterns()

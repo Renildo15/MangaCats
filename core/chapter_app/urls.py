@@ -13,5 +13,7 @@ urlpatterns = [
     path("chapter_list/<str:pk>", views.chapter_list, name="chapter_list"),
     path("chapter_add/<str:pk>", views.chapter_add, name="chapter_Add"),
     path("chapter_edit/<str:pk>", views.chapter_edit, name="chapter_edit"),
-    path("chapter_delete/<str:pk>", views.chapter_delete, name="chapter_delete")
+    path("chapter_delete/<str:pk>", views.chapter_delete, name="chapter_delete"),
+    path("previous_chapter/<str:pk>", page_views.previous_chapter, name="previous_chapter"),
+    path("next_chapter/<str:pk>", page_views.next_chapter, name="next_chapter")
 ]

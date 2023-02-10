@@ -9,13 +9,28 @@ from manga_app.models import Manga
 from django.contrib import messages
 from comment_app.comment_chapter.views import comment_chapter_list, total_comments_chapter
 
+def previous_chapter(request, pk):
+    previous_chapter = Chapter.objects.filter(id_chapter__lt=pk).order_by("name_chapter").first()
+    if previous_chapter:
+        return redirect("chapter:page_list",previous_chapter.id_chapter)
+
+    return redirect("chapter:page_list",pk)
+
+def next_chapter(request, pk):
+    next_chapter = Chapter.objects.filter(id_chapter__gt=pk).order_by("name_chapter").first()
+
+    if next_chapter:
+        return redirect("chapter:page_list",next_chapter.id_chapter)
+    return redirect("chapter:page_list",next_chapter.id_chapter)
 
 def page_list(request, pk):
     page = Page.objects.filter(chapter_name=pk)
-    comment_chapter = comment_chapter_list(pk)
+    comment_chapter = comment_chapter_list(request,pk)
     chapter = Chapter.objects.get(id_chapter=pk)
     form_comment = CommentChapterForm()
     total_comments = total_comments_chapter(pk)
+    manga_chapters = Chapter.objects.filter(manga=chapter.manga)
+
     if request.method == "POST":
         if request.user.is_authenticated:
             form_comment = CommentChapterForm(request.POST or None)
@@ -47,9 +62,12 @@ def page_list(request, pk):
     
     context = {
         'pages': page,
-        'comments': comment_chapter,
+        'comments': comment_chapter["comment_chapter"],
+        "qnt_page":comment_chapter["qnt_page"],
         'form_comment':form_comment,
-        'total_comments': total_comments
+        'total_comments': total_comments,
+        "chapter_id":chapter.id_chapter,
+        "manga_chapters":manga_chapters,
     }
 
     return render(request, "pages/page/page_list.html", context)

@@ -6,6 +6,16 @@
             </div>
         </div>
     {% endfor %}   
+    <select onchange="window.location = this.value">
+        {% for chap in manga_chapters %}
+            <option value="{{ chap.id_chapter }}"{% if chap.id_chapter == chapter_id %}selected{% endif %}>
+                {{ chap.name_chapter }} 
+            </option>
+        {% endfor %}
+    </select>
+    <a href="{% url 'chapter:previous_chapter' chapter_id %}" class="btn">Previous Chapter</a>
+    <a href="{% url 'chapter:next_chapter' chapter_id %}" class="btn">Next Chapter</a>
+
 {% else %}
     <div class="pages-list">
         <div class="page-img">

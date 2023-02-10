@@ -59,6 +59,43 @@
         {% endfor %}
       </div>
     </div>
+    <div class="div-pagination">
+      <div class="pagination-content">
+        <div class="pagination">
+          {% if mangas.has_previous %}
+            <li class="page-item">
+              <a href="{% url 'manga:manga_list'%}?limit{{qnt_page}}&page={{mangas.previous_page_number}}" class="page-link" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+          {% else %}
+            <li class="page-item disabled" >
+              <a href="#" class="page-link" tabindex="-1" aria-disabled="true">Previous</a>
+            </li>
+          {% endif %}
+
+          {% for num in mangas.paginator.page_range %}
+            {% if num == mangas.number %}
+              <li class="page-item active">
+                <a href="#" class="page-link">{{num}}</a>
+              </li>
+            {% else %}
+              <li class="page-item">
+                <a href="{% url 'manga:manga_list' %}?limit{{qnt_page}}&page={{num}}" class="page-link">{{num}}</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+
+          {% if mangas.has_next %}
+              <li class="page-item">
+                <a href="{% url 'manga:manga_list' %}?limit{{qnt_page}}&page={{mangas.next_page_number}}" class="page-link">Next</a>
+              </li>
+          {% else %}
+            <li class="page-item disabled">
+              <a href="" class="page-link">Next</a>
+            </li>
+          {% endif %}
+        </div>
+      </div>
+  </div>
     {% else %}
         <h5>No register</h5>
     {% endif %}

@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required, permission_required
-
+from home_app.views import pagination_page
 
 def manga_history(manga, user):
 
@@ -18,9 +18,13 @@ def manga_history(manga, user):
 @permission_required("manga_app.view_historymanga", login_url='user:login')
 def manga_history_list(request):
     history = HistoryManga.objects.filter(user=request.user).order_by('-view_date')
+    parameter_page = request.GET.get("page","1")
+    parameter_limit = request.GET.get("limit","6")
+    page = pagination_page(parameter_page, parameter_limit, history)
 
     context = {
-        "manga_history":history
+        "manga_history":page,
+        "qtn_pages": parameter_limit
     }
 
     return render(request, "pages/history/manga_history.html", context)

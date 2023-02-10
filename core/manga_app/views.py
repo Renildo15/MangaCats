@@ -12,7 +12,7 @@ from .favorite_manga_views.views import favorite_button
 from .manga_review_views.views import review_avarege, review_selected
 from .status_manga_views.views import status_selected
 from .manga_history.views_history import manga_history
-from home_app.views import  manga_id, manga_search
+from home_app.views import  manga_id, manga_search, pagination_page
 
 # Create your views here.
 
@@ -22,10 +22,14 @@ def manga_list(request):
     laguage_eng = request.GET.get('ENG')
     laguage_all = request.GET.get('ALL')
     search = request.GET.get("search")
+    parameter_page = request.GET.get("page","1")
+    parameter_limit = request.GET.get("limit", "6")
 
     manga = Manga.objects.all().order_by('name_manga')
     id_manga= manga.values_list('id_manga', flat=True)
     _last = manga_id(id_manga)
+
+    page = pagination_page(parameter_page, parameter_limit, manga)
     if search:
         manga = manga_search(request, search)
 
@@ -47,8 +51,9 @@ def manga_list(request):
         _last = manga_id(id_manga)
     
     context = {
-        "mangas":manga,
-        "last":_last
+        "mangas":page,
+        "last":_last,
+        "qnt_page": parameter_limit
     }
     return render(request,"pages/manga/manga_list.html", context)
 

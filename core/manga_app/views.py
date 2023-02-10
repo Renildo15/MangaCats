@@ -62,11 +62,15 @@ def manga_list(request):
 @login_required(login_url='user:login')
 @permission_required("manga_app.view_manga", login_url='user:login')
 def manga_uploaded(request):
+    parameter_page = request.GET.get("page","1")
+    parameter_limit = request.GET.get("limit","6")
     manga = Manga.objects.filter(create_by=request.user)
     id_manga= manga.values_list('id_manga', flat=True)
     _last = manga_id(id_manga)
+
+    page = pagination_page(parameter_page, parameter_limit, manga)
     context = {
-        "mangas": manga,
+        "mangas": page,
         "last":_last
     }
     return render(request,"pages/manga/manga_uploaded.html", context)
@@ -85,7 +89,7 @@ def manga_view(request, pk):
     user = request.user
     history = manga_history(manga, user)
     total_comments = total_comments_manga(pk)
-    comment = comment_list(pk)
+    comment = comment_list(request,pk)
     re_ave = review_avarege(pk)
     reviews = re_ave['total_reviews']
     average = re_ave['average']
@@ -139,13 +143,15 @@ def manga_view(request, pk):
         "manga_genre":manga_genre,
         'chapters':chapter,
         'form_comment':form_comment,
-        "comments": comment,
+        "comments": comment["comment"],
+        "qnt_page":comment["qnt_page"],
         'total_comments': total_comments,
         'favorites': favorites,
         "average":average,
         'reviews':reviews,
         're_sel': re_sel,
-        "status":status
+        "status":status,
+        "manga_id":pk
     }
 
     return render(request, "pages/manga/manga_view.html", context)

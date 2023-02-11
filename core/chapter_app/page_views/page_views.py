@@ -3,25 +3,28 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse
 from ..models import Chapter, Page
 from comment_app.models import CommentChapter
-from ..forms import PageForm, ChapterForm
+from ..forms import PageForm
 from comment_app.forms import CommentChapterForm, CommentMangaForm
 from manga_app.models import Manga
 from django.contrib import messages
 from comment_app.comment_chapter.views import comment_chapter_list, total_comments_chapter
 
-def previous_chapter(request, pk):
-    previous_chapter = Chapter.objects.filter(id_chapter__lt=pk).order_by("name_chapter").first()
+def previous_chapter(request, pk, name):
+    chapter = Chapter.objects.get(id_chapter=pk)
+    previous_chapter = Chapter.objects.filter(name_chapter__lt=name,manga=chapter.manga).order_by("-name_chapter").first()
+    
     if previous_chapter:
-        return redirect("chapter:page_list",previous_chapter.id_chapter)
+        return redirect("chapter:page_list",str(previous_chapter.id_chapter))
 
     return redirect("chapter:page_list",pk)
 
-def next_chapter(request, pk):
-    next_chapter = Chapter.objects.filter(id_chapter__gt=pk).order_by("name_chapter").first()
-
+def next_chapter(request, pk, name):
+    chapter = Chapter.objects.get(id_chapter=pk)
+    next_chapter = Chapter.objects.filter(name_chapter__gt=name,manga=chapter.manga).order_by("name_chapter").first()
+    print(next_chapter)
     if next_chapter:
-        return redirect("chapter:page_list",next_chapter.id_chapter)
-    return redirect("chapter:page_list",next_chapter.id_chapter)
+        return redirect("chapter:page_list",str(next_chapter.id_chapter))
+    return redirect("chapter:page_list",pk)
 
 def page_list(request, pk):
     page = Page.objects.filter(chapter_name=pk)
@@ -67,6 +70,7 @@ def page_list(request, pk):
         'form_comment':form_comment,
         'total_comments': total_comments,
         "chapter_id":chapter.id_chapter,
+        "chapter_name":chapter.name_chapter,
         "manga_chapters":manga_chapters,
     }
 

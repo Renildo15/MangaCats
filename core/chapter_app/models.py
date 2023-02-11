@@ -24,7 +24,7 @@ class Chapter(models.Model):
                     ('can_edit_chapter', 'Can edit chapter'),
                     ('can_view_chapter', 'Can view chapter')]
     def __str__(self):
-        return self.name_chapter
+        return f'{self.name_chapter} - {self.manga.name_manga}'
 
     def __unicode__(self):
         return self.name_chapter

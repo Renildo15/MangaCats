@@ -18,13 +18,8 @@
         <button>Search</button>
       </form>
     </div>
-    {% if language %}
-      <h1>Popular Manga - {{language}}</h1>
-    {% else %}
-      <h1>Popular Manga - ALL</h1>
-    {% endif %}
-   
-    <div class="form-container">
+ 
+    <div class="form-container mt-4">
       <div class="form-content">
         <form action="" method="get">
           <input type="submit" name="JP" value="JP">
@@ -37,30 +32,93 @@
   </div>
 
   <div id="content" class="content content-popular">
+    <div class="carrousel-div">
+      <h4>Recently added:</h4>
+      {% if  manga_recently %}
+        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner d-flex">
+            {% for manga in manga_recently %}
+              {% if forloop.first %}
+                  <div class="carousel-item active" data-bs-interval="2000">
+              {% else %}
+                  <div class="carousel-item" data-bs-interval="2000">
+              {% endif %}
+                <a href={% url 'manga:manga_view' manga.id_manga %}>
+                  <img width="320" height="454" src="{{manga.cover.url}}" class="d-block w-33 mx-auto" alt="...">
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      {% else %}
+      <h1>No updates</h1>
+      {% endif %}
+
+    </div>
+    <hr>
+    <div class="carrousel-div">
+      <h4>Recently updated:</h4>
+      {% if manga_updated %}
+        <div id="update_carousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner d-flex">
+            {% for manga in manga_updated %}
+              {% if forloop.first %}
+                  <div class="carousel-item active" data-bs-interval="2000">
+              {% else %}
+                  <div class="carousel-item" data-bs-interval="2000">
+              {% endif %}
+                <a href={% url 'manga:manga_view' manga.id_manga %}>
+                  <img width="320" height="454" src="{{manga.cover.url}}" class="d-block w-33 mx-auto" alt="...">
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#update_carousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#update_carousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      {% else %}
+        <h1>No updates</h1>
+      {% endif %}
+    </div>
     {% if mangas %}
         <div class="manga-list">
-        <div class="row">
-          {% for manga in mangas %}
-            <div class="col-md-4">
-              <a href={% url 'manga:manga_view' manga.id_manga %}>
-                <div class="card">
-                  <img src="{{manga.cover.url}}">
-                  <div class="info">
-                    <h2>{{manga.name_manga}}</h2>
-                    <p>Chapters:{{manga.num_chapter}}</p>
-                    <p>Views:{{manga.views_manga}} </p>
-                    <p>Created at:{{manga.date_created|date:"D d M Y"}}</p>
-                    {% for l in last %}
-                    {% if manga.id_manga == l.manga.id_manga%}
-                      <p>Last chapter: {{l}} - {{l.updated_at|timesince}}</p> 
-                    {% endif %}  
-                  {% endfor %}
+          <h4>Popular Manga:</h4>
+          <div class="row">
+            {% for manga in mangas %}
+              <div class="col-md-4">
+                <a href={% url 'manga:manga_view' manga.id_manga %}>
+                  <div class="card">
+                    <img src="{{manga.cover.url}}">
+                    <div class="info">
+                      <h2>{{manga.name_manga}}</h2>
+                      <p>Chapters:{{manga.num_chapter}}</p>
+                      <p>Views:{{manga.views_manga}} </p>
+                      <p>Created at:{{manga.date_created|date:"D d M Y"}}</p>
+                      {% for l in last %}
+                      {% if manga.id_manga == l.manga.id_manga%}
+                        <p>Last chapter: {{l}} - {{l.updated_at|timesince}}</p> 
+                      {% endif %}  
+                    {% endfor %}
+                    </div>
                   </div>
-                </div>
-              </a> 
-            </div>
-        {% endfor %}
-        </div>
+                </a> 
+              </div>
+            {% endfor %}
+          </div>
         
         </div>
         <div class="div-pagination">

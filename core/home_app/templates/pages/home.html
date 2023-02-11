@@ -68,7 +68,7 @@
               <div class="pagination">
                 {% if mangas.has_previous %}
                   <li class="page-item">
-                    <a href="{% url 'home:home'%}?limit{{qnt_page}}&page={{mangas.previous_page_number}}" class="page-link" tabindex="-1" aria-disabled="true">Previous</a>
+                    <a href="{% url 'home:home'%}?limit{{qnt_page}}&page={{mangas.previous_page_number}}&language={{ language }}" class="page-link" tabindex="-1" aria-disabled="true">Previous</a>
                   </li>
                 {% else %}
                   <li class="page-item disabled" >
@@ -83,14 +83,14 @@
                     </li>
                   {% else %}
                     <li class="page-item">
-                      <a href="{% url 'home:home' %}?limit{{qnt_page}}&page={{num}}" class="page-link">{{num}}</a>
+                      <a href="{% url 'home:home' %}?limit{{qnt_page}}&page={{num}}&language={{ language }}" class="page-link">{{num}}</a>
                     </li>
                   {% endif %}
                 {% endfor %}
 
                 {% if mangas.has_next %}
                     <li class="page-item">
-                      <a href="{% url 'home:home' %}?limit{{qnt_page}}&page={{mangas.next_page_number}}" class="page-link">Next</a>
+                      <a href="{% url 'home:home' %}?limit{{qnt_page}}&page={{mangas.next_page_number}}&language={{ language }}" class="page-link">Next</a>
                     </li>
                 {% else %}
                   <li class="page-item disabled">

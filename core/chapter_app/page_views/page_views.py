@@ -3,19 +3,37 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse
 from ..models import Chapter, Page
 from comment_app.models import CommentChapter
-from ..forms import PageForm, ChapterForm
+from ..forms import PageForm
 from comment_app.forms import CommentChapterForm, CommentMangaForm
 from manga_app.models import Manga
 from django.contrib import messages
 from comment_app.comment_chapter.views import comment_chapter_list, total_comments_chapter
 
+def previous_chapter(request, pk, name):
+    chapter = Chapter.objects.get(id_chapter=pk)
+    previous_chapter = Chapter.objects.filter(name_chapter__lt=name,manga=chapter.manga).order_by("-name_chapter").first()
+    
+    if previous_chapter:
+        return redirect("chapter:page_list",str(previous_chapter.id_chapter))
+
+    return redirect("chapter:page_list",pk)
+
+def next_chapter(request, pk, name):
+    chapter = Chapter.objects.get(id_chapter=pk)
+    next_chapter = Chapter.objects.filter(name_chapter__gt=name,manga=chapter.manga).order_by("name_chapter").first()
+    print(next_chapter)
+    if next_chapter:
+        return redirect("chapter:page_list",str(next_chapter.id_chapter))
+    return redirect("chapter:page_list",pk)
 
 def page_list(request, pk):
     page = Page.objects.filter(chapter_name=pk)
-    comment_chapter = comment_chapter_list(pk)
+    comment_chapter = comment_chapter_list(request,pk)
     chapter = Chapter.objects.get(id_chapter=pk)
     form_comment = CommentChapterForm()
     total_comments = total_comments_chapter(pk)
+    manga_chapters = Chapter.objects.filter(manga=chapter.manga)
+
     if request.method == "POST":
         if request.user.is_authenticated:
             form_comment = CommentChapterForm(request.POST or None)
@@ -47,9 +65,13 @@ def page_list(request, pk):
     
     context = {
         'pages': page,
-        'comments': comment_chapter,
+        'comments': comment_chapter["comment_chapter"],
+        "qnt_page":comment_chapter["qnt_page"],
         'form_comment':form_comment,
-        'total_comments': total_comments
+        'total_comments': total_comments,
+        "chapter_id":chapter.id_chapter,
+        "chapter_name":chapter.name_chapter,
+        "manga_chapters":manga_chapters,
     }
 
     return render(request, "pages/page/page_list.html", context)

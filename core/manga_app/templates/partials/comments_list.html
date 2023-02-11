@@ -132,3 +132,42 @@
         </div>
     {% endfor %}
 </div>
+{% if comments %}
+    <div class="div-pagination">
+        <div class="pagination-content">
+            <div class="pagination">
+            {% if comments.has_previous %}
+                <li class="page-item">
+                <a href="{% url 'manga:manga_view' manga_id %}?limit{{qnt_page}}&page={{comments.previous_page_number}}" class="page-link" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled" >
+                <a href="#" class="page-link" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+            {% endif %}
+
+            {% for num in comments.paginator.page_range %}
+                {% if num == comments.number %}
+                    <li class="page-item active">
+                        <a href="#" class="page-link">{{num}}</a>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a href="{% url 'manga:manga_view' manga_id %}?limit{{qnt_page}}&page={{num}}" class="page-link">{{num}}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if comments.has_next %}
+                <li class="page-item">
+                    <a href="{% url 'manga:manga_view' manga_id %}?limit{{qnt_page}}&page={{comments.next_page_number}}" class="page-link">Next</a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                <a href="" class="page-link">Next</a>
+                </li>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+{% endif %}

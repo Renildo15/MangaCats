@@ -15,6 +15,9 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.first_name
 
+
+
+
 #signals
 # def create_profile(sender, instance, created, **kwargs):
 #     if created:

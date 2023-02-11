@@ -12,43 +12,64 @@ from .favorite_manga_views.views import favorite_button
 from .manga_review_views.views import review_avarege, review_selected
 from .status_manga_views.views import status_selected
 from .manga_history.views_history import manga_history
-from home_app.views import  manga_id, manga_search
+from home_app.views import  manga_id, manga_search, pagination_page
 
 # Create your views here.
 
 def manga_list(request):
-    laguage_pt = request.GET.get('PT-BR')
-    laguage_jp = request.GET.get('JP')
-    laguage_eng = request.GET.get('ENG')
-    laguage_all = request.GET.get('ALL')
+    laguage_pt = request.GET.getlist('PT-BR')
+    laguage_jp = request.GET.getlist('JP')
+    laguage_eng = request.GET.getlist('ENG')
+    laguage_all = request.GET.getlist('ALL')
     search = request.GET.get("search")
+    parameter_page = request.GET.get("page","1")
+    parameter_limit = request.GET.get("limit", "12")
+    language = ''
 
     manga = Manga.objects.all().order_by('name_manga')
     id_manga= manga.values_list('id_manga', flat=True)
     _last = manga_id(id_manga)
-    if search:
-        manga = manga_search(request, search)
+
+    page = pagination_page(parameter_page, parameter_limit, manga)
+  
 
     if laguage_eng:
-        manga = Manga.objects.filter(language=laguage_eng).order_by('name_manga')
+        manga = Manga.objects.filter(language='ENG').order_by('name_manga')
         id_manga= manga.values_list('id_manga', flat=True)
         _last = manga_id(id_manga)
+        language = 'ENG'
+        request.session['language'] = language
+
     elif laguage_pt: 
-        manga = Manga.objects.filter(language=laguage_pt).order_by('name_manga')
+        manga = Manga.objects.filter(language='PT-BR').order_by('name_manga')
         id_manga= manga.values_list('id_manga', flat=True)
         _last = manga_id(id_manga)
+        language = 'PT-BR'
+        request.session['language'] = language
+
     elif laguage_jp:
-        manga = Manga.objects.filter(language=laguage_jp).order_by('name_manga')
+        manga = Manga.objects.filter(language='JP').order_by('name_manga')
         id_manga= manga.values_list('id_manga', flat=True)
         _last = manga_id(id_manga)
+        language = 'JP'
+        request.session['language'] = language
+
     elif laguage_all:
         manga = Manga.objects.all().order_by('name_manga')
         id_manga= manga.values_list('id_manga', flat=True)
         _last = manga_id(id_manga)
-    
+
+    if search:
+        manga = manga_search(request, search)
+
+    if "language" in request.session:
+        language = request.session['language']
+    page = pagination_page(parameter_page, parameter_limit, manga)
     context = {
-        "mangas":manga,
-        "last":_last
+        "mangas":page,
+        "last":_last,
+        "qnt_page": parameter_limit,
+        "language":language
     }
     return render(request,"pages/manga/manga_list.html", context)
 
@@ -57,11 +78,15 @@ def manga_list(request):
 @login_required(login_url='user:login')
 @permission_required("manga_app.view_manga", login_url='user:login')
 def manga_uploaded(request):
+    parameter_page = request.GET.get("page","1")
+    parameter_limit = request.GET.get("limit","6")
     manga = Manga.objects.filter(create_by=request.user)
     id_manga= manga.values_list('id_manga', flat=True)
     _last = manga_id(id_manga)
+
+    page = pagination_page(parameter_page, parameter_limit, manga)
     context = {
-        "mangas": manga,
+        "mangas": page,
         "last":_last
     }
     return render(request,"pages/manga/manga_uploaded.html", context)
@@ -80,7 +105,7 @@ def manga_view(request, pk):
     user = request.user
     history = manga_history(manga, user)
     total_comments = total_comments_manga(pk)
-    comment = comment_list(pk)
+    comment = comment_list(request,pk)
     re_ave = review_avarege(pk)
     reviews = re_ave['total_reviews']
     average = re_ave['average']
@@ -134,13 +159,15 @@ def manga_view(request, pk):
         "manga_genre":manga_genre,
         'chapters':chapter,
         'form_comment':form_comment,
-        "comments": comment,
+        "comments": comment["comment"],
+        "qnt_page":comment["qnt_page"],
         'total_comments': total_comments,
         'favorites': favorites,
         "average":average,
         'reviews':reviews,
         're_sel': re_sel,
-        "status":status
+        "status":status,
+        "manga_id":pk
     }
 
     return render(request, "pages/manga/manga_view.html", context)

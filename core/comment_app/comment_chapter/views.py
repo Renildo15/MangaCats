@@ -1,17 +1,23 @@
-from django.shortcuts import render, redirect, HttpResponseRedirect, get_object_or_404
-from comment_app.forms import CommentChapterForm, CommentMangaForm
+from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.urls import reverse
 from django.contrib import messages
-from ..models import CommentManga, CommentChapter
-from manga_app.models import Manga
-from chapter_app.models import Chapter
+from ..models import CommentChapter
+from home_app.views import pagination_page
 
 
-def comment_chapter_list(pk):
+
+def comment_chapter_list(request,pk):
+    parameter_page = request.GET.get("page","1")
+    parameter_limit = request.GET.get("limit","12")
     comment_chapter = CommentChapter.objects.filter(chapter=pk, active=False)
-    return comment_chapter
+    page = pagination_page(parameter_page,parameter_limit, comment_chapter)
+    context = {
+        "comment_chapter":page,
+        "qnt_page": parameter_limit
+    }
+    return context
 
 
 def total_comments_chapter(pk):

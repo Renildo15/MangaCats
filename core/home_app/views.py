@@ -6,6 +6,30 @@ from datetime import timedelta
 from django.utils import timezone
 # Create your views here.
 
+def manga_recent_and_update():
+    days_delta = 7
+    time_threshold = timezone.now() - timedelta(days=days_delta)
+
+    manga_recently = Manga.objects.filter(date_created__gte = time_threshold).order_by('-date_created')
+    id_manga= manga_recently.values_list('id_manga', flat=True)
+    last_manga_recently = manga_id(id_manga)
+
+    manga_updated = Manga.objects.filter(updated_at__gte=time_threshold).order_by('-updated_at')
+    id_manga_updated= manga_updated.values_list('id_manga', flat=True)
+    last_manga_updated = manga_id(id_manga_updated)
+
+    results ={
+        "manga_recently":manga_recently,
+        "id_manga":id_manga,
+        "last_manga_recently":last_manga_recently,
+        "manga_updated":manga_updated,
+        "id_manga_updated":id_manga_updated,
+        "last_manga_updated":last_manga_updated
+    }
+
+    return results
+
+
 def manga_popular(request):
     laguage_pt = request.GET.getlist('PT-BR')
     laguage_jp = request.GET.getlist('JP')
@@ -15,12 +39,15 @@ def manga_popular(request):
     parameter_page = request.GET.get("page","1")
     parameter_limit = request.GET.get("limit", "12")
     language = ''
-
     days_delta = 7
     time_threshold = timezone.now() - timedelta(days=days_delta)
 
-    manga_recently = Manga.objects.filter(date_created__gte = time_threshold).order_by('-date_created')
-    manga_updated = Manga.objects.filter(updated_at=time_threshold).order_by('-updated_at')
+    manga_recently = manga_recent_and_update()
+
+    manga_updated =  manga_recent_and_update()
+
+
+
     manga_popular = Manga.objects.all().order_by('-views_manga')
     id_manga= manga_popular.values_list('id_manga', flat=True)
     _last = manga_id(id_manga)
@@ -50,6 +77,7 @@ def manga_popular(request):
 
     if search:
         manga_popular = manga_search(request, search)
+        
 
     page = pagination_page(parameter_page, parameter_limit,manga_popular)
 
@@ -58,8 +86,10 @@ def manga_popular(request):
         "last" : _last,
         "language":language,
         "qnt_page": parameter_limit,
-        "manga_recently":manga_recently,
-        "manga_updated":manga_updated
+        "manga_recently":manga_recently['manga_recently'],
+        "manga_updated":manga_updated['manga_updated'],
+        "last_manga_updated":manga_updated['last_manga_updated'],
+        "last_manga_recently":manga_recently['last_manga_recently']
     }
 
     return render(request,"pages/home.html", context)

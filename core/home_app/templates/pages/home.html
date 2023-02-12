@@ -34,6 +34,7 @@
   <div id="content" class="content content-popular">
     <div class="carrousel-div">
       <h4>Recently added:</h4>
+      <hr style="color:#a9a17a;">
       {% if  manga_recently %}
         <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner d-flex">
@@ -45,6 +46,14 @@
               {% endif %}
                 <a href={% url 'manga:manga_view' manga.id_manga %}>
                   <img width="320" height="454" src="{{manga.cover.url}}" class="d-block w-33 mx-auto" alt="...">
+                  <div class="carousel-caption d-none d-md-block mx-auto" style="width:20%;">
+                    {% for l in last_manga_recently %}
+                        {% if manga.id_manga == l.manga.id_manga%}
+                          <p style="background-color:#8c0005">{{l}}</p> 
+                          <p style="background-color:#8c0005">{{l.updated_at|timesince}}</p> 
+                        {% endif %}  
+                      {% endfor %}
+                  </div>
                 </a>
               </div>
             {% endfor %}
@@ -61,11 +70,11 @@
       {% else %}
       <h1>No updates</h1>
       {% endif %}
-
     </div>
-    <hr>
+    <hr style="color:#a9a17a;">
     <div class="carrousel-div">
       <h4>Recently updated:</h4>
+      <hr style="color:#a9a17a;">
       {% if manga_updated %}
         <div id="update_carousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner d-flex">
@@ -77,6 +86,14 @@
               {% endif %}
                 <a href={% url 'manga:manga_view' manga.id_manga %}>
                   <img width="320" height="454" src="{{manga.cover.url}}" class="d-block w-33 mx-auto" alt="...">
+                  <div class="carousel-caption d-none d-md-block mx-auto" style="width:20%;">
+                    {% for l in last_manga_updated %}
+                        {% if manga.id_manga == l.manga.id_manga%}
+                          <p style="background-color:#8c0005">{{l}}</p> 
+                          <p style="background-color:#8c0005">{{l.updated_at|timesince}}</p>
+                        {% endif %}  
+                      {% endfor %}
+                  </div>
                 </a>
               </div>
             {% endfor %}
@@ -94,9 +111,11 @@
         <h1>No updates</h1>
       {% endif %}
     </div>
+    <hr style="color:#a9a17a;">
     {% if mangas %}
         <div class="manga-list">
           <h4>Popular Manga:</h4>
+          <hr style="color:#a9a17a;">
           <div class="row">
             {% for manga in mangas %}
               <div class="col-md-4">
@@ -109,10 +128,10 @@
                       <p>Views:{{manga.views_manga}} </p>
                       <p>Created at:{{manga.date_created|date:"D d M Y"}}</p>
                       {% for l in last %}
-                      {% if manga.id_manga == l.manga.id_manga%}
-                        <p>Last chapter: {{l}} - {{l.updated_at|timesince}}</p> 
-                      {% endif %}  
-                    {% endfor %}
+                        {% if manga.id_manga == l.manga.id_manga%}
+                          <p>Last chapter: {{l}} - {{l.updated_at|timesince}}</p> 
+                        {% endif %}  
+                      {% endfor %}
                     </div>
                   </div>
                 </a> 

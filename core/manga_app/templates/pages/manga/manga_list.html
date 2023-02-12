@@ -16,13 +16,8 @@
           <input type="text" name="search" placeholder="Search Manga here...">
           <button type="submit" >Search</button>
         </form>
-
-        <ul class="results">
-          
-        </ul>
     </div>
-    <h1>Manga list</h1>
-    <div class="form-container">
+    <div class="form-container mt-4">
       <div class="form-content">
         <form action="" method="get">
           <input type="submit" name="JP" value="JP">
@@ -36,6 +31,8 @@
   <div class="content content-list">
     {% if mangas %}
     <div class="manga-list">
+      <h4>Manga list:</h4>
+      <hr style="color:#a9a17a;">
       <div class="row">
         {% for manga in mangas %}
           <div class="col-md-4">

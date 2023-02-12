@@ -2,7 +2,33 @@ from django.shortcuts import render
 from manga_app.models import Manga
 from chapter_app.models import Chapter
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from datetime import timedelta
+from django.utils import timezone
 # Create your views here.
+
+def manga_recent_and_update():
+    days_delta = 7
+    time_threshold = timezone.now() - timedelta(days=days_delta)
+
+    manga_recently = Manga.objects.filter(date_created__gte = time_threshold).order_by('-date_created')
+    id_manga= manga_recently.values_list('id_manga', flat=True)
+    last_manga_recently = manga_id(id_manga)
+
+    manga_updated = Manga.objects.filter(updated_at__gte=time_threshold).order_by('-updated_at')
+    id_manga_updated= manga_updated.values_list('id_manga', flat=True)
+    last_manga_updated = manga_id(id_manga_updated)
+
+    results ={
+        "manga_recently":manga_recently,
+        "id_manga":id_manga,
+        "last_manga_recently":last_manga_recently,
+        "manga_updated":manga_updated,
+        "id_manga_updated":id_manga_updated,
+        "last_manga_updated":last_manga_updated
+    }
+
+    return results
+
 
 def manga_popular(request):
     laguage_pt = request.GET.getlist('PT-BR')
@@ -13,6 +39,14 @@ def manga_popular(request):
     parameter_page = request.GET.get("page","1")
     parameter_limit = request.GET.get("limit", "12")
     language = ''
+    days_delta = 7
+    time_threshold = timezone.now() - timedelta(days=days_delta)
+
+    manga_recently = manga_recent_and_update()
+
+    manga_updated =  manga_recent_and_update()
+
+
 
     manga_popular = Manga.objects.all().order_by('-views_manga')
     id_manga= manga_popular.values_list('id_manga', flat=True)
@@ -23,21 +57,18 @@ def manga_popular(request):
         id_manga= manga_popular.values_list('id_manga', flat=True)
         _last = manga_id(id_manga)
         language = 'ENG'
-        request.session['language'] = language
 
     elif laguage_pt: 
         manga_popular = Manga.objects.filter(language="PT-BR").order_by('-views_manga')
         id_manga= manga_popular.values_list('id_manga', flat=True)
         _last = manga_id(id_manga)
         language = 'PT-BR'
-        request.session['language'] = language
     
     elif laguage_jp:
         manga_popular = Manga.objects.filter(language="JP").order_by('-views_manga')
         id_manga= manga_popular.values_list('id_manga', flat=True)
         _last = manga_id(id_manga)
         language = 'JP'
-        request.session['language'] = language
 
     elif laguage_all:
         manga_popular = Manga.objects.all().order_by('-views_manga')
@@ -46,10 +77,7 @@ def manga_popular(request):
 
     if search:
         manga_popular = manga_search(request, search)
-
-
-    if "language" in request.session:
-        language = request.session['language']
+        
 
     page = pagination_page(parameter_page, parameter_limit,manga_popular)
 
@@ -57,7 +85,11 @@ def manga_popular(request):
         "mangas":page,
         "last" : _last,
         "language":language,
-        "qnt_page": parameter_limit
+        "qnt_page": parameter_limit,
+        "manga_recently":manga_recently['manga_recently'],
+        "manga_updated":manga_updated['manga_updated'],
+        "last_manga_updated":manga_updated['last_manga_updated'],
+        "last_manga_recently":manga_recently['last_manga_recently']
     }
 
     return render(request,"pages/home.html", context)

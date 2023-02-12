@@ -31,7 +31,6 @@ def manga_list(request):
     _last = manga_id(id_manga)
 
     page = pagination_page(parameter_page, parameter_limit, manga)
-  
 
     if laguage_eng:
         manga = Manga.objects.filter(language='ENG').order_by('name_manga')

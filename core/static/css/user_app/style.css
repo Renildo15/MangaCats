@@ -654,6 +654,64 @@ header .nav_bar ul{
     .reset-confirm .form-div form .form .helptext ul li{
         font-size: 12px;
     }
+
+    /* profile */
+    .content .accordion .accordion-item .accordion-collapse .accordion-body .content .info{
+        background-color: var(--color1);
+        padding: 5px;
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body .content .info h3{
+        text-align: center;
+        color: var(--color2);
+        font-size: 15px;
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body .content .info ul li p{
+        font-size: 12px;
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body .content .info ul li a{
+        font-size: 12px;
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body form{
+        border-radius: 5px;
+        padding: 50px;
+        background-color: var(--color1);
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body form .form-group{
+        width: 100%;
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body form .form-group label{
+        display: block;
+        font-size: 12px;
+        font-weight: bold;
+        color: var(--color3);
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body form .form-group input{
+        font-size: 12px;
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body form .form-group input[type="file"]{
+        font-size: 12px;
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body form .button{
+        width: 100%;
+        padding: 5px;
+        text-align: center;
+
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body form .button button{
+        font-size: 12px;
+        text-align: center;
+    }
+    
 }
 
 

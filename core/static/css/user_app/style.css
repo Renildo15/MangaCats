@@ -29,26 +29,56 @@ header{
     margin-bottom: 10px;
 }
 
-.nav-links{
+header .nav_bar{
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
     background-color: var(--color5);
+    height: 60px;
+}
+
+header .nav_bar .logo a .header-logo {
+    margin-right: 10px;
+    height: 100px;
+    width: 100px;
+}
+
+header .nav_bar .logo {
+    margin-left: 10px;
+}
+
+header .nav_bar ul{
+    padding: 0;
+}
+.nav-links{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0 auto;
+    width: 50%;
+}
+
+.right-nav-links {
+    float: right;
     display: flex;
     align-items: center;
     justify-content: space-around;
     margin: 0 auto;
 }
 
+.right-nav-links li,
 .nav-links li{
     list-style: none;
     padding: 15px;
 }
-
+.right-nav-links li a,
 .nav-links li a{
     text-decoration: none;
     color: white;
     font-size: 20px;
     transition: .2 ease-in-out;
 }
-
+.right-nav-links li a:hover,
 .nav-links li a:hover{
     color: var(--color4);
     transform: scale(2);
@@ -179,7 +209,6 @@ header{
     align-items: center;
     justify-content: center;
     margin: 6px;
-   
 }
 
 .register .content .form-div form .form .inputs label{
@@ -489,7 +518,142 @@ header{
 
 
 
+/* RESPONSIVIDADE */
 
 
+@media screen and (max-width: 767px) {
+    .nav-links{
+        display: none;
+    }
+    
+    .right-nav-links {
+        display: none;
+    }
+    /* Login */
+    .register .content .form-div,
+    .login .content .form-div{
+        width: 100%;
+    }
+    .register .content .form-div form,
+    .login .content .form-div form{
+        background-color: var(--color1);
+        padding: 15px;
+        width: 100%;
+    }
+    .register .content .form-div form h2,
+    .login .content .form-div form h2{
+        font-size: 15px;
+    }
+    .register .content .form-div form .form,
+    .login .content .form-div form .form{
+        width: 100%;
+        padding: 20px;
+    }
+
+    .register .content .form-div form .form .inputs,
+    .login .content .form-div form .form .inputs{
+        width: 100%;
+    }
+    .login .content .form-div form .form .inputs label{
+        font-size: 12px;
+        
+    }
+    .register .content .form-div form .form .inputs input,
+    .login .content .form-div form .form .inputs input{
+        font-size: 12px;
+    }
+
+    .register .content .form-div form .form .button input,
+    .login .content .form-div form .form .button input{
+        font-size: 12px;
+    }
+
+    .infos-content{
+        width: 100%;
+    }
+    .infos-content span a{
+        font-size: 12px;
+    }
+    
+    .infos-content span a:hover{
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        transition: 0.3s;
+        padding: 3px;
+        border-radius: 3px;
+        background-color: white;
+    }
+
+    /* register */
+
+    .register .content .form-div form .form .inputs label{
+        font-size: 12px;
+    }
+
+    /* reset */
+
+    .reset .content{
+        height: 600px;
+    }
+
+    .reset .content .form-div{
+        width: 90%;
+    }
+    .reset-confirm .form-div form,
+    .reset .content .form-div form{
+        width: 100%;
+    }
+
+    .reset .content .form-div form .form{
+        width: 100%;
+    }
+
+    .reset .content .form-div form .form input{
+        width: 100%;
+        font-size: 12px;
+    }
+    .reset .content .form-div form .form label{
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .reset .content .form-div .msg{
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .reset .content .form-div .msg h2{
+        font-size: 20px;
+    }
+
+    /* reset-confrim */
+
+    .reset-confirm .form-div form .form input{
+        font-size: 12px;
+    }
+
+    .reset-confirm .form-div form .form label{
+        font-size: 12px;
+    }
+
+    .reset-confirm .form-div{
+        width: 100%;
+    }
+
+    .reset-confirm  .content .form-div form .form .btn-reset{
+        font-size: 12px;
+    }
+
+    .reset-confirm .content .form-div .msg h2{
+        font-size: 20px;
+    }
+    .reset-confirm .content .form-div .msg p{
+        font-size: 12px;
+    }
+
+    .reset-confirm .form-div form .form .helptext ul li{
+        font-size: 12px;
+    }
+}
 
 

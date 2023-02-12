@@ -1,15 +1,21 @@
-
+{% load static %}
   <header>
     <nav class="nav_bar">
-      <ul class="nav-links">
-        <li>
-          <h2><a href="#">Logo</a></h2>
-        </li>
+      <div class="logo">
+        <a href="/">
+          <img src="{% static 'imgs/manga_cats.png' %}" alt="" class="header-logo">
+        </a>
+      </div>
+      <ul class="nav-links">    
         <li><a href={% url 'home:home' %}>Popular Manga</a></li>
         <li><a href={% url 'manga:manga_list' %}>MangaList</a></li>
         <li><a href={% url 'manga:genre' %}>Genre</a></li>
         {% if user.is_authenticated%}
           <li><a href={% url 'manga:manga_history' %}>History</a></li>
+        {% endif %}
+      </ul> 
+      <ul class="right-nav-links">
+        {% if user.is_authenticated%}  
           <li><a href={% url 'user:logout' %}>Logout</a></li>
           <li><a href={% url 'user:account' %}>Profile</a></li>
         {% else %}

@@ -404,6 +404,7 @@ header .nav_bar ul{
     background-size: cover;
     background-position: center;
     height: 100%;
+    padding: 10px;
 }
 
 .content .accordion .accordion-item .accordion-collapse .accordion-body .content hr{
@@ -525,7 +526,6 @@ header .nav_bar ul{
     .nav-links{
         display: none;
     }
-    
     .right-nav-links {
         display: none;
     }
@@ -712,6 +712,25 @@ header .nav_bar ul{
         text-align: center;
     }
     
+    .content .accordion .accordion-item .accordion-collapse .accordion-body .content .img,
+    .content .accordion .accordion-item .accordion-collapse .accordion-body .content .img img{
+        width:152px; 
+        height:152px;
+    }
+
+    .content .accordion .accordion-item .accordion-collapse .accordion-body .content .img-div{
+        background-image: url('../../imgs/capa.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        height: 100%;
+        padding: 10px;
+    }
+
+    ul{
+        padding: 0;
+    }
+
 }
 
 

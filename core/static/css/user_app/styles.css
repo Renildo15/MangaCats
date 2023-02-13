@@ -522,7 +522,7 @@ header .nav_bar ul{
 /* RESPONSIVIDADE */
 
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 1200px) {
     .nav-links{
         display: none;
     }

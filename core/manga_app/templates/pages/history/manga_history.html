@@ -24,7 +24,7 @@
             <div class="manga-list">
                 <div class="row">
                     {% for manga in manga_history %}
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-6 col-xs-12 mt-3">
                             <a href={% url 'manga:manga_view' manga.manga.id_manga %}>
                                 <div class="card">
                                     <img src="{{manga.manga.cover.url}}">

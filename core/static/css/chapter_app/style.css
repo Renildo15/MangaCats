@@ -76,3 +76,57 @@
     width: 860px;
     height: 1236px;
 }
+
+.content-pages .next-previous-div{
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.content-pages .next-previous-div select{
+    padding: 6px 12px;
+    border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid var(--color5);
+    appearance: none;
+    background-color: #fff;
+}
+
+
+.content-pages .next-previous-div select:focus{
+    outline: var(--color1);
+}
+.content-pages .next-previous-div .btn-previous,
+.content-pages .next-previous-div .btn-next{
+    background-color: var(--color5);
+    color: white;
+}
+
+.content-pages .next-previous-div .btn-previous:hover,
+.content-pages .next-previous-div .btn-next:hover{
+    color: var(--color5);
+    background-color: white;
+    border: 1px solid var(--color5);
+}
+@media screen and (max-width: 724px){
+    .content-manga-info .chapter-list{
+        padding: 10px;
+        background-color: var(--color1);
+        width: 100%;
+    }
+    .content-pages .pages-list .page-img img{
+        width: 215px;
+        height: 309px;
+    }
+
+    .content-pages .next-previous-div .btn-previous,
+    .content-pages .next-previous-div .btn-next{
+        font-size: 10px;
+    }
+    .content-pages .next-previous-div select{
+        font-size: 10px;
+    }
+
+}

@@ -6,15 +6,17 @@
             </div>
         </div>
     {% endfor %}   
-    <a href="{% url 'chapter:previous_chapter' chapter_id chapter_name %}" class="btn">Previous Chapter</a>
-    <select onchange="window.location = this.value">
-        {% for chap in manga_chapters %}
-            <option value="{{ chap.id_chapter }}"{% if chap.id_chapter == chapter_id %}selected{% endif %}>
-                {{ chap.name_chapter }} 
-            </option>
-        {% endfor %}
-    </select>
-    <a href="{% url 'chapter:next_chapter' chapter_id  chapter_name%}" class="btn">Next Chapter</a>
+    <div class="next-previous-div">
+        <a href="{% url 'chapter:previous_chapter' chapter_id chapter_name %}" class="btn btn-previous">Previous Chapter</a>
+        <select onchange="window.location = this.value">
+            {% for chap in manga_chapters %}
+                <option value="{% url 'chapter:page_list' chap.id_chapter  %}" {% if chap.id_chapter == chapter_id %}selected{% endif %}>
+                    {{ chap.name_chapter }} 
+                </option>
+            {% endfor %}
+        </select>
+        <a href="{% url 'chapter:next_chapter' chapter_id  chapter_name%}" class="btn btn-next">Next Chapter</a>
+    </div>
 
 {% else %}
     <div class="pages-list">
@@ -22,13 +24,4 @@
             <h1 style="color: #a9a17a">Page not exists!</h1>
         </div>
     </div>
-    <a href="{% url 'chapter:previous_chapter' chapter_id chapter_name %}" class="btn">Previous Chapter</a>
-    <select onchange="window.location = this.value">
-        {% for chap in manga_chapters %}
-            <option value="{{ chap.id_chapter }}"{% if chap.id_chapter == chapter_id %}selected{% endif %}>
-                {{ chap.name_chapter }} 
-            </option>
-        {% endfor %}
-    </select>
-    <a href="{% url 'chapter:next_chapter' chapter_id chapter_name %}" class="btn">Next Chapter</a>
 {% endif %}

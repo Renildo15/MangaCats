@@ -9,33 +9,31 @@
         </div>
 {% endfor %}
 <div class="container">
-    <div class="title">
-        <h1>Favorite mangas - {{total_list}}</h1>
-    </div>
     <div class="content history-list">
         {% if mangas %}
             <div class="manga-list">
+                <h4>Favorite mangas - {{total_list}}</h4>
                 <div class="row">
                     {% for manga in mangas %}
-                    <div class="col-md-4">
-                        <a href={% url 'manga:manga_view' manga.manga.id_manga %}>
-                            <div class="card">
-                                <img src="{{manga.manga.cover.url}}">
-                                <div class="info">
-                                    <h2>{{manga.manga.name_manga}}</h2>
-                                    <p>Chapters: {{manga.manga.num_chapter}}</p>
-                                    <p>Views:{{manga.manga.views_manga}} </p>
-                                    <p>Added: {{manga.manga.date_created|date:"D d M Y"}}</p>
+                        <div class="col-md-4 col-sm-6 col-xs-12 mt-3">
+                            <a href={% url 'manga:manga_view' manga.manga.id_manga %}>
+                                <div class="card">
+                                    <img src="{{manga.manga.cover.url}}">
+                                    <div class="info">
+                                        <h2>{{manga.manga.name_manga}}</h2>
+                                        <p>Chapters: {{manga.manga.num_chapter}}</p>
+                                        <p>Views:{{manga.manga.views_manga}} </p>
+                                        <p>Added: {{manga.manga.date_created|date:"D d M Y"}}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                        {% if perms.manga_app.add_favoritemanga %}
-                            <div class="favorite-div">
-                                <a class="btn btn-dark btn-favorite" id="btn-remove" data-remove="{{manga.manga.id_manga}}">Remove from list</a>
-                            </div>
-                        {% endif %}
-                    </div> 
-                  {% endfor %}
+                            </a>
+                            {% if perms.manga_app.add_favoritemanga %}
+                                <div class="favorite-div">
+                                    <a class="btn btn-dark btn-favorite" id="btn-remove" data-remove="{{manga.manga.id_manga}}">Remove from list</a>
+                                </div>
+                            {% endif %}
+                        </div> 
+                    {% endfor %}
                 </div>
             </div>
         

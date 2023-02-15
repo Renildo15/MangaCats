@@ -210,3 +210,68 @@
     list-style: none;
 }
 
+@media screen and (max-width: 724px) {
+    .content-manga-info .comment-section h3{
+        font-size: 15px;
+    }
+
+    .content-manga-info .comment-section .comment-div{
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .content-manga-info .comment-section .comment-div .comment-content .comment-body .comment-text li p{
+        text-align: justify;
+        font-size: 12px;
+    }
+
+    .content-manga-info .comment-section .comment-div .comment-content .comment-options{
+        justify-content:center;
+    }
+
+    .content-manga-info .comment-section .comment-div .comment-content .comment-options a{
+        font-size: 12px;
+    }
+    .content-manga-info .comment-form{
+        width: 100%;
+    }
+    
+    .content-manga-info .comment-form h3{
+        font-size: 15px;
+    }
+    .content-manga-info .comment-form form{
+        width: 100%;
+    }    
+    .content-manga-info .comment-form form .form-group{
+        width: 100%;
+    }
+    .content-manga-info .comment-form form .form-group label{
+        font-size: 15px;
+    }
+    .content-manga-info .comment-form form .btn-comment-div .btn-comment{
+        background-color: var(--color5);
+        border: none;
+        margin: 0 auto;
+        font-size: 12px;
+    }
+
+    .content-manga-info .comment-section .comment-div .comment-content .comment-header span{
+        font-size: 15px;
+        color: var(--color3);
+    }
+    .content-manga-info .comment-section .comment-div .comment-content .comment-body .comment-date span{
+        font-size: 12px;
+    }
+
+    .content-manga-info .comment-section .comment-div .comment-content .comment-header .comment-user img{
+        object-fit: cover; 
+        border-radius:50%;
+        width:25px;
+        height:25px;
+    }
+
+    .content-manga-info .comment-section .comment-div .comment-container h4{
+        font-size: 15px;
+    }
+    
+}

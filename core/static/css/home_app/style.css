@@ -186,3 +186,117 @@
     justify-content: center;
     background-color: var(--color5);
 }
+
+
+.div-pagination{
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--color3);
+}
+
+.div-pagination .pagination-content{
+    border: 1px solid var(--color1);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.div-pagination .pagination-content .pagination{
+    padding: 5px;
+    width: 15.1%;
+    margin: 0 auto;
+}
+
+.div-pagination .pagination-content .pagination .page-link {
+    position: relative;
+    display: block;
+    font-size: 15px;
+    color: var(--color2);
+    text-decoration: none;
+    background-color: var(--color5);
+    border: 1px solid black;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.div-pagination .pagination-content .pagination .active>.page-link, .page-link.active {
+    z-index: 3;
+    color: var(--color1);
+    background-color: var(--color2);
+    border-color:var(--color1);
+}
+
+.div-pagination .pagination-content .pagination .disabled>.page-link, .page-link.disabled{
+    background-color: var(--color5);
+    color: #aaaaaa;
+}
+
+
+
+
+@media screen and (max-width: 1200px) {
+    .content .manga-list{
+        width: 100%;
+    }
+
+    .content .manga-list .card{
+        margin: 0 auto;
+        width:100%; 
+        height:100%;
+    }
+
+    .content .manga-list .card img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .container .title .form-container .form-content{
+        width: 100%;
+    }
+
+    .container .title .form-container .form-content form input{
+        width: 60px;
+        font-size: 12px;
+    }
+
+    .container .title .search{
+        width: 100%;
+        margin: 0 auto;
+    } 
+    .container .title .search form{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin: 0 auto;
+    }
+    .container .title .search form input{
+        width: 80%;
+        padding: 5px;
+        border-radius: 4px;
+        border: 1px solid black;
+        font-size: 12px;
+        margin: 0 auto;
+    }
+
+    .container .title .search form button{
+        font-size: 12px;
+    }
+
+    .div-pagination{
+        margin-top: 30px;
+    }
+
+    .div-pagination .pagination-content{
+        width: 100%;
+    }
+
+    .div-pagination .pagination-content .pagination .page-link{
+        font-size: 10px;
+    }
+
+    .div-pagination .pagination-content .pagination{
+        padding: 5px;
+        width: 60%;
+        margin: 0 auto;
+    }
+}

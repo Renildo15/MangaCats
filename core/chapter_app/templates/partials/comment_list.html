@@ -2,7 +2,7 @@
     <h3>Comments ({{total_comments}})</h3>
     <hr>
     {% for comment in comments %}
-        <div id="{{comment.id_comment}}" class="comment-div">
+        <div id="{{comment.id_comment}}" class="comment-div mt-2">
             <div class="comment-content">
                 <div class="comment-header">
                     {% if comment.user.profile.image_profile %}

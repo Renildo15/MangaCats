@@ -10,8 +10,7 @@
         </div>
 {% endfor %}
 <div class="container">
-    <div class="title">
-        <h1>History Manga List</h1>
+    <div class="title text-center">
         {% if perms.manga_app.delete_historymanga %}
             <a class="btn-reset" href={% url 'manga:manga_history_reset' %}>
                 Reset all
@@ -22,9 +21,10 @@
     <div class="content history-list">
         {% if manga_history %}
             <div class="manga-list">
+                <h4>History Manga List</h4>
                 <div class="row">
                     {% for manga in manga_history %}
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-6 col-xs-12 mt-3">
                             <a href={% url 'manga:manga_view' manga.manga.id_manga %}>
                                 <div class="card">
                                     <img src="{{manga.manga.cover.url}}">

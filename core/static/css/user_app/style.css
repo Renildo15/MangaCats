@@ -28,63 +28,19 @@ header{
     border: 1px solid black;
     margin-bottom: 10px;
 }
-
-header .nav_bar{
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
+.logo{
     background-color: var(--color5);
-    height: 60px;
 }
 
-header .nav_bar .logo a .header-logo {
-    margin-right: 10px;
-    height: 100px;
-    width: 100px;
-}
-
-header .nav_bar .logo {
-    margin-left: 10px;
-}
-
-header .nav_bar ul{
-    padding: 0;
-}
-.nav-links{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin: 0 auto;
-    width: 50%;
-}
-
-.right-nav-links {
-    float: right;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin: 0 auto;
-}
-
-.right-nav-links li,
-.nav-links li{
-    list-style: none;
-    padding: 15px;
-}
-.right-nav-links li a,
-.nav-links li a{
-    text-decoration: none;
-    color: white;
+.logo .collapse .navbar-nav .nav-item .nav-link{
     font-size: 20px;
-    transition: .2 ease-in-out;
+    color: white;
 }
-.right-nav-links li a:hover,
-.nav-links li a:hover{
-    color: var(--color4);
-    transform: scale(2);
+
+.logo .collapse .navbar-nav .nav-item .nav-link:hover{
+    color: var(--color1);
     text-decoration: underline;
 }
-
 
 
 /* Login */
@@ -404,6 +360,7 @@ header .nav_bar ul{
     background-size: cover;
     background-position: center;
     height: 100%;
+    padding: 10px;
 }
 
 .content .accordion .accordion-item .accordion-collapse .accordion-body .content hr{
@@ -521,14 +478,7 @@ header .nav_bar ul{
 /* RESPONSIVIDADE */
 
 
-@media screen and (max-width: 767px) {
-    .nav-links{
-        display: none;
-    }
-    
-    .right-nav-links {
-        display: none;
-    }
+@media screen and (max-width: 1200px) {
     /* Login */
     .register .content .form-div,
     .login .content .form-div{
@@ -654,6 +604,83 @@ header .nav_bar ul{
     .reset-confirm .form-div form .form .helptext ul li{
         font-size: 12px;
     }
+
+    /* profile */
+    .content .accordion .accordion-item .accordion-collapse .accordion-body .content .info{
+        background-color: var(--color1);
+        padding: 5px;
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body .content .info h3{
+        text-align: center;
+        color: var(--color2);
+        font-size: 15px;
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body .content .info ul li p{
+        font-size: 12px;
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body .content .info ul li a{
+        font-size: 12px;
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body form{
+        border-radius: 5px;
+        padding: 50px;
+        background-color: var(--color1);
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body form .form-group{
+        width: 100%;
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body form .form-group label{
+        display: block;
+        font-size: 12px;
+        font-weight: bold;
+        color: var(--color3);
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body form .form-group input{
+        font-size: 12px;
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body form .form-group input[type="file"]{
+        font-size: 12px;
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body form .button{
+        width: 100%;
+        padding: 5px;
+        text-align: center;
+
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body form .button button{
+        font-size: 12px;
+        text-align: center;
+    }
+    
+    .content .accordion .accordion-item .accordion-collapse .accordion-body .content .img,
+    .content .accordion .accordion-item .accordion-collapse .accordion-body .content .img img{
+        width:152px; 
+        height:152px;
+    }
+
+    .content .accordion .accordion-item .accordion-collapse .accordion-body .content .img-div{
+        background-image: url('../../imgs/capa.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        height: 100%;
+        padding: 10px;
+    }
+
+    ul{
+        padding: 0;
+    }
+
 }
 
 

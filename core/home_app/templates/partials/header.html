@@ -1,27 +1,33 @@
 {% load static %}
   <header>
-    <nav class="nav_bar">
-      <div class="logo">
-        <a href="/">
-          <img src="{% static 'imgs/manga_cats.png' %}" alt="" class="header-logo">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="logo container-fluid">
+        <a class="navbar-brand" href="/">
+          <img src="{% static 'imgs/manga_cats.png' %}" alt="" width="100" height="100">
         </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav me-auto">    
+            <li class="nav-item"><a class="nav-link" href={% url 'home:home' %}>Popular Manga</a></li>
+            <li class="nav-item"><a class="nav-link" href={% url 'manga:manga_list' %}>MangaList</a></li>
+            <li class="nav-item"><a class="nav-link" href={% url 'manga:genre' %}>Genre</a></li>
+            {% if user.is_authenticated%}
+              <li class="nav-item"><a class="nav-link" href={% url 'manga:manga_history' %}>History</a></li>
+            {% endif %}
+          </ul> 
+          <ul class="navbar-nav">
+            {% if user.is_authenticated%}  
+              <li class="nav-item"><a class="nav-link" href={% url 'user:logout' %}>Logout</a></li>
+              <li class="nav-item"><a class="nav-link" href={% url 'user:account' %}>Profile</a></li>
+            {% else %}
+              <li class="nav-item"><a class="nav-link" href={% url 'user:login' %}>Login</a></li>
+              <li class="nav-item"><a class="nav-link" href={% url 'user:register' %}>Register</a></li>
+            {% endif %}
+          </ul>
+        </div>
       </div>
-      <ul class="nav-links">    
-        <li><a href={% url 'home:home' %}>Popular Manga</a></li>
-        <li><a href={% url 'manga:manga_list' %}>MangaList</a></li>
-        <li><a href={% url 'manga:genre' %}>Genre</a></li>
-        {% if user.is_authenticated%}
-          <li><a href={% url 'manga:manga_history' %}>History</a></li>
-        {% endif %}
-      </ul> 
-      <ul class="right-nav-links">
-        {% if user.is_authenticated%}  
-          <li><a href={% url 'user:logout' %}>Logout</a></li>
-          <li><a href={% url 'user:account' %}>Profile</a></li>
-        {% else %}
-          <li><a href={% url 'user:login' %}>Login</a></li>
-          <li><a href={% url 'user:register' %}>Register</a></li>
-        {% endif %}
-      </ul>
     </nav>
   </header>

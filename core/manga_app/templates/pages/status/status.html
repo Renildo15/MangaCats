@@ -9,15 +9,14 @@
         </div>
 {% endfor %}
 <div class="container">
-    <div class="title">
-        <h1>{{title}} Mangas - {{total_list}}</h1>
-    </div>
     <div class="content content-list">
         {% if manga_reading %}
             <div class="manga-list">
+                <h4>{{title}} Mangas - {{total_list}}</h4>
+                <hr style="color:#a9a17a;">
                 <div class="row">
                     {% for manga in manga_reading %}
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-sm-6 col-xs-12 mt-3">
                             <a href={% url 'manga:manga_view' manga.manga.id_manga %}>
                                 <div class="card">
                                     <img src="{{manga.manga.cover.url}}">

@@ -338,4 +338,9 @@
         font-size: 12px;
     }
     
+    .content .manga-list .row .col-md-4 .favorite-div .btn-favorite{
+        font-size: 15px;
+    }
+    
+    
 }

@@ -28,63 +28,19 @@ header{
     border: 1px solid black;
     margin-bottom: 10px;
 }
-
-header .nav_bar{
-    display:flex;
-    align-items: center;
-    justify-content: space-between;
+.logo{
     background-color: var(--color5);
-    height: 60px;
 }
 
-header .nav_bar .logo a .header-logo {
-    margin-right: 10px;
-    height: 100px;
-    width: 100px;
-}
-
-header .nav_bar .logo {
-    margin-left: 10px;
-}
-
-header .nav_bar ul{
-    padding: 0;
-}
-.nav-links{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin: 0 auto;
-    width: 50%;
-}
-
-.right-nav-links {
-    float: right;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    margin: 0 auto;
-}
-
-.right-nav-links li,
-.nav-links li{
-    list-style: none;
-    padding: 15px;
-}
-.right-nav-links li a,
-.nav-links li a{
-    text-decoration: none;
-    color: white;
+.logo .collapse .navbar-nav .nav-item .nav-link{
     font-size: 20px;
-    transition: .2 ease-in-out;
+    color: white;
 }
-.right-nav-links li a:hover,
-.nav-links li a:hover{
-    color: var(--color4);
-    transform: scale(2);
+
+.logo .collapse .navbar-nav .nav-item .nav-link:hover{
+    color: var(--color1);
     text-decoration: underline;
 }
-
 
 
 /* Login */
@@ -523,12 +479,6 @@ header .nav_bar ul{
 
 
 @media screen and (max-width: 1200px) {
-    .nav-links{
-        display: none;
-    }
-    .right-nav-links {
-        display: none;
-    }
     /* Login */
     .register .content .form-div,
     .login .content .form-div{

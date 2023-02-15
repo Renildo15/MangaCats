@@ -1,0 +1,341 @@
+:root{
+    --color1:#444444;
+    --color2:#fcf7d1;
+    --color3:#a9a17a;
+    --color4:#b52c00;
+    --color5:#8c0005;
+}
+
+.content-manga-uploaded{
+    border: none;
+    padding: 10px;
+    background-color: var(--color1);
+}
+
+.content-manga-uploaded h3{
+    color: var(--color1);
+    text-align: center;
+    background-color: var(--color3);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.content-manga-uploaded .manga-table{
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.content-manga-uploaded .manga-table table{
+    /* border: 1px solid red; */
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.content-manga-uploaded .manga-table table thead{
+    background-color: var(--color3);
+}
+.content-manga-uploaded .manga-table table thead tr th{
+    border: 1px solid var(--color5);
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    color: var(--color1);
+    font-size: 20px;
+}
+.content-manga-uploaded .manga-table table tbody tr{
+    margin-top: 6px;
+}
+.content-manga-uploaded .manga-table table tbody tr td{
+    background-color: var(--color2);
+    border: 1px solid var(--color5);
+    width: 90px;
+    padding: 10px;
+    text-align: center;
+}
+
+.content-manga-uploaded .manga-table table tbody tr td img{
+    width:160px; 
+    height:227px; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.content-manga-uploaded .manga-table table tbody tr td .links{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.content-manga-uploaded .manga-table table tbody tr td .links a{
+    text-decoration: none;
+    color: var(--color4);
+    font-size: 15px;
+}
+
+.content-manga-uploaded .manga-table table tbody tr td .links a:hover{
+    text-decoration: underline;
+    font-weight: bold;
+    transition: 0.3 ease-in;
+}
+
+/* manga form */
+
+.content-manga-form{
+    padding: 10px;
+    background-color: var(--color1);
+}
+
+.content-manga-form .form-div{
+    padding: 10px;
+}
+.content-manga-form .form-div form h1{
+    color: var(--color2);
+    text-align: center;
+}
+.content-manga-form .form-div form .form-group{
+    padding: 10px;
+    background-color: var(--color3);
+}
+
+.content-manga-form .form-div form .form-group label{
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--color1);
+}
+
+.content-manga-form .form-div form .form-group input,
+.content-manga-form .form-div form .form-group textarea,
+.content-manga-form .form-div form .form-group select{
+    width: 100%;
+    padding: 5px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    color: var(--color3);
+}
+
+.content-manga-form .form-div form .form-group #id_genre div label{
+    display: inline-block;
+    width: 140px;
+    text-align: right;
+    padding-right: 10px;
+}
+
+.content-manga-form .form-div form .form-group #id_genre div label input[type="checkbox"]{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.content-manga-form .form-div form .form-group input:focus,
+.content-manga-form .form-div form .form-group textarea:focus,
+.content-manga-form .form-div form .form-group select:focus{
+    border: 1px solid var(--color4);
+    outline: none;
+}
+.content-manga-form .form-div form .button-add-div{
+    padding: 10px;
+    text-align: center;
+}
+.content-manga-form .form-div form .button-add-div .btn-add{
+    background-color: var(--color5);
+    border: none;
+    font-size: 20px;
+    width: 200px;
+}
+
+/* chapter list manager */
+
+.content-manga-uploaded .container-chapter .chapter-table{
+    border: 1px solid black;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.content-manga-uploaded .container-chapter .chapter-table table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.content-manga-uploaded .container-chapter .chapter-table table thead{
+    background-color: var(--color3);
+}
+.content-manga-uploaded .container-chapter .chapter-table table thead tr th{
+    border: 1px solid var(--color5);
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    color: var(--color1);
+    font-size: 20px;
+}
+.content-manga-uploaded .container-chapter .chapter-table table tbody tr{
+    margin-top: 6px;
+}
+.content-manga-uploaded .container-chapter .chapter-table table tbody tr td{
+    background-color: var(--color2);
+    border: 1px solid var(--color5);
+    width: 90px;
+    padding: 10px;
+    text-align: center;
+}
+
+
+.content-manga-uploaded .add-button-div{
+    padding: 5px;
+    text-align: center;
+    background-color: var(--color3);
+}
+
+.content-manga-uploaded .add-button-div a{
+    background-color: var(--color5);
+    width: 90px;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: var(--color2);
+}
+
+.content-manga-uploaded .add-button-div a:hover{
+    transition: 0.3 ease-in;
+    background-color: var(--color2);
+    color: var(--color5);
+}
+
+.content-manga-uploaded .container-chapter .info-manga-chapter{
+    margin: 0 auto;
+    text-align: center;
+}
+
+.content-manga-uploaded .container-chapter .info-manga-chapter h1{
+    color: var(--color2);
+    margin-top: 5px;
+}
+.content-manga-uploaded .container-chapter .info-manga-chapter img{
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    width:320px;
+    height:454px;
+}
+.content-manga-uploaded .container-chapter .chapter-table,
+.content-manga-uploaded .container-chapter .manga-table{
+    border: none;
+}
+.content-manga-uploaded .container-chapter .chapter-table table tbody tr td a,
+.content-manga-uploaded .container-chapter .chapter-table  table tbody tr td .link a{
+    text-decoration: none;
+    color: var(--color4);
+    font-size: 20px;
+}
+.content-manga-uploaded .container-chapter .chapter-table  table tbody tr td a:hover,
+.content-manga-uploaded .container-chapter .chapter-table  table tbody tr td .link a:hover{
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 724px){
+    .content-manga-uploaded .manga-table{
+        border: 1px solid black;
+        padding: 10px;
+        background-color: #8c0005;
+        width: 100%;
+        height: 100%;
+    }
+    .content-manga-uploaded .container-chapter .chapter-table table,
+    .content-manga-uploaded .manga-table table{
+        /* border: 1px solid red; */
+        border-collapse: collapse;
+        width: 100%;
+        height: 100%;
+        overflow-x: auto;
+    }
+
+    .content-manga-uploaded .chapter-table table
+    .content-manga-uploaded .manga-table table tbody tr td img{
+        width:80px; 
+        height:113.5px; 
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    }
+    .content-manga-uploaded .chapter-table table thead tr th,
+    .content-manga-uploaded .manga-table table thead tr th{
+        width: 30px;
+        height: 20px;
+        font-size: 12px;
+    }
+
+    .content-manga-uploaded .chapter-table table thead tr td,
+    .content-manga-uploaded .manga-table table tbody tr td{
+        background-color: var(--color2);
+        border: 1px solid var(--color5);
+        width: 100%;
+        font-size: 10px;
+    }
+
+    .content-manga-uploaded h3{
+        font-size: 15px;
+    }
+    .content-manga-uploaded .chapter-table table thead tr td .links a,
+    .content-manga-uploaded .manga-table table tbody tr td .links a{
+        font-size: 12px;
+    }
+
+
+    .content-manga-form .form-div form h1{
+        font-size: 15px;
+    }
+    .content-manga-form .form-div form .form-group label{
+        font-size: 15px;
+    }
+    
+    .content-manga-form .form-div form .form-group input,
+    .content-manga-form .form-div form .form-group textarea,
+    .content-manga-form .form-div form .form-group select{
+        width: 100%;
+        padding: 5px;
+        font-size: 12px;
+    }
+    
+    .content-manga-form .form-div form .button-add-div{
+        padding: 10px;
+        text-align: center;
+    }
+    .content-manga-form .form-div form .button-add-div .btn-add{
+        font-size: 12px;
+    }
+    .content-manga-uploaded .container-chapter .info-manga-chapter .chapter-table table tbody tr td{
+        width: 100px;
+    }
+
+    .content-manga-uploaded .genre-table table tbody tr td{
+        width: 100px;
+    }
+
+    .content-manga-uploaded .container-chapter .chapter-table  table tbody tr td .link{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .content-manga-uploaded .container-chapter .chapter-table table thead tr th{
+        font-size: 15px;
+    }
+
+    .content-manga-uploaded .container-chapter .chapter-table  table tbody tr td a,
+    .content-manga-uploaded .container-chapter .chapter-table  table tbody tr td .link a{
+        font-size: 12px
+    }
+
+    .content-manga-uploaded .container-chapter .info-manga-chapter img{
+        box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+        width:240px;
+        height:340.5px;
+    }
+
+    .content-manga-uploaded .container-chapter .info-manga-chapter h1{
+        font-size: 15px;
+    }
+
+    .content-manga-uploaded .add-button-div a{
+        font-size: 12px;
+    }
+    
+}

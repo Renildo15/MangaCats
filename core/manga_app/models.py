@@ -6,8 +6,7 @@ from django.db.models import F
 from chapter_app.models import Chapter
 from django.db.models.signals import post_save, post_delete
 from datetime import datetime, timedelta
-from django.utils import timezone
-import pytz
+
 # Create your models here.
 
 
@@ -46,6 +45,11 @@ class Manga(models.Model):
         ("JP", "日本語")
     )
 
+    choice_update_type=(
+        ("views", "Views"),
+        ("content", "Content")
+    )
+
     id_manga = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     name_manga = models.CharField(max_length=300)
     name_in_japanese = models.CharField(max_length=300, null=True, blank=True)
@@ -61,6 +65,7 @@ class Manga(models.Model):
     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
     create_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, blank=True, null=True)
     genre = models.ManyToManyField(Genre, blank=True)
+    update_type = models.CharField(max_length=100, choices=choice_update_type, default='content')
 
     class Meta:
         verbose_name_plural = "Mangas"
@@ -78,10 +83,12 @@ class Manga(models.Model):
 
     def add_chapter(self):
         self.num_chapter += 1
+        self.update_type='content'
         self.save()
 
     def delete_chapter(self):
         self.num_chapter -= 1
+        self.update_type='content'
         self.save()
 
 

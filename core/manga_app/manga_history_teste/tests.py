@@ -47,3 +47,9 @@ class HistoryTests(TestCase):
         response = self.client.get(reverse("manga:manga_history"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "pages/history/manga_history.html")
+
+    def test_manga_history_view(self):
+        self.client.login(username='john', password='johnpassword')
+        response = self.client.post(reverse("manga:manga_history"))
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(HistoryManga.objects.filter(manga=self.manga, user=self.user).exists()) # Verifica se o registro foi criado

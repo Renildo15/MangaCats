@@ -67,3 +67,4 @@ class CommentsTests(TestCase):
         self.assertTemplateNotUsed(response, "pages/manga/manga_view.html")
 
 
+

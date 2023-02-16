@@ -34,33 +34,33 @@ class MangaTests(TestCase):
         self.assertEqual(self.manga.status, "on going")
         self.assertEqual(self.manga.views_manga, 1000)
         self.assertEqual(self.manga.description, "testetestetes")
-        self.assertEqual(datetime.date(2023, 1, 26), datetime.date.today())
+        self.assertEqual(datetime.date(2023, 2, 16), datetime.date.today())
         self.assertEqual(self.manga.create_by.username,"john")
         
     def test_url_exists_at_correct_location_view_manga(self): 
-         self.client.login(username='john', password='johnpassword')
-         response = self.client.get(reverse("manga:manga_list"))
-         self.assertEqual(response.status_code, 200)
-         
+        self.client.login(username='john', password='johnpassword')
+        response = self.client.get(reverse("manga:manga_list"))
+        self.assertEqual(response.status_code, 200)
+
     def test_url_exists_at_correct_location_add_manga(self): 
-         self.client.login(username='john', password='johnpassword')
-         response = self.client.get(reverse("manga:manga_add"))
-         self.assertNotEqual(response.status_code, 200)
+        self.client.login(username='john', password='johnpassword')
+        response = self.client.get(reverse("manga:manga_add"))
+        self.assertNotEqual(response.status_code, 200)
 
     def test_url_exists_at_correct_location_edit_manga(self): 
-         self.client.login(username='john', password='johnpassword')
-         response = self.client.get(reverse("manga:manga_edit",args=(self.genre.id_genre,)))
-         self.assertNotEqual(response.status_code, 200)
+        self.client.login(username='john', password='johnpassword')
+        response = self.client.get(reverse("manga:manga_edit",args=(self.genre.id_genre,)))
+        self.assertNotEqual(response.status_code, 200)
 
     def test_url_exists_at_correct_location_list_manga(self): 
-         self.client.login(username='john', password='johnpassword')
-         response = self.client.get(reverse("manga:manga_list"))
-         self.assertEqual(response.status_code, 200)
+        self.client.login(username='john', password='johnpassword')
+        response = self.client.get(reverse("manga:manga_list"))
+        self.assertEqual(response.status_code, 200)
 
     def test_url_exists_at_correct_location_manga_uploaded(self): 
-         self.client.login(username='john', password='johnpassword')
-         response = self.client.get(reverse("manga:manga_uploaded"))
-         self.assertNotEqual(response.status_code, 200)
+        self.client.login(username='john', password='johnpassword')
+        response = self.client.get(reverse("manga:manga_uploaded"))
+        self.assertNotEqual(response.status_code, 200)
 
 
     # def test_forms_manga(self):

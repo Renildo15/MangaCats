@@ -27,7 +27,7 @@ def language(request,queryset):
         return manga
     
     return manga
-       
+
 
 def genre(request):
     genre = Genre.objects.all()
@@ -53,7 +53,7 @@ def genre_filter(request, pk, name_genre):
    
 
 @login_required(login_url='user:login')
-@permission_required({("manga_app.view_genre"), "genre.can_view_genre"})
+@permission_required('manga_app.view_genre', login_url='user:login')
 def genre_list(request):
     genre = Genre.objects.filter(create_by=request.user)
     context = {
@@ -64,7 +64,7 @@ def genre_list(request):
 
 
 @login_required(login_url='user:login')
-@permission_required({("manga_app.add_genre"), "genre.can_add_genre"})
+@permission_required('manga_app.add_genre', login_url='user:login')
 def genre_add(request):
     if request.method == 'POST':
         form_genre = GenreForm(request.POST or None)
@@ -85,7 +85,7 @@ def genre_add(request):
 
 
 @login_required(login_url='user:login')
-@permission_required({("manga_app.change_genre"), "genre.can_edit_genre"})
+@permission_required('manga_app.change_genre', login_url='user:login')
 def genre_edit(request, pk):
     genre = get_object_or_404(Genre, id_genre=pk)
     form_genre = GenreForm(instance=genre)
@@ -106,7 +106,7 @@ def genre_edit(request, pk):
 
 
 @login_required(login_url='user:login')
-@permission_required({("manga_app.delete_genre"), "genre.can_delete_genre"})
+@permission_required('manga_app.delete_genre', login_url='user:login')
 def genre_delete(request, pk):
     genre = get_object_or_404(Genre, id_genre=pk)
     genre.delete()

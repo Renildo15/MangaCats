@@ -17,6 +17,7 @@ class MangaForm(forms.ModelForm):
     class Meta:
         model = Manga
         fields = '__all__'
+        exclude = ['create_by']
 
     genre = forms.ModelMultipleChoiceField(
         queryset=None,

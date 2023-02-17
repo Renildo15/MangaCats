@@ -93,7 +93,7 @@ WSGI_APPLICATION = 'manga_cats.wsgi.application'
 # }
 
 DATABASES = {
-    'default': dj_database_url.parse('postgres://mangacatsdb_user:fX1uCtG76D36vDenDIvj7iNj4bNqfbeg@dpg-cfnnuh5a499f28cri390-a.oregon-postgres.render.com/mangacatsdb')
+    'default': dj_database_url.parse(config('DATABASE_URL'))
 }
 
 

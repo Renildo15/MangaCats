@@ -179,3 +179,6 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 
 
+AUTHENTICATION_BACKENDS = [
+    'user_app.backends.EmailOrUsernameBackend',
+]

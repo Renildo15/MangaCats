@@ -93,7 +93,9 @@ def manga_uploaded(request):
 
 def manga_view(request, pk):
     manga = Manga.objects.get(id_manga=pk)
-    manga.views_manga += 1
+    if manga.update_type != 'content':
+        manga.views_manga += 1
+        manga.update_type = 'views'
     manga.save()
 
 

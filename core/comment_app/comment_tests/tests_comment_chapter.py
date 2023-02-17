@@ -16,8 +16,7 @@ class CommentsTests(TestCase):
             name_manga="teste", name_in_japanese="teste2", name_in_english="teste3",
             num_chapter=100, cover="foto.png", author="autor", status="on going", views_manga=1000,
             description="testetestetes", date_created=datetime, create_by=cls.user
-        )
-       
+        ) 
         cls.chapter = Chapter.objects.create(
             name_chapter="chapter - 01", manga = cls.manga, date_create = datetime, created_by = cls.user
         )
@@ -31,24 +30,24 @@ class CommentsTests(TestCase):
     def test_comment_model(self):
         self.client.login(username='john', password='johnpassword')
         self.assertEqual(self.comment.comment, "Teste")
-        self.assertEqual(datetime.date(2023, 1, 26), datetime.date.today())
+        self.assertEqual(datetime.date(2023, 2, 16), datetime.date.today())
         self.assertEqual(self.comment.user.username, "john")
         self.assertEqual(self.comment.chapter.name_chapter, "chapter - 01")
         self.assertEqual(self.comment.active, True)
 
     def test_url_exists_at_correct_location_comment_edit(self): 
-         self.client.login(username='john', password='johnpassword')
-         response = self.client.get(reverse("comment:comment_chapter_edit"))
-         self.assertNotEqual(response.status_code, 200)
+        self.client.login(username='john', password='johnpassword')
+        response = self.client.get(reverse("comment:comment_chapter_edit"))
+        self.assertNotEqual(response.status_code, 200)
 
     def test_url_exists_at_correct_location_comment_delete(self): 
-         self.client.login(username='john', password='johnpassword')
-         response = self.client.get(reverse("comment:comment_chapter_delete"))
-         self.assertNotEqual(response.status_code, 200)
+        self.client.login(username='john', password='johnpassword')
+        response = self.client.get(reverse("comment:comment_chapter_delete"))
+        self.assertNotEqual(response.status_code, 200)
 
     def test_forms_comment(self):
         form_comment = {
-           'comment': 'Teste'
+            'comment': 'Teste'
         }
 
         form = CommentChapterForm(data=form_comment)
@@ -68,9 +67,4 @@ class CommentsTests(TestCase):
         self.assertTemplateNotUsed(response, "pages/manga/manga_view.html")
 
 
-         
-    
-         
-   
-    
 

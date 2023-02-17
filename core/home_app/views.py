@@ -14,7 +14,7 @@ def manga_recent_and_update():
     id_manga= manga_recently.values_list('id_manga', flat=True)
     last_manga_recently = manga_id(id_manga)
 
-    manga_updated = Manga.objects.filter(updated_at__gte=time_threshold).order_by('-updated_at')
+    manga_updated = Manga.objects.filter(updated_at__gte=time_threshold, update_type='content').order_by('-updated_at')
     id_manga_updated= manga_updated.values_list('id_manga', flat=True)
     last_manga_updated = manga_id(id_manga_updated)
 

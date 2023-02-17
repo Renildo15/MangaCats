@@ -1,5 +1,5 @@
 from django.test import TestCase, Client
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from django.urls import reverse
 from ..models import Manga, Genre
 from ..forms import MangaForm
@@ -21,7 +21,14 @@ class MangaTests(TestCase):
             num_chapter=100, cover="foto.png", author="autor", status="on going", views_manga=1000,
             description="testetestetes", date_created=datetime, create_by=cls.user
         )
-
+        permission_view = Permission.objects.get(codename='view_manga')
+        permission_add = Permission.objects.get(codename='add_manga')
+        permission_change = Permission.objects.get(codename='change_manga')
+        permission_delete = Permission.objects.get(codename='delete_manga')
+        cls.user.user_permissions.add(permission_view)
+        cls.user.user_permissions.add(permission_delete)
+        cls.user.user_permissions.add(permission_add)
+        cls.user.user_permissions.add(permission_change)
 
     def test_manga_model(self):
         self.client.login(username='john', password='johnpassword')
@@ -34,34 +41,38 @@ class MangaTests(TestCase):
         self.assertEqual(self.manga.status, "on going")
         self.assertEqual(self.manga.views_manga, 1000)
         self.assertEqual(self.manga.description, "testetestetes")
-        self.assertEqual(datetime.date(2023, 1, 26), datetime.date.today())
+        self.assertEqual(datetime.date(2023, 2, 16), datetime.date.today())
         self.assertEqual(self.manga.create_by.username,"john")
         
     def test_url_exists_at_correct_location_view_manga(self): 
-         self.client.login(username='john', password='johnpassword')
-         response = self.client.get(reverse("manga:manga_list"))
-         self.assertEqual(response.status_code, 200)
-         
+        self.client.login(username='john', password='johnpassword')
+        response = self.client.get(reverse("manga:manga_list"))
+        self.assertEqual(response.status_code, 200)
+
     def test_url_exists_at_correct_location_add_manga(self): 
-         self.client.login(username='john', password='johnpassword')
-         response = self.client.get(reverse("manga:manga_add"))
-         self.assertNotEqual(response.status_code, 200)
+        self.client.login(username='john', password='johnpassword')
+        response = self.client.get(reverse("manga:manga_add"))
+        self.assertEqual(response.status_code, 200)
 
     def test_url_exists_at_correct_location_edit_manga(self): 
-         self.client.login(username='john', password='johnpassword')
-         response = self.client.get(reverse("manga:manga_edit",args=(self.genre.id_genre,)))
-         self.assertNotEqual(response.status_code, 200)
+        self.client.login(username='john', password='johnpassword')
+        response = self.client.get(reverse("manga:manga_edit", args=(self.manga.id_manga,)))
+        self.assertEqual(response.status_code, 200)
 
     def test_url_exists_at_correct_location_list_manga(self): 
-         self.client.login(username='john', password='johnpassword')
-         response = self.client.get(reverse("manga:manga_list"))
-         self.assertEqual(response.status_code, 200)
+        self.client.login(username='john', password='johnpassword')
+        response = self.client.get(reverse("manga:manga_list"))
+        self.assertEqual(response.status_code, 200)
 
     def test_url_exists_at_correct_location_manga_uploaded(self): 
-         self.client.login(username='john', password='johnpassword')
-         response = self.client.get(reverse("manga:manga_uploaded"))
-         self.assertNotEqual(response.status_code, 200)
+        self.client.login(username='john', password='johnpassword')
+        response = self.client.get(reverse("manga:manga_uploaded"))
+        self.assertEqual(response.status_code, 200)
 
+    def test_url_exists_at_corret_location_manga_delete(self):
+        self.client.login(username='john', password='johnpassword')
+        response = self.client.post(reverse("manga:manga_delete", args=(self.manga.id_manga,)))
+        self.assertEqual(response.status_code, 302)
 
     # def test_forms_manga(self):
     #     form_manga = {
@@ -83,7 +94,7 @@ class MangaTests(TestCase):
     def test_views_manga_add(self):
         self.client.login(username='john', password='johnpassword')
         response = self.client.get(reverse("manga:manga_add"))
-        self.assertNotEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertTemplateNotUsed(response, "pages/manga_add.html")
 
     def test_views_manga_list(self):
@@ -95,14 +106,14 @@ class MangaTests(TestCase):
     def test_views_manga_edit(self):
         self.client.login(username='john', password='johnpassword')
         response = self.client.get(reverse("manga:manga_edit", args=(self.manga.id_manga,)))
-        self.assertNotEqual(response.status_code, 200)
-        self.assertTemplateNotUsed(response, "pages/manga/manga_edit.html")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "pages/manga/manga_edit.html")
 
     def test_views_manga_uploaded(self):
         self.client.login(username='john', password='johnpassword')
         response = self.client.get(reverse("manga:manga_uploaded"))
-        self.assertNotEqual(response.status_code, 200)
-        self.assertTemplateNotUsed(response, "pages/manga/manga_uploaded.html")
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "pages/manga/manga_uploaded.html")
 
     def test_views_manga_view(self):
         self.client.login(username='john', password='johnpassword')

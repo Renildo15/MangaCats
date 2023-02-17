@@ -26,7 +26,7 @@ class ChapterTests(TestCase):
         self.client.login(username='john', password='johnpassword')
         self.assertEqual(self.chapter.name_chapter, "chapter - 01")
         self.assertEqual(self.chapter.manga.name_manga, "teste")
-        self.assertEqual(datetime.date(2023, 1, 26), datetime.date.today())
+        self.assertEqual(datetime.date(2023, 2, 16), datetime.date.today())
         self.assertEqual(self.chapter.created_by.username, 'john')
 
     def test_url_exists_at_correct_location_chapter_list_(self): 

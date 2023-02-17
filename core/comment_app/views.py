@@ -24,7 +24,7 @@ def total_comments_manga(pk):
     return total_comments
 
 @login_required(login_url='user:login')
-@permission_required("comment_app.can_edit_comment", login_url='user:login')
+@permission_required("comment_app.change_commentmanga", login_url='user:login')
 def comment_edit(request):
     data_id  = request.GET.get('data_id') 
     comment = request.GET.get('comment') 

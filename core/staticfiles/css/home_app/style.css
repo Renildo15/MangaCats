@@ -1,0 +1,302 @@
+:root{
+    --color1:#444444;
+    --color2:#fcf7d1;
+    --color3:#a9a17a;
+    --color4:#b52c00;
+    --color5:#8c0005;
+}
+
+
+
+/* mangá popular */
+.content .manga-list{
+    padding: 10px;
+    border-left-width: 1px;
+    border-right-width: 2px;
+}
+
+.content .manga-list h1{
+    color: var(--color3);
+}
+.content .manga-list .card{
+    margin: 0 auto;
+    width:320px; 
+    height:454px;
+    position: relative;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.content .manga-list a{
+    color: var(--color2);
+    margin: 20px;
+}
+
+.content .manga-list .card img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.content .manga-list .card .info{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #8c00057e;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.content .manga-list .card .info h2{
+    font-weight: bold;
+    text-shadow: 2px 2px 2px gray;
+}
+.content .manga-list .card .info p{
+    font-weight: bold;
+    text-shadow: 2px 2px 2px gray;
+}
+
+.content .manga-list .card:hover .info{
+    opacity: 1;
+    cursor: pointer;
+}
+.history-list,
+.content-list,
+.content-popular{
+    background-color: var(--color1);
+    padding: 20px;
+}
+
+.container .title{
+    background-color: var(--color3);
+    padding: 8px;
+}
+
+.container .title h1{
+    border: 1px solid white;
+    text-align: center;
+    color: var(--color2);
+    background-color: var(--color1);
+    margin: 10px;
+}
+
+.container .title .form-container .form-content{
+    width: 50%;
+    margin: 0 auto;
+}
+.container .title .form-container .form-content form{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container .title .form-container .form-content form input{
+    width: 60px;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    padding: 3px;
+    font-size: 15px;
+    background-color: var(--color5);
+    color: var(--color2);
+}
+
+.container .title .form-container .form-content form input:hover{
+    cursor: pointer;
+    background-color: var(--color2);
+    color: var(--color5);
+    transition: all 0.3s ease;
+}
+.container .title .search{
+    width: 60%;
+    margin: 0 auto;
+   
+} */
+.container .title .search form{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0 auto;
+}
+.container .title .search form input{
+    width: 80%;
+    padding: 5px;
+    border-radius: 4px;
+    border: 1px solid black;
+    font-size: 15px;
+}
+.container .title .search form input:focus{
+    outline: none;
+    border: 1px solid var(--color4);
+    padding-left: 0 5px;
+}
+
+.container .title .search form button{
+    outline: none;
+    border: none;
+    width: 100px;
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 5px;
+    background-color: var(--color5);
+    color: var(--color2);
+    margin-left: 26px;
+}
+.container .title .search form button:hover{
+    cursor: pointer;
+    background-color: var(--color2);
+    color: var(--color5);
+    transition: all 0.3s ease;
+}
+
+.container .title .btn-reset{
+    text-decoration: none;
+    font-size: 20px;
+    border: 1px solid var(--color5);
+    width: 60px;
+    padding: 6px;
+    background-color: var(--color4);
+    color: white;
+    border-radius: 5px;
+    margin-left: 8px;
+}
+
+
+
+.content .manga-list .row .col-md-4 .favorite-div{
+    margin: 0 auto;
+    margin-top:0;
+    border: 1px solid white;
+    background-color: var(--color3);
+}
+.content .manga-list .row .col-md-4 .favorite-div .btn-favorite{
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color5);
+}
+
+
+.div-pagination{
+    padding: 10px;
+    border-radius: 5px;
+    background-color: var(--color3);
+}
+
+.div-pagination .pagination-content{
+    border: 1px solid var(--color1);
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.div-pagination .pagination-content .pagination{
+    padding: 5px;
+    width: 15.1%;
+    margin: 0 auto;
+}
+
+.div-pagination .pagination-content .pagination .page-link {
+    position: relative;
+    display: block;
+    font-size: 15px;
+    color: var(--color2);
+    text-decoration: none;
+    background-color: var(--color5);
+    border: 1px solid black;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.div-pagination .pagination-content .pagination .active>.page-link, .page-link.active {
+    z-index: 3;
+    color: var(--color1);
+    background-color: var(--color2);
+    border-color:var(--color1);
+}
+
+.div-pagination .pagination-content .pagination .disabled>.page-link, .page-link.disabled{
+    background-color: var(--color5);
+    color: #aaaaaa;
+}
+
+
+
+
+@media screen and (max-width: 1200px) {
+    .content .manga-list{
+        width: 100%;
+    }
+
+    .content .manga-list .card{
+        margin: 0 auto;
+        width:100%; 
+        height:100%;
+    }
+
+    .content .manga-list .card img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .container .title .form-container .form-content{
+        width: 100%;
+    }
+
+    .container .title .form-container .form-content form input{
+        width: 60px;
+        font-size: 12px;
+    }
+
+    .container .title .search{
+        width: 100%;
+        margin: 0 auto;
+    } 
+    .container .title .search form{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin: 0 auto;
+    }
+    .container .title .search form input{
+        width: 80%;
+        padding: 5px;
+        border-radius: 4px;
+        border: 1px solid black;
+        font-size: 12px;
+        margin: 0 auto;
+    }
+
+    .container .title .search form button{
+        font-size: 12px;
+    }
+
+    .div-pagination{
+        margin-top: 30px;
+    }
+
+    .div-pagination .pagination-content{
+        width: 100%;
+    }
+
+    .div-pagination .pagination-content .pagination .page-link{
+        font-size: 10px;
+    }
+
+    .div-pagination .pagination-content .pagination{
+        padding: 5px;
+        width: 60%;
+        margin: 0 auto;
+    }
+}

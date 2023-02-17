@@ -205,6 +205,27 @@
             </form>
           </div>
         </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingFour">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" data-bs-parent="#accordionExample">
+              <h3>Change password</h3>
+            </button>
+          </h2>
+          <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <form method="post" class="form" enctype="multipart/form-data">
+                {% csrf_token %}
+                        
+                <div class="form-group">
+                  {{form_reset_password}}
+                </div>
+                <div class="button">
+                  <button class="submit_update">Save changes</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
     </div>  
   </div> 
 </div>

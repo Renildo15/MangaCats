@@ -44,7 +44,7 @@ def login_user(request):
             messages.success(request,(f"Welcome, {request.user}"))
             return redirect("/")
         else:
-            messages.error(request, "Login failed. Please check your username and password.")
+            messages.error(request, "Login failed. Please check your email and password.")
             form_login = AuthenticationForm()
     else:
         form_login = AuthenticationForm()

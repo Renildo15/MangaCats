@@ -3,31 +3,39 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from ..forms import ProfileAvatarForm, ProfileUserForm
 from django.contrib import messages
+from ..views import change_password
 
 @login_required(login_url='user:login')
 def account(request):
+    form_reset_password = change_password(request)
     form_user = ProfileUserForm(instance=request.user)
     form_avatar = ProfileAvatarForm(instance=request.user.profile)
     if request.method == "POST":
-        form_user = ProfileUserForm(request.POST or None, instance=request.user)
-        form_avatar = ProfileAvatarForm(request.POST or None, request.FILES, instance=request.user.profile)
-        if form_user.is_valid():
-            form_user.save()
-            messages.success(request, "User updated!")
-            return HttpResponseRedirect(reverse("user:account")) 
+        if "form_user_submit" in request.POST:
+            form_user = ProfileUserForm(request.POST or None, instance=request.user)
+            if form_user.is_valid():
+                form_user.save()
+                messages.success(request, "User updated!")
+                return HttpResponseRedirect(reverse("user:account")) 
+            else:
+                print("invalid")
+        elif "form_avatar_submit" in request.POST:
+            form_avatar = ProfileAvatarForm(request.POST or None, request.FILES, instance=request.user.profile)
+            if form_avatar.is_valid():
+                form_avatar.save()
+                messages.success(request, "Avatar updated!")
+                return HttpResponseRedirect(reverse("user:account")) 
+            else:
+                print("invalid")
         else:
-            print("invalid")
-
-        if form_avatar.is_valid():
-            form_avatar.save()
-            messages.success(request, "Avatar updated!")
-            return HttpResponseRedirect(reverse("user:account")) 
+            form_reset_password = change_password(request)
+            messages.success(request,("Password changed successfully!"))
+            return HttpResponseRedirect(reverse("user:account"))
             
     context = {
         "form_user":form_user,
-        "form_avatar":form_avatar
+        "form_avatar":form_avatar,
+        "form_reset_password":form_reset_password
     }
     return render(request, "pages/profile/profile_page.html",context)
 
-def profile_update(request):
-    pass

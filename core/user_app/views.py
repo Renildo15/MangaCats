@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse,HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, PasswordResetForm
 from .forms import RegisterUserForm
+from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
 from django.utils.http import urlsafe_base64_encode
@@ -68,16 +69,11 @@ def change_password(request):
         if form_password.is_valid():
             user = form_password.save()
             update_session_auth_hash(request, user)
-            messages.success(request,("Password changed successfully!"))
-            return redirect("/")
+            return HttpResponseRedirect(reverse("user:account"))
     else:
         form_password = PasswordChangeForm(request.user)
 
-    context = {
-        "form_password" : form_password
-    }
-
-    return render(request, "pages/change_password.html", context)
+    return form_password
     
 @login_required(login_url='user:login')
 def change_password_success(request):

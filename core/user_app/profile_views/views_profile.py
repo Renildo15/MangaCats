@@ -11,26 +11,20 @@ def account(request):
     form_user = ProfileUserForm(instance=request.user)
     form_avatar = ProfileAvatarForm(instance=request.user.profile)
     if request.method == "POST":
-        if "form_user_submit" in request.POST:
-            form_user = ProfileUserForm(request.POST or None, instance=request.user)
-            if form_user.is_valid():
-                form_user.save()
-                messages.success(request, "User updated!")
-                return HttpResponseRedirect(reverse("user:account")) 
-            else:
-                print("invalid")
-        elif "form_avatar_submit" in request.POST:
-            form_avatar = ProfileAvatarForm(request.POST or None, request.FILES, instance=request.user.profile)
-            if form_avatar.is_valid():
-                form_avatar.save()
-                messages.success(request, "Avatar updated!")
-                return HttpResponseRedirect(reverse("user:account")) 
-            else:
-                print("invalid")
+        form_user = ProfileUserForm(request.POST or None, instance=request.user)
+        form_avatar = ProfileAvatarForm(request.POST or None, request.FILES, instance=request.user.profile)
+        if form_user.is_valid():
+            form_user.save()
+            messages.success(request, "User updated!")
+            return HttpResponseRedirect(reverse("user:account")) 
         else:
-            form_reset_password = change_password(request)
-            messages.success(request,("Password changed successfully!"))
-            return HttpResponseRedirect(reverse("user:account"))
+            print("invalid")
+
+        if form_avatar.is_valid():
+            form_avatar.save()
+            messages.success(request, "Avatar updated!")
+            return HttpResponseRedirect(reverse("user:account")) 
+
             
     context = {
         "form_user":form_user,

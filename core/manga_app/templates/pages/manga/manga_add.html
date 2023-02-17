@@ -14,62 +14,7 @@
             <form action="." method="POST" class="form" enctype="multipart/form-data">
                 <h1>Add Manga</h1>
                 {% csrf_token %}
-                <div class="form-group">
-                    {{form_manga.name_manga.errors}}
-                    <label for="">Manga name:</label>
-                    {{form_manga.name_manga}}
-                </div>
-                <div class="form-group">
-                    {{form_manga.name_in_japanese.errors}}
-                    <label for="">Manga name in Japanese:</label>
-                    {{form_manga.name_in_japanese}}
-                </div>
-                <div class="form-group">
-                    {{form_manga.name_in_english.errors}}
-                    <label for="">Manga name in English:</label>
-                    {{form_manga.name_in_english}}
-                </div>
-                <div class="form-group">
-                    {{form_manga.language.errors}}
-                    <label for="">Language:</label>
-                    {{form_manga.language}}
-                </div>
-                <div class="form-group">
-                    {{form_manga.num_chapter.errors}}
-                    <label for="">Chapters:</label>
-                    {{form_manga.num_chapter}}
-                </div>
-                <div class="form-group">
-                    {{form_manga.cover.errors}}
-                    <label for="">Manga Cover:</label>
-                    {{form_manga.cover}}
-                </div>
-                <div class="form-group">
-                    {{form_manga.author.errors}}
-                    <label for="">Author:</label>
-                    {{form_manga.author}}
-                </div>
-                <div class="form-group">
-                    {{form_manga.status.errors}}
-                    <label for="">Status:</label>
-                    {{form_manga.status}}
-                </div>
-                <div class="form-group">
-                    {{form_manga.views_manga.errors}}
-                    <label for="">Views:</label>
-                    {{form_manga.views_manga}}
-                </div>
-                <div class="form-group">
-                    {{form_manga.description.errors}}
-                    <label for="">Description:</label>
-                    {{form_manga.description}}
-                </div>
-                <div class="form-group">
-                    {{form_manga.genre.errors}}
-                    <label for="">Genre:</label>
-                    <hr>
-                    {{form_manga.genre}}
-                </div>
+                <div class="form-group">{{form_manga}}</div>
                 <div class="button-add-div">
                     <input class="btn btn-primary btn-add" type="submit" value="Save Manga"/>
                 </div>

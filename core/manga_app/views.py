@@ -186,6 +186,8 @@ def manga_add(request):
             messages.success(request,"Manga added!")
 
             return redirect(reverse("home:home"))
+        else:
+            print("Problema")
     else:
         form_manga = MangaForm(request=request)
 

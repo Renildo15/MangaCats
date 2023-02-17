@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse,HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, PasswordResetForm
-from .forms import RegisterUserForm
+from .forms import RegisterUserForm, EmailAuthenticationForm
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib import messages
@@ -46,9 +46,9 @@ def login_user(request):
             return redirect("/")
         else:
             messages.error(request, "Login failed. Please check your email and password.")
-            form_login = AuthenticationForm()
+            form_login = EmailAuthenticationForm()
     else:
-        form_login = AuthenticationForm()
+        form_login = EmailAuthenticationForm()
 
     context = {
         "form_login": form_login,

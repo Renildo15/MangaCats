@@ -1,0 +1,133 @@
+:root{
+    --color1:#444444;
+    --color2:#fcf7d1;
+    --color3:#a9a17a;
+    --color4:#b52c00;
+    --color5:#8c0005;
+}
+
+
+/* chapter */
+.content-manga-info .chapter-list{
+    padding: 10px;
+    background-color: var(--color1);
+}
+.content-manga-info .chapter-list .no-exists{
+    padding: 10px;
+    background-color: var(--color1);
+}
+.content-manga-info .chapter-list .no-exists h3{
+    color: var(--color3);
+    text-align: center;
+}
+.content-manga-info .chapter-list legend{
+    color: var(--color3);
+}
+.content-manga-info .chapter-list ul{
+    padding: 10px;
+    margin: 0;
+    overflow: auto;
+    height: 300px;
+}
+
+.content-manga-info .chapter-list ul::-webkit-scrollbar {
+    width: 5px;
+    background-color: #F5F5F5;
+}
+
+.content-manga-info .chapter-list ul::-webkit-scrollbar-thumb {
+    background-color: var(--color5);
+    border-radius: 10px;
+}
+
+.content-manga-info .chapter-list ul li{
+    list-style: none;
+    background-color: var(--color3);
+    margin: 5px;
+    padding: 5px;
+}
+
+.content-manga-info .chapter-list ul li a{
+    text-decoration: none;
+    color: var(--color1);
+}
+
+.content-manga-info .chapter-list ul li a:hover{
+    text-decoration: underline;
+    color: var(--color2);
+}
+
+
+/* pages */
+
+.content-pages .pages-list{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color1);
+}
+
+.content-pages .pages-list .page-img{
+    padding: 4px;
+    margin: 4px;
+}
+
+.content-pages .pages-list .page-img img{
+    width: 860px;
+    height: 1236px;
+}
+
+.content-pages .next-previous-div{
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.content-pages .next-previous-div select{
+    padding: 6px 12px;
+    border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid var(--color5);
+    appearance: none;
+    background-color: #fff;
+}
+
+
+.content-pages .next-previous-div select:focus{
+    outline: var(--color1);
+}
+.content-pages .next-previous-div .btn-previous,
+.content-pages .next-previous-div .btn-next{
+    background-color: var(--color5);
+    color: white;
+}
+
+.content-pages .next-previous-div .btn-previous:hover,
+.content-pages .next-previous-div .btn-next:hover{
+    color: var(--color5);
+    background-color: white;
+    border: 1px solid var(--color5);
+}
+@media screen and (max-width: 724px){
+    .content-manga-info .chapter-list{
+        padding: 10px;
+        background-color: var(--color1);
+        width: 100%;
+    }
+    .content-pages .pages-list .page-img img{
+        width: 215px;
+        height: 309px;
+    }
+
+    .content-pages .next-previous-div .btn-previous,
+    .content-pages .next-previous-div .btn-next{
+        font-size: 10px;
+    }
+    .content-pages .next-previous-div select{
+        font-size: 10px;
+    }
+    
+
+}

@@ -8,7 +8,7 @@ User = get_user_model()
 
 class Profile(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    image_profile = models.ImageField(null=True, blank=True)
+    image_profile = models.ImageField(null=True, blank=True,upload_to='users_profile_images')
     date_created = models.DateTimeField(auto_now_add = True, null=True, blank=True)
 
 

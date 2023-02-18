@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import dj_database_url
 from decouple import config
+import cloudinary_storage
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
     'manga_app',
     'chapter_app',
     'comment_app',
+    'cloudinary',
+    'cloudinary_storage'
 ]
 
 MIDDLEWARE = [
@@ -187,3 +190,12 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 AUTHENTICATION_BACKENDS = [
     'user_app.backends.EmailOrUsernameBackend',
 ]
+
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dmyberlvk',
+    'API_KEY': '361742221512746',
+    'API_SECRET': 'UxfJykTblHHpFKUsh63ar4FKk8s'
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

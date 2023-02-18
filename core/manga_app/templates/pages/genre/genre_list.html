@@ -28,7 +28,7 @@
                             <td>{{genre.date_created}}</td>
                             <td>
                                 <div class="links">
-                                    {% if perms.genre.can_edit_genre and perms.genre.can_delete_genre %}
+                                    {% if perms.manga_app.change_genre and perms.manga_app.delete_genre %}
                                     <a href={% url 'manga:genre_edit' genre.id_genre %}>Edit</a>
                                     <a href={% url 'manga:genre_delete' genre.id_genre %}>Delete</a>
                                 {% endif %}

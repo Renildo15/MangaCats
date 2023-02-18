@@ -24,7 +24,6 @@ def total_comments_manga(pk):
     return total_comments
 
 @login_required(login_url='user:login')
-@permission_required("comment_app.change_commentmanga", login_url='user:login')
 def comment_edit(request):
     data_id  = request.GET.get('data_id') 
     comment = request.GET.get('comment') 
@@ -38,7 +37,6 @@ def comment_edit(request):
     return JsonResponse(data) 
 
 @login_required(login_url='user:login')
-@permission_required("comment_app.delete_commentmanga", login_url='user:login')
 def comment_delete(request):
     comment_id = request.GET.get('comment_id')
     comment = CommentManga.objects.get(id_comment=comment_id)

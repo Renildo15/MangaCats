@@ -26,7 +26,6 @@ def total_comments_chapter(pk):
 
 
 @login_required(login_url='user:login')
-@permission_required("comment_app.delete_commentchapter", login_url='user:login')
 def comment_chapter_delete(request):
     comment_id = request.GET.get('comment_id')
     comment = CommentChapter.objects.get(id_comment=comment_id)
@@ -36,7 +35,6 @@ def comment_chapter_delete(request):
     return JsonResponse(data)
 
 @login_required(login_url='user:login')
-@permission_required("comment_app.change_commentchapter", login_url='user:login')
 def comment_chapter_edit(request):
     data_id  = request.GET.get('data_id') 
     comment = request.GET.get('comment') 

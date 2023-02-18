@@ -11,7 +11,7 @@
 {% endfor %}
 <div class="container">
     <div class="title text-center">
-        {% if perms.manga_app.delete_historymanga %}
+        {% if user.is_authenticated %}
             <a class="btn-reset" href={% url 'manga:manga_history_reset' %}>
                 Reset all
                 <i class="fa-solid fa-trash"></i>

@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="comment-options">
-                    {% if perms.comment_app.can_edit_comment and request.user == comment.user%}
+                    {% if user.is_authenticated and request.user == comment.user%}
                         <a class="comment btn-edit" id="comment{{comment.id_comment}}" data-comment="{{comment.id_comment}}">
                             Edit
                             <i class="fa-solid fa-pen-to-square"></i>
@@ -42,7 +42,7 @@
                         </form>
                     {% endif %}
 
-                    {% if perms.comment_app.delete_commentmanga and request.user.is_staff or request.user == comment.user %}
+                    {% if user.is_authenticated and request.user.is_staff or request.user == comment.user %}
                         <a class="btn-delete" id="btn-delete" data-delete="{{comment.id_comment}}">
                             Delete
                             <i class="fa-solid fa-trash"></i>
@@ -101,7 +101,7 @@
                                 </div>
                             </div>
                             <div class="comment-options">
-                                {% if perms.comment_app.change_commentmanga and request.user == reply.user%}
+                                {% if user.is_authenticated and request.user == reply.user%}
                                     <a class="comment btn-edit" id="comment{{reply.id_comment}}" data-comment="{{reply.id_comment}}">
                                         Edit
                                         <i class="fa-solid fa-pen-to-square"></i>
@@ -114,7 +114,7 @@
                                     </form>
                                 {% endif %}
 
-                                {% if perms.comment_app.delete_commentmanga and request.user.is_staff or request.user == reply.user %}
+                                {% if user.is_authenticated and request.user.is_staff or request.user == reply.user %}
                                     <a class="btn-delete" id="btn-delete" data-delete="{{reply.id_comment}}">
                                         Delete
                                         <i class="fa-solid fa-trash"></i>

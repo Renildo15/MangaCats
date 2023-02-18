@@ -29,7 +29,7 @@
                                         </div>
                                     </div>
                                 </a>
-                                {% if perms.manga_app.add_favoritemanga %}
+                                {% if user.is_authenticated %}
                                     <div class="favorite-div">
                                         <a class="btn btn-dark btn-favorite" id="btn-remove" data-remove="{{manga.manga.id_manga}}">Remove from list</a>
                                     </div>

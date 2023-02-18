@@ -20,7 +20,7 @@ def score_manga(review):
     
     elif review == "Average":
         score = AVERAGE
-       
+    
     elif review == "Bad":
         score = BAD
 
@@ -37,7 +37,6 @@ def remove_review(request, manga_id):
     return True
 
 @login_required(login_url='user:login')
-@permission_required("manga_app.add_reviewmanga", login_url='user:login')
 def manga_review(request):
     status = ""
     manga_id = request.GET.get('manga_id')

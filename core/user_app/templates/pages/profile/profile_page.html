@@ -78,19 +78,18 @@
                         </li>
                       </ul>
                     {% endif %}
-                    {% if perms.manga_app.can_view_manga %}
+                    {% if perms.manga_app.view_manga %}
                       <h3>Manager Manga</h3>
                       <ul>
                           <li>
-                              {% if perms.manga_app.can_add_manga %}
+                              {% if perms.manga_app.add_manga %}
                                   <a href={% url 'manga:manga_add' %}>
                                     Upload Manga 
                                     <i class="fa-solid fa-upload"></i>
                                   </a>
-                                 
                               {% endif %}
                           </li>
-                              {% if perms.manga_app.can_add_genre and perms.manga_app.can_view_genre %}
+                              {% if perms.manga_app.add_genre and perms.manga_app.view_genre %}
                                   <li>
                                       <a href={% url 'manga:genre_add' %}>
                                         Add new genre

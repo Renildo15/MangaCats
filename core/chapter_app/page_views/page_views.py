@@ -76,9 +76,8 @@ def page_list(request, pk):
 
     return render(request, "pages/page/page_list.html", context)
 
-
-@permission_required({("chapter_app.add_page"), "page.can_add_page"}, login_url='user:login')
 @login_required(login_url='user:login')
+@permission_required({("chapter_app.add_page"), "page.can_add_page"}, login_url='user:login')
 def page_add(request, pk):
     chapter = get_object_or_404(Chapter, id_chapter=pk)
     if request.method == "POST":
@@ -104,9 +103,8 @@ def page_add(request, pk):
 
     return render(request, "pages/page/page_add.html", context)
 
-
-@permission_required({("chapter_app.view_page"), "chapter_app.can_view_page"}, login_url='user:login')
 @login_required(login_url='user:login')
+@permission_required({("chapter_app.view_page"), "chapter_app.can_view_page"}, login_url='user:login')
 def page_list_manager(request, pk):
     page = Page.objects.filter(chapter_name=pk, created_by=request.user)
     context = {
@@ -115,8 +113,8 @@ def page_list_manager(request, pk):
 
     return render(request, "pages/page/page_list_manager.html", context)
 
-@permission_required({("chapter_app.change_page"), "chapter_app.can_edit_page"}, login_url='user:login')
 @login_required(login_url='user:login')
+@permission_required({("chapter_app.change_page"), "chapter_app.can_edit_page"}, login_url='user:login')
 def page_edit(request, pk):
     page = get_object_or_404(Page, id_img=pk)
     if request.method == "POST":
@@ -137,9 +135,9 @@ def page_edit(request, pk):
     }
 
     return render(request, "pages/page/page_edit.html", context)
-
-@permission_required({("chapter_app.delete_page"), "chapter_app.can_delete_page"}, login_url='user:login')
+    
 @login_required(login_url='user:login')
+@permission_required({("chapter_app.delete_page"), "chapter_app.can_delete_page"}, login_url='user:login')
 def page_delete(request,pk):
     page = Page.objects.get(id_img=pk)
     page.delete()

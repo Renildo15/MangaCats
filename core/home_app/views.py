@@ -39,8 +39,6 @@ def manga_popular(request):
     parameter_page = request.GET.get("page","1")
     parameter_limit = request.GET.get("limit", "12")
     language = ''
-    days_delta = 7
-    time_threshold = timezone.now() - timedelta(days=days_delta)
 
     manga_recently = manga_recent_and_update()
 

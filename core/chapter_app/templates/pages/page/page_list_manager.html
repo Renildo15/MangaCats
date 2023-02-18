@@ -31,7 +31,7 @@
                         <td>{{page.image_chapter}}</td>
                         <td>
                             <div class="links">
-                                {% if perms.page.can_edit_page and perms.page.can_delete_page %}
+                                {% if perms.chapter_app.change_page and perms.chapter_app.delete_page %}
                                     <a href={% url 'chapter:page_edit' page.id_img %}>Edit</a>
                                     <a href={% url 'chapter:page_delete' page.id_img %}>Delete</a>
                                 {% endif %} 

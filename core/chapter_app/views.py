@@ -7,7 +7,6 @@ from manga_app.models import Manga
 from django.contrib import messages
 # Create your views here.
 
-@permission_required({("chapter.view_chapter"), "chapter.can_view_chapter"}, login_url='user:login')
 @login_required(login_url='user:login')
 def chapter_list(request, pk):
     chapter = Chapter.objects.filter(created_by=request.user, manga_id=pk)
@@ -38,8 +37,8 @@ def chapter_list(request, pk):
 
     return render(request, "pages/chapter/chapter_list.html", context)
 
-@permission_required({("chapter.add_chapter"), "chapter.can_add_chapter"}, login_url='user:login')
 @login_required(login_url='user:login')
+@permission_required("chapter_app.add_chapter", login_url='user:login')
 def chapter_add(request, pk):
     manga = get_object_or_404(Manga, id_manga=pk)
     if request.method == "POST":
@@ -66,8 +65,8 @@ def chapter_add(request, pk):
 
     return render(request, "pages/chapter/chapter_add.html", context)
 
-@permission_required({("chapter.change_chapter"), "chapter.can_edit_chapter"}, login_url='user:login')
 @login_required(login_url='user:login')
+@permission_required("chapter_app.change_chapter", login_url='user:login')
 def chapter_edit(request, pk):
     chapter = get_object_or_404(Chapter, id_chapter=pk)
     form_chapter = ChapterForm(instance=chapter)
@@ -87,8 +86,8 @@ def chapter_edit(request, pk):
 
     return render(request, "pages/chapter/chapter_edit.html",context)
 
-@permission_required({("chapter.delete_chapter"), "chapter.can_delete_chapter"}, login_url='user:login')
 @login_required(login_url='user:login')
+@permission_required("chapter_app.delete_chapter", login_url='user:login')
 def chapter_delete(request, pk):
     chapter = Chapter.objects.get(id_chapter=pk)
     chapter.delete()

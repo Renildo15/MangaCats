@@ -4,14 +4,10 @@ from django.http import JsonResponse
 from ..models import StatusManga, Manga
 
 @login_required(login_url='user:login')
-@permission_required("manga_app.add_statusmanga", login_url='user:login')
 def status_manga(request):
     manga_status_val = request.GET.get('status_val')
     manga_id = request.GET.get('manga_id')
-    
-    
     status = ''
-   
     if StatusManga.objects.filter(manga=manga_id, user=request.user).exists():
         if manga_status_val == "not_read":
             st = get_object_or_404(StatusManga, manga=manga_id, user=request.user)
@@ -40,7 +36,6 @@ def status_selected(request,pk):
     return status_manga
 
 @login_required(login_url='user:login')
-@permission_required("manga_app.view_statusmanga", login_url='user:login')
 def status(request, status):
     manga_reading = StatusManga.objects.filter(status=status, user=request.user)
     title = status_title(status)

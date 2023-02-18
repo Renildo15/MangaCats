@@ -44,14 +44,14 @@
                                 </td>
                                 <td>
                                     <div class="link">
-                                        {% if perms.page.can_add_page %}
+                                        {% if perms.chapter_app.add_page %}
                                             <a href={% url 'chapter:page_add' chapter.id_chapter %}>Add page |</a>
                                         {% endif %}               
-                                        {% if perms.chapter.can_edit_chapter and perms.chapter.can_delete_chapter %}
+                                        {% if perms.chapter_app.change_chapter and perms.chapter_app.delete_chapter %}
                                             <a href={% url 'chapter:chapter_edit' chapter.id_chapter %}>Edit |</a>
                                             <a href={% url 'chapter:chapter_delete' chapter.id_chapter %}>Delete |</a>
                                         {% endif %}
-                                        {% if perms.page.can_edit_page %}
+                                        {% if perms.chapter_app.change_page %}
                                             <a href={% url 'chapter:page_list_manager' chapter.id_chapter %}>Pages List</a>
                                         {% endif %}
                                     </div>

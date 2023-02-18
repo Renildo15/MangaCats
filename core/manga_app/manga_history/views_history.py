@@ -15,7 +15,6 @@ def manga_history(manga, user):
             return history
 
 @login_required(login_url='user:login')
-@permission_required("manga_app.view_historymanga", login_url='user:login')
 def manga_history_list(request):
     history = HistoryManga.objects.filter(user=request.user).order_by('-view_date')
     parameter_page = request.GET.get("page","1")
@@ -31,7 +30,6 @@ def manga_history_list(request):
 
 
 @login_required(login_url='user:login')
-@permission_required("manga_app.delete_historymanga", login_url='user:login')
 def manga_history_reset(request):
     history = HistoryManga.objects.all()
     history.delete()

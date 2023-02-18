@@ -7,7 +7,6 @@ from ..forms import FavoriteMangaForm
 from django.contrib import messages
 
 @login_required(login_url='user:login')
-@permission_required("manga_app.view_favoritemanga", login_url='user:login')
 def favorite_list(request):
     list_manga = FavoriteManga.objects.filter(user=request.user)
     total_list = list_manga.count()
@@ -19,11 +18,10 @@ def favorite_list(request):
     return render(request, "pages/favorite_manga/favorite_list.html", context)
 
 def favorite_button(request,id_manga):
-     favorite_mangas = get_object_or_404(FavoriteManga,manga=id_manga, user=request.user)
-     return favorite_mangas
+    favorite_mangas = get_object_or_404(FavoriteManga,manga=id_manga, user=request.user)
+    return favorite_mangas
 
 @login_required(login_url='user:login')
-@permission_required("manga_app.add_favoritemanga", login_url='user:login')
 def favorite_manga(request):
     status = ""
     manga_id = request.GET.get('manga_id')

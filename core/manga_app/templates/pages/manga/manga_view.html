@@ -11,7 +11,7 @@
             <div class="manga-info-content">
                 <div class="img-div">
                     <img src="{{manga.cover.url}}">
-                    {% if perms.manga_app.add_favoritemanga %}
+                    {% if user.is_authenticated %}
                         {% if favorites %}
                             {% if favorites.manga.id_manga == manga.id_manga %}
                                 <div class="button-remove">
@@ -137,7 +137,7 @@
                     {% endif %}
                 </div>
             </div>
-            {% if perms.manga_app.add_reviewmanga %}
+            {% if user.is_authenticated %}
             <div class="add-review">
                 <form action="" method="GET">
                     <legend>Review</legend>
@@ -216,7 +216,6 @@
                 data: {'comment_id': comment_id},
                 datatype: "json",
                 success: function(data){
-                    console.log(data)
                     if(data.status == "delete"){
                         $(".comment-div#" + comment_id).fadeOut("slow", function(){
                             $(".comment-div#" + comment_id).remove();
@@ -263,15 +262,12 @@
             e.preventDefault();
 
             manga_id = $(this).attr("data-favorite");
-            console.log(manga_id)
-
             $.ajax({
                 type: 'GET',
                 url: '{% url "manga:favorite_manga" %}',
                 data: {'manga_id': manga_id},
                 datatype: "json",
                 success: function(data){
-                    console.log(data)
                     if(data.status == "favorite"){
                         alert("Added")
                         $("a#btn-favorite").html("Remove from list"); 
@@ -286,7 +282,6 @@
         $('a#btn-remove').on("click", function(e){
             e.preventDefault();
             manga_id = $(this).attr("data-remove");
-            console.log(manga_id)
 
             $.ajax({
                 type: 'GET',
@@ -294,7 +289,6 @@
                 data: {'manga_id': manga_id},
                 datatype: "json",
                 success: function(data){
-                    console.log(data)
                     if(data.status == "removed"){
                         alert("Removed from list!")
                         $("a#btn-remove").html("Add to favorite list");
@@ -316,7 +310,6 @@
                 data: {'manga_id': manga_id, 'text': text},
                 datatype: "json",
                 success: function(data, url){
-                    console.log(data, url)
                     if(data.status == "review"){
                         alert("Reviewed")
                         location.reload()
@@ -339,7 +332,6 @@
                 data: {'status_val':status_val, 'manga_id':manga_id },
                 datatype: "json",
                 success: function(data){
-                    console.log(data)
                     if(data.status == "added"){
                         alert("Added to ")
                         location.reload()

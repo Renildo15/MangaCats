@@ -193,9 +193,9 @@ AUTHENTICATION_BACKENDS = [
 
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'dmyberlvk',
-    'API_KEY': '361742221512746',
-    'API_SECRET': 'UxfJykTblHHpFKUsh63ar4FKk8s'
+    'CLOUD_NAME': config('CLOUD_NAME'),
+    'API_KEY': config('API_KEY'),
+    'API_SECRET': config('API_SECRET')
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
